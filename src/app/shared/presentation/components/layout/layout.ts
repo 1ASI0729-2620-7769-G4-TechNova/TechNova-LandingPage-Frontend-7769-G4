@@ -1,11 +1,12 @@
-import {Component, signal} from '@angular/core';
-import {RouterLink, RouterLinkActive, RouterOutlet} from '@angular/router';
+import {Component, computed, inject, signal} from '@angular/core';
+import {Router, RouterLink, RouterLinkActive, RouterOutlet} from '@angular/router';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {TranslatePipe} from '@ngx-translate/core';
 import {LanguageSwitcher} from '../language-switcher/language-switcher';
 import {FooterContent} from '../footer-content/footer-content';
+import {IamStore} from '../../../../iam/application/iam.store';
 
 /**
  * A navigation entry of the sidebar. Entries with `children` behave as expandable groups.
@@ -15,6 +16,8 @@ interface NavOption {
   label: string;
   icon: string;
   children?: NavOption[];
+  /** Only shown to users holding the ADMIN role. */
+  adminOnly?: boolean;
 }
 
 /**
@@ -38,6 +41,13 @@ interface NavOption {
 })
 export class Layout {
   /**
+   * IAM store with the session of the signed-in user.
+   */
+  protected readonly store = inject(IamStore);
+
+  private readonly router = inject(Router);
+
+  /**
    * Navigation options shown in the sidebar.
    * Each bounded context adds its own entries here as it gets implemented.
    * Routes that are not implemented yet end up in the PageNotFound view.
@@ -59,8 +69,15 @@ export class Layout {
         {link: '/management/drivers', label: 'option.drivers', icon: 'two_wheeler'}
       ]
     },
+    {link: '/iam/users', label: 'option.users', icon: 'group', adminOnly: true},
     {link: '/about', label: 'option.about', icon: 'info'}
   ]);
+
+  /**
+   * Navigation options visible to the signed-in user.
+   */
+  protected visibleOptions = computed(() =>
+    this.options().filter(option => !option.adminOnly || this.store.isAdmin()));
 
   /**
    * Labels of the groups that are currently expanded.
@@ -68,9 +85,20 @@ export class Layout {
   protected expandedGroups = signal<string[]>(['option.operations', 'option.management']);
 
   /**
-   * Placeholder for the signed-in user. It will be replaced by the IAM bounded context.
+   * Signed-in user displayed in the sidebar and top bar (provided by the IAM bounded context).
    */
-  protected user = signal({name: 'Pedro Fernández', role: 'user.role.operator'});
+  protected user = computed(() => ({
+    name: this.store.currentUser()?.fullName ?? '',
+    role: this.store.primaryRoleKey()
+  }));
+
+  /**
+   * Signs the user out and goes to the sign-in view.
+   */
+  protected signOut(): void {
+    this.store.signOut();
+    this.router.navigate(['/sign-in']).then();
+  }
 
   /**
    * Whether the given group is expanded.
