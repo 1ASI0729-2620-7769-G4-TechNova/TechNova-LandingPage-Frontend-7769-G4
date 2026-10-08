@@ -1,0 +1,71 @@
+<div class="layout">
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <span class="sidebar-logo">WT</span>
+      <span class="sidebar-name">WashTrack</span>
+    </div>
+
+    <nav class="sidebar-nav">
+      @for (option of options(); track option.label) {
+        @if (option.children; as children) {
+          <button type="button" class="sidebar-link sidebar-group"
+                  [attr.aria-expanded]="isExpanded(option.label)"
+                  (click)="toggleGroup(option.label)">
+            <mat-icon>{{ option.icon }}</mat-icon>
+            <span class="sidebar-label">{{ option.label | translate }}</span>
+            <mat-icon class="sidebar-chevron">
+              {{ isExpanded(option.label) ? 'expand_less' : 'expand_more' }}
+            </mat-icon>
+          </button>
+          @if (isExpanded(option.label)) {
+            @for (child of children; track child.label) {
+              <a class="sidebar-link sidebar-sublink" [routerLink]="child.link" routerLinkActive="active">
+                <mat-icon>{{ child.icon }}</mat-icon>
+                <span class="sidebar-label">{{ child.label | translate }}</span>
+              </a>
+            }
+          }
+        } @else {
+          <a class="sidebar-link" [routerLink]="option.link" routerLinkActive="active">
+            <mat-icon>{{ option.icon }}</mat-icon>
+            <span class="sidebar-label">{{ option.label | translate }}</span>
+          </a>
+        }
+      }
+    </nav>
+
+    <div class="sidebar-user">
+      <span class="avatar"><mat-icon>person</mat-icon></span>
+      <div class="user-info">
+        <span class="user-name">{{ user().name }}</span>
+        <span class="user-role">{{ user().role | translate }}</span>
+      </div>
+      <!-- To connect when authentication is implemented -->
+      <button mat-icon-button type="button" [attr.aria-label]="'user.logout' | translate">
+        <mat-icon>logout</mat-icon>
+      </button>
+    </div>
+  </aside>
+
+  <div class="layout-main">
+    <mat-toolbar class="topbar">
+      <app-language-switcher/>
+      <button mat-icon-button type="button" class="notifications"
+              [attr.aria-label]="'topbar.notifications' | translate">
+        <mat-icon>notifications_none</mat-icon>
+        <span class="notifications-dot"></span>
+      </button>
+      <span class="topbar-divider"></span>
+      <div class="topbar-user">
+        <span class="avatar"><mat-icon>person</mat-icon></span>
+        <span class="user-name">{{ user().name }}</span>
+      </div>
+    </mat-toolbar>
+
+    <main class="layout-content">
+      <router-outlet/>
+    </main>
+
+    <app-footer-content/>
+  </div>
+</div>

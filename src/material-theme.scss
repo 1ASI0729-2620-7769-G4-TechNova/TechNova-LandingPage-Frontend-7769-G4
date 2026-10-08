@@ -1,0 +1,39 @@
+@use '@angular/material' as mat;
+
+@include mat.core();
+
+:root {
+  /* WashTrack design tokens (approximated from the Figma mockups) */
+  --wt-primary: #0b78b5;
+  --wt-background: #f6f6fc;
+  --wt-surface: #ffffff;
+  --wt-border: #e6e8f0;
+  --wt-text: #0f1b3d;
+  --wt-text-muted: #4a5470;
+
+  @include mat.toolbar-overrides((
+    container-background-color: #ffffff,
+    container-text-color: #0f1b3d
+  ));
+}
+
+html {
+  height: 100%;
+  @include mat.theme((
+    color: (
+      primary: mat.$azure-palette,
+      tertiary: mat.$blue-palette,
+    ),
+    typography: Poppins,
+    density: 0,
+  ));
+}
+
+body {
+  color-scheme: light;
+  background-color: var(--wt-background);
+  color: var(--wt-text);
+  font: var(--mat-sys-body-medium);
+  margin: 0;
+  height: 100%;
+}
