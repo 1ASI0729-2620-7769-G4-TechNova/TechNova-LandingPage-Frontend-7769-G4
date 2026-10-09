@@ -6,6 +6,7 @@ import {BaseApi} from '../../shared/infrastructure/base-api';
 import {environment} from '../../../environments/environment';
 import {UserAccount} from '../domain/model/user-account.entity';
 import {UserStatus} from '../domain/model/user-status';
+import {AccountType} from '../domain/model/account-type';
 import {Role} from '../domain/model/role.entity';
 import {RoleAssignment} from '../domain/model/role-assignment.entity';
 import {RoleAssignmentStatus} from '../domain/model/role-assignment-status';
@@ -33,12 +34,13 @@ export class IamApi extends BaseApi {
   /**
    * Authenticates a user. Errors carry an i18n key as message.
    */
-  signIn(email: string, password: string): Observable<UserAccount> {
+  signIn(email: string, password: string, accountType: AccountType): Observable<UserAccount> {
     return this.http.get<UserAccountResource[]>(this.usersUrl, {params: {email, password}}).pipe(
       map(list => {
         if (list.length === 0) throw new Error('iam.errors.invalid-credentials');
         const user = this.userAssembler.toEntityFromResource(list[0]);
         if (user.status !== UserStatus.ACTIVE) throw new Error('iam.errors.account-disabled');
+        if (user.accountType !== accountType) throw new Error('iam.errors.wrong-account-type');
         return user;
       })
     );
@@ -53,6 +55,37 @@ export class IamApi extends BaseApi {
         ? throwError(() => new Error('iam.errors.email-taken'))
         : this.http.post<UserAccountResource>(this.usersUrl, {...resource, status: UserStatus.ACTIVE})),
       map(created => this.userAssembler.toEntityFromResource(created))
+    );
+  }
+
+  /**
+   * Changes the password of a user after verifying the current one.
+   */
+  changePassword(userId: number, currentPassword: string, newPassword: string): Observable<void> {
+    return this.http.get<UserAccountResource>(`${this.usersUrl}/${userId}`).pipe(
+      switchMap(user => {
+        if (user.password !== currentPassword) {
+          return throwError(() => new Error('iam.errors.current-password-wrong'));
+        }
+        if (currentPassword === newPassword) {
+          return throwError(() => new Error('iam.errors.same-password'));
+        }
+        return this.http.patch<UserAccountResource>(`${this.usersUrl}/${userId}`, {password: newPassword});
+      }),
+      map(() => undefined)
+    );
+  }
+
+  /**
+   * Sets a new password for the account with the given email.
+   * Simulated recovery: the fake backend has no email service, so no token is required.
+   */
+  resetPassword(email: string, newPassword: string): Observable<void> {
+    return this.http.get<UserAccountResource[]>(this.usersUrl, {params: {email}}).pipe(
+      switchMap(list => list.length === 0
+        ? throwError(() => new Error('iam.errors.email-not-found'))
+        : this.http.patch<UserAccountResource>(`${this.usersUrl}/${list[0].id}`, {password: newPassword})),
+      map(() => undefined)
     );
   }
 

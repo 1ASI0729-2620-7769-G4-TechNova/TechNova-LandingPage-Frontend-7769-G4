@@ -3,6 +3,7 @@ import {Observable} from 'rxjs';
 import {IamApi} from '../infrastructure/iam-api';
 import {UserAccount} from '../domain/model/user-account.entity';
 import {UserStatus} from '../domain/model/user-status';
+import {AccountType} from '../domain/model/account-type';
 import {Role} from '../domain/model/role.entity';
 import {RoleAssignment} from '../domain/model/role-assignment.entity';
 import {RoleAssignmentStatus} from '../domain/model/role-assignment-status';
@@ -42,7 +43,8 @@ export class IamStore {
   readonly primaryRoleKey = computed(() => {
     const user = this.currentUserSignal();
     const role = user ? this.rolesOfUser(user.id)[0] : undefined;
-    return `iam.roles.${role ? role.name : 'NONE'}`;
+    if (role) return `iam.roles.${role.name}`;
+    return `iam.account-type.${user ? user.accountType : 'CLIENT'}`;
   });
 
   constructor() {
@@ -50,9 +52,9 @@ export class IamStore {
   }
 
   /** Signs a user in and, on success, runs the optional callback. */
-  signIn(email: string, password: string, onSuccess?: () => void): void {
+  signIn(email: string, password: string, accountType: AccountType, onSuccess?: () => void): void {
     this.errorsSignal.set([]);
-    this.api.signIn(email, password).subscribe({
+    this.api.signIn(email, password, accountType).subscribe({
       next: user => {
         this.startSession(user, `fake-jwt-token-${user.id}`);
         onSuccess?.();
@@ -69,6 +71,26 @@ export class IamStore {
         if (this.usersLoadedSignal()) this.usersSignal.update(users => [...users, created]);
         onSuccess?.();
       },
+      error: (e: Error) => this.errorsSignal.set([e.message])
+    });
+  }
+
+  /** Changes the password of the signed-in user. */
+  changePassword(currentPassword: string, newPassword: string, onSuccess?: () => void): void {
+    const user = this.currentUserSignal();
+    if (!user) return;
+    this.errorsSignal.set([]);
+    this.api.changePassword(user.id, currentPassword, newPassword).subscribe({
+      next: () => onSuccess?.(),
+      error: (e: Error) => this.errorsSignal.set([e.message])
+    });
+  }
+
+  /** Sets a new password for an account identified by its email (simulated recovery). */
+  resetPassword(email: string, newPassword: string, onSuccess?: () => void): void {
+    this.errorsSignal.set([]);
+    this.api.resetPassword(email, newPassword).subscribe({
+      next: () => onSuccess?.(),
       error: (e: Error) => this.errorsSignal.set([e.message])
     });
   }
@@ -188,7 +210,8 @@ export class IamStore {
       if (!raw) return;
       const {user, token} = JSON.parse(raw);
       this.currentUserSignal.set(
-        new UserAccount(user.id, user.email, user.firstName, user.lastName, user.status));
+        new UserAccount(user.id, user.email, user.firstName, user.lastName, user.status,
+          user.accountType, user.businessName));
       this.tokenSignal.set(token);
       this.loadPermissions();
     } catch {

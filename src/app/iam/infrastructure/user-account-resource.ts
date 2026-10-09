@@ -9,6 +9,8 @@ export interface UserAccountResource extends BaseResource {
   firstName: string;
   lastName: string;
   status: string;
+  accountType?: string;
+  businessName?: string;
 }
 
 /**
@@ -26,4 +28,6 @@ export interface SignUpResource {
   password: string;
   firstName: string;
   lastName: string;
+  accountType: string;
+  businessName?: string;
 }

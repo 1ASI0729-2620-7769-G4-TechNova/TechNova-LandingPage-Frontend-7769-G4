@@ -1,5 +1,6 @@
 import {BaseEntity} from '../../../shared/domain/model/base-entity';
 import {UserStatus} from './user-status';
+import {AccountType} from './account-type';
 
 /**
  * Aggregate root of the IAM bounded context: a person who can sign in.
@@ -13,13 +14,17 @@ export class UserAccount implements BaseEntity {
    * @param firstName - First name.
    * @param lastName - Last name.
    * @param status - Account status.
+   * @param accountType - Client or laundry account.
+   * @param businessName - Name of the laundry (empty for clients).
    */
   constructor(
     public id: number,
     public email: string,
     public firstName: string,
     public lastName: string,
-    public status: UserStatus
+    public status: UserStatus,
+    public accountType: AccountType = AccountType.CLIENT,
+    public businessName: string = ''
   ) {}
 
   /**
