@@ -65,7 +65,7 @@ export class Layout {
     {link: '/orders', label: 'option.orders', icon: 'shopping_bag'},
     {link: '/tracking', label: 'option.tracking', icon: 'location_searching'},
     {
-      label: 'option.operations', icon: 'tune', children: [
+      label: 'option.operations', icon: 'tune', laundryOnly: true, children: [
         {link: '/operations/reception', label: 'option.reception', icon: 'qr_code_scanner'},
         {link: '/operations/laundry', label: 'option.laundry', icon: 'water_drop'},
         {link: '/operations/deliveries', label: 'option.deliveries', icon: 'inventory_2'}
