@@ -6,6 +6,10 @@ const paymentCheckout = () => import('./views/payment-checkout/payment-checkout'
   .then(m => m.PaymentCheckout);
 const paymentReceipt = () => import('./views/payment-receipt/payment-receipt')
   .then(m => m.PaymentReceipt);
+const subscriptionPlans = () => import('./views/subscription-plans/subscription-plans')
+  .then(m => m.SubscriptionPlans);
+const mySubscription = () => import('./views/my-subscription/my-subscription')
+  .then(m => m.MySubscription);
 const baseTitle = 'WashTrack';
 
 /**
