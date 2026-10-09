@@ -18,6 +18,8 @@ interface NavOption {
   children?: NavOption[];
   /** Only shown to users holding the ADMIN role. */
   adminOnly?: boolean;
+  /** Only shown to laundry accounts. */
+  laundryOnly?: boolean;
 }
 
 /**
@@ -75,6 +77,12 @@ export class Layout {
         {link: '/billing/checkout', label: 'option.checkout', icon: 'credit_card'}
       ]
     },
+    {
+      label: 'option.subscriptions', icon: 'workspace_premium', laundryOnly: true, children: [
+        {link: '/billing/subscription', label: 'option.subscription', icon: 'event_available'},
+        {link: '/billing/plans', label: 'option.plans', icon: 'sell'}
+      ]
+    },
     {link: '/iam/users', label: 'option.users', icon: 'group', adminOnly: true},
     {link: '/about', label: 'option.about', icon: 'info'}
   ]);
@@ -83,7 +91,9 @@ export class Layout {
    * Navigation options visible to the signed-in user.
    */
   protected visibleOptions = computed(() =>
-    this.options().filter(option => !option.adminOnly || this.store.isAdmin()));
+    this.options().filter(option =>
+      (!option.adminOnly || this.store.isAdmin()) &&
+      (!option.laundryOnly || this.store.currentUser()?.accountType === 'LAUNDRY')));
 
   /**
    * Labels of the groups that are currently expanded.

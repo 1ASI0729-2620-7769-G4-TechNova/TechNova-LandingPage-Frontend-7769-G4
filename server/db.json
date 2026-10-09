@@ -160,5 +160,66 @@
       "reference": "PAY-0006",
       "paidAt": "2026-10-05T18:10:00.000Z"
     }
+  ],
+  "plans": [
+    {
+      "id": 1,
+      "name": "FREE",
+      "price": 0,
+      "currency": "PEN",
+      "features": [
+        "orders"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "BASIC",
+      "price": 49,
+      "currency": "PEN",
+      "features": [
+        "orders",
+        "reports",
+        "digital-payments"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "ADVANCED",
+      "price": 99,
+      "currency": "PEN",
+      "features": [
+        "orders",
+        "reports",
+        "digital-payments",
+        "advanced-history",
+        "delivery"
+      ]
+    }
+  ],
+  "subscriptions": [
+    {
+      "id": 1,
+      "laundryId": 1,
+      "planId": 2,
+      "status": "ACTIVE",
+      "startDate": "2026-09-14T00:00:00.000Z",
+      "endDate": "2026-10-14T00:00:00.000Z"
+    },
+    {
+      "id": 2,
+      "laundryId": 2,
+      "planId": 3,
+      "status": "ACTIVE",
+      "startDate": "2026-10-01T00:00:00.000Z",
+      "endDate": "2026-10-31T00:00:00.000Z"
+    },
+    {
+      "id": 3,
+      "laundryId": 3,
+      "planId": 1,
+      "status": "ACTIVE",
+      "startDate": "2026-01-01T00:00:00.000Z",
+      "endDate": "2027-01-01T00:00:00.000Z"
+    }
   ]
 }

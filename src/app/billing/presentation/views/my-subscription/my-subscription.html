@@ -1,0 +1,47 @@
+<h1>{{ 'subscriptions.mine.title' | translate }}</h1>
+
+@for (error of store.errors(); track error) {
+  <p class="muted" role="alert">{{ error | translate }}</p>
+}
+
+@if (store.subscription(); as sub) {
+  @if (sub.isExpired()) {
+    <div class="banner expired" role="alert">
+      <mat-icon>error</mat-icon>
+      <span>{{ 'subscriptions.mine.expired' | translate }}</span>
+    </div>
+  } @else if (sub.isExpiringSoon()) {
+    <div class="banner warning" role="alert">
+      <mat-icon>warning</mat-icon>
+      <span>{{ 'subscriptions.mine.expiring' | translate: {days: sub.daysToExpire()} }}</span>
+    </div>
+  }
+
+  <div class="card">
+    <dl>
+      <dt>{{ 'subscriptions.mine.plan' | translate }}</dt>
+      <dd>
+        @if (store.currentPlan(); as plan) {
+          {{ 'subscriptions.plan.' + plan.name | translate }}
+        }
+      </dd>
+      <dt>{{ 'subscriptions.mine.status' | translate }}</dt>
+      <dd>{{ 'subscriptions.status.' + (sub.isExpired() ? 'EXPIRED' : sub.status) | translate }}</dd>
+      <dt>{{ 'subscriptions.mine.start' | translate }}</dt>
+      <dd>{{ sub.startDate | date: 'dd/MM/yyyy' }}</dd>
+      <dt>{{ 'subscriptions.mine.end' | translate }}</dt>
+      <dd>{{ sub.endDate | date: 'dd/MM/yyyy' }}</dd>
+    </dl>
+    <div class="actions">
+      <button mat-flat-button type="button" (click)="store.renew()">
+        {{ 'subscriptions.mine.renew' | translate }}
+      </button>
+      <a mat-stroked-button routerLink="/billing/plans">{{ 'subscriptions.mine.change' | translate }}</a>
+    </div>
+  </div>
+} @else if (store.subscriptionLoaded()) {
+  <div class="card">
+    <p class="muted">{{ 'subscriptions.mine.none' | translate }}</p>
+    <a mat-flat-button routerLink="/billing/plans">{{ 'subscriptions.mine.choose' | translate }}</a>
+  </div>
+}

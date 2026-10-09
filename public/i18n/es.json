@@ -44,7 +44,10 @@
   "option": {
     "billing": "Facturación",
     "payments": "Pagos",
-    "checkout": "Pagar pedido"
+    "checkout": "Pagar pedido",
+    "subscriptions": "Suscripción",
+    "subscription": "Mi plan",
+    "plans": "Planes"
   },
   "billing": {
     "history": {
@@ -96,6 +99,46 @@
       "required": "Este campo es obligatorio.",
       "invalid-amount": "El monto debe ser mayor a cero.",
       "rejected": "El pago fue rechazado. El monto sigue pendiente."
+    }
+  },
+  "subscriptions": {
+    "plan": {
+      "FREE": "Gratuito",
+      "BASIC": "Básico",
+      "ADVANCED": "Avanzado"
+    },
+    "features": {
+      "orders": "Gestión de pedidos",
+      "reports": "Reportes",
+      "digital-payments": "Pagos digitales",
+      "advanced-history": "Historial avanzado",
+      "delivery": "Coordinación de delivery"
+    },
+    "status": {
+      "ACTIVE": "Activa",
+      "EXPIRED": "Vencida",
+      "CANCELLED": "Cancelada"
+    },
+    "plans": {
+      "title": "Planes y precios",
+      "subtitle": "Compara los planes y elige el que se ajuste a tu lavandería.",
+      "month": "mes",
+      "current": "Plan actual",
+      "choose": "Elegir plan",
+      "confirm-change": "¿Cambiar al plan {{plan}}?"
+    },
+    "mine": {
+      "title": "Mi suscripción",
+      "plan": "Plan",
+      "status": "Estado",
+      "start": "Fecha de inicio",
+      "end": "Vigente hasta",
+      "renew": "Renovar",
+      "change": "Cambiar de plan",
+      "expiring": "Tu plan vence en {{days}} día(s). Renuévalo para mantener tus funciones.",
+      "expired": "Tu plan venció. Renuévalo para habilitar tus funciones nuevamente.",
+      "none": "Tu lavandería no tiene una suscripción activa.",
+      "choose": "Elegir un plan"
     }
   }
 }
