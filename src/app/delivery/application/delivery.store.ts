@@ -2,16 +2,13 @@ import {computed, inject, Injectable, signal} from '@angular/core';
 import {DeliveryApi} from '../infrastructure/delivery-api';
 import {Delivery} from '../domain/model/delivery.entity';
 import {DeliveryStatus} from '../domain/model/delivery-status';
-import {TrackingStore} from '../../tracking/application/tracking.store';
 
 /**
- * Application state of the Delivery bounded context. Every status it reaches is reported to the
- * Tracking bounded context.
+ * Application state of the Delivery bounded context (pickups and deliveries).
  */
 @Injectable({providedIn: 'root'})
 export class DeliveryStore {
   private readonly api = inject(DeliveryApi);
-  private readonly tracking = inject(TrackingStore);
 
   private readonly deliveriesSignal = signal<Delivery[]>([]);
   private readonly errorsSignal = signal<string[]>([]);
@@ -46,7 +43,6 @@ export class DeliveryStore {
     this.api.scheduleDelivery(delivery).subscribe({
       next: created => {
         this.deliveriesSignal.update(deliveries => [...deliveries, created]);
-        this.tracking.record(created.id, created.status);
         onSuccess?.(created);
       },
       error: (e: Error) => this.errorsSignal.set([e.message])
@@ -77,7 +73,6 @@ export class DeliveryStore {
     this.api.updateStatus(delivery, status).subscribe({
       next: updated => {
         this.deliveriesSignal.update(deliveries => deliveries.map(d => d.id === updated.id ? updated : d));
-        this.tracking.record(updated.id, status);
       },
       error: (e: Error) => this.errorsSignal.set([e.message])
     });
