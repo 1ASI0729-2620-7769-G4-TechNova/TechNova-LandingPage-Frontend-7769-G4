@@ -124,7 +124,8 @@
     "services": "Servicios",
     "drivers": "Repartidores",
     "users": "Usuarios",
-    "about": "Acerca de"
+    "about": "Acerca de",
+    "tracking": "Seguimiento"
   },
   "billing": {
     "history": {
@@ -385,17 +386,39 @@
     "change-password": "Cambiar contraseña"
   },
   "tracking": {
-    "title": "Seguimiento de entrega",
-    "history": "Historial de seguimiento",
-    "advance-to": "Pasar a:",
-    "mark-failed": "Marcar como fallida",
-    "back": "Volver a entregas",
-    "not-found": "Entrega no encontrada.",
-    "events": {
-      "SCHEDULED": "Entrega programada.",
-      "ON_THE_WAY": "El repartidor está en camino.",
-      "COMPLETED": "Entrega completada.",
-      "FAILED": "No se pudo completar la entrega."
+    "list": {
+      "title": "Seguimiento de pedidos",
+      "notifications": "Notificaciones",
+      "empty": "Aún no hay pedidos para rastrear.",
+      "view": "Ver etapas"
+    },
+    "fields": {
+      "order": "Pedido",
+      "stage": "Etapa",
+      "updated-at": "Última actualización"
+    },
+    "stage": {
+      "RECEIVED": "Recibido",
+      "IN_PROCESS": "En proceso",
+      "READY_FOR_DELIVERY": "Listo para entrega",
+      "DELIVERED": "Entregado"
+    },
+    "detail": {
+      "title": "Avance del pedido",
+      "advance-to": "Pasar a:",
+      "back": "Volver al seguimiento",
+      "not-found": "Pedido no encontrado."
+    },
+    "notifications": {
+      "title": "Notificaciones",
+      "message": "Tu pedido {{order}} ahora está: {{stage}}.",
+      "mark-all": "Marcar todas como leídas",
+      "mark-read": "Marcar como leída",
+      "empty": "No tienes notificaciones."
+    },
+    "errors": {
+      "already-delivered": "El pedido ya fue entregado.",
+      "recipient-not-found": "El cliente no existe, por lo que no se envió la notificación."
     }
   }
 }
