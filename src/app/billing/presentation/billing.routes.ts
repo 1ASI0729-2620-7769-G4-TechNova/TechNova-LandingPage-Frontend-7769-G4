@@ -18,5 +18,7 @@ const baseTitle = 'WashTrack';
 export const billingRoutes: Routes = [
   {path: 'payments', loadComponent: paymentHistory, title: `${baseTitle} - Payments`},
   {path: 'payments/:id', loadComponent: paymentReceipt, title: `${baseTitle} - Receipt`},
-  {path: 'checkout', loadComponent: paymentCheckout, title: `${baseTitle} - Checkout`}
+  {path: 'checkout', loadComponent: paymentCheckout, title: `${baseTitle} - Checkout`},
+  {path: 'subscription', loadComponent: mySubscription, title: `${baseTitle} - My subscription`},
+  {path: 'plans', loadComponent: subscriptionPlans, title: `${baseTitle} - Plans`}
 ];
