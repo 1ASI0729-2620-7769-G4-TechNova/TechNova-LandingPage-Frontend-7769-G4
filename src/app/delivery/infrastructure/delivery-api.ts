@@ -49,7 +49,7 @@ export class DeliveryApi extends BaseApi {
       return throwError(() => new Error('delivery.errors.past-date'));
     }
     // The id is left undefined so json-server generates it (JSON drops undefined fields).
-    return this.deliveriesEndpoint.create({...delivery, id: undefined as unknown as number}).pipe(
+    return this.deliveriesEndpoint.create(this.copyOf(delivery, undefined as unknown as number, delivery.status, delivery.completedAt)).pipe(
       switchMap(created => this.recordEvent(created.id, created.status, 'delivery.events.SCHEDULED')
         .pipe(map(() => created)))
     );
@@ -58,9 +58,14 @@ export class DeliveryApi extends BaseApi {
   /** Moves the delivery to a new status and records it in the tracking history. */
   updateStatus(delivery: Delivery, status: DeliveryStatus): Observable<Delivery> {
     const completedAt = status === DeliveryStatus.COMPLETED ? new Date().toISOString() : delivery.completedAt;
-    return this.deliveriesEndpoint.update({...delivery, status, completedAt}, delivery.id).pipe(
+    return this.deliveriesEndpoint.update(this.copyOf(delivery, delivery.id, status, completedAt), delivery.id).pipe(
       switchMap(updated => this.recordEvent(updated.id, status, `delivery.events.${status}`).pipe(map(() => updated)))
     );
+  }
+
+  private copyOf(delivery: Delivery, id: number, status: DeliveryStatus, completedAt: string): Delivery {
+    return new Delivery(id, delivery.orderId, delivery.customerName, delivery.type, delivery.address,
+      delivery.driverName, delivery.scheduledAt, status, completedAt);
   }
 
   private recordEvent(deliveryId: number, status: DeliveryStatus, note: string): Observable<TrackingEvent> {
