@@ -534,30 +534,6 @@
       "customerId": 4,
       "stage": "IN_PROCESS",
       "updatedAt": "2026-10-05T21:20:00.000Z"
-    },
-    {
-      "id": 4,
-      "orderId": 104,
-      "orderNumber": "ORD-000004",
-      "customerId": 5,
-      "stage": "RECEIVED",
-      "updatedAt": "2026-10-07T13:45:00.000Z"
-    },
-    {
-      "id": 5,
-      "orderId": 105,
-      "orderNumber": "ORD-000005",
-      "customerId": 4,
-      "stage": "RECEIVED",
-      "updatedAt": "2026-10-08T17:05:00.000Z"
-    },
-    {
-      "id": 6,
-      "orderId": 106,
-      "orderNumber": "ORD-000006",
-      "customerId": 5,
-      "stage": "READY_FOR_DELIVERY",
-      "updatedAt": "2026-10-09T09:30:00.000Z"
     }
   ],
   "stageChanges": [
@@ -620,36 +596,6 @@
       "orderId": 103,
       "stage": "IN_PROCESS",
       "changedAt": "2026-10-05T21:20:00.000Z"
-    },
-    {
-      "id": 11,
-      "orderId": 104,
-      "stage": "RECEIVED",
-      "changedAt": "2026-10-07T13:45:00.000Z"
-    },
-    {
-      "id": 12,
-      "orderId": 105,
-      "stage": "RECEIVED",
-      "changedAt": "2026-10-08T17:05:00.000Z"
-    },
-    {
-      "id": 13,
-      "orderId": 106,
-      "stage": "RECEIVED",
-      "changedAt": "2026-10-08T21:30:00.000Z"
-    },
-    {
-      "id": 14,
-      "orderId": 106,
-      "stage": "IN_PROCESS",
-      "changedAt": "2026-10-09T03:30:00.000Z"
-    },
-    {
-      "id": 15,
-      "orderId": 106,
-      "stage": "READY_FOR_DELIVERY",
-      "changedAt": "2026-10-09T09:30:00.000Z"
     }
   ],
   "notifications": [
@@ -741,51 +687,6 @@
       "orderNumber": "ORD-000003",
       "stage": "IN_PROCESS",
       "createdAt": "2026-10-05T21:20:00.000Z",
-      "read": false
-    },
-    {
-      "id": 11,
-      "recipientId": 5,
-      "orderId": 104,
-      "orderNumber": "ORD-000004",
-      "stage": "RECEIVED",
-      "createdAt": "2026-10-07T13:45:00.000Z",
-      "read": false
-    },
-    {
-      "id": 12,
-      "recipientId": 4,
-      "orderId": 105,
-      "orderNumber": "ORD-000005",
-      "stage": "RECEIVED",
-      "createdAt": "2026-10-08T17:05:00.000Z",
-      "read": false
-    },
-    {
-      "id": 13,
-      "recipientId": 5,
-      "orderId": 106,
-      "orderNumber": "ORD-000006",
-      "stage": "RECEIVED",
-      "createdAt": "2026-10-08T21:30:00.000Z",
-      "read": true
-    },
-    {
-      "id": 14,
-      "recipientId": 5,
-      "orderId": 106,
-      "orderNumber": "ORD-000006",
-      "stage": "IN_PROCESS",
-      "createdAt": "2026-10-09T03:30:00.000Z",
-      "read": true
-    },
-    {
-      "id": 15,
-      "recipientId": 5,
-      "orderId": 106,
-      "orderNumber": "ORD-000006",
-      "stage": "READY_FOR_DELIVERY",
-      "createdAt": "2026-10-09T09:30:00.000Z",
       "read": false
     }
   ],
