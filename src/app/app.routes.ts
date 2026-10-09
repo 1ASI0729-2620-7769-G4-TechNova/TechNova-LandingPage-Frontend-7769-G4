@@ -5,6 +5,7 @@ import {iamAdminRoutes, iamPublicRoutes} from './iam/presentation/iam.routes';
 import {billingRoutes} from './billing/presentation/billing.routes';
 import {deliveryRoutes} from './delivery/presentation/delivery.routes';
 import {trackingRoutes} from './tracking/presentation/tracking.routes';
+import {customerLaundryRoutes} from './customer-laundry/presentation/customer-laundry.routes';
 import {orderManagementRoutes} from './order-management/presentation/order-management-routes';
 
 const about = () => import('./shared/presentation/views/about/about')
@@ -25,6 +26,7 @@ export const routes: Routes = [
   {path: 'billing', canActivate: [authGuard], children: billingRoutes},
   {path: 'operations/deliveries', canActivate: [authGuard], children: deliveryRoutes},
   {path: 'tracking', canActivate: [authGuard], children: trackingRoutes},
+  {path: 'management', canActivate: [authGuard], children: customerLaundryRoutes},
   {path: '',      redirectTo: '/home',     pathMatch: 'full'},
   {path: '**',    loadComponent: pageNotFound, title: `${baseTitle} - Page Not Found`},
 ];

@@ -72,7 +72,7 @@ export class Layout {
       ]
     },
     {
-      label: 'option.management', icon: 'settings', children: [
+      label: 'option.management', icon: 'settings', laundryOnly: true, children: [
         {link: '/management/services', label: 'option.services', icon: 'dry_cleaning'},
         {link: '/management/drivers', label: 'option.drivers', icon: 'two_wheeler'}
       ]
