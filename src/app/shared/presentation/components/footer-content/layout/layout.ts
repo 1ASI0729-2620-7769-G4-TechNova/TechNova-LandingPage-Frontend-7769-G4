@@ -6,8 +6,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {TranslatePipe} from '@ngx-translate/core';
 import {LanguageSwitcher} from '../language-switcher/language-switcher';
 import {FooterContent} from '../footer-content/footer-content';
-import {IamStore} from '../../../../iam/application/iam.store';
-
+import {IamStore} from '../../../../../iam/application/iam.store';
 /**
  * A navigation entry of the sidebar. Entries with `children` behave as expandable groups.
  */
