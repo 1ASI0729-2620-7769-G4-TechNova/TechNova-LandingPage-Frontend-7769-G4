@@ -47,7 +47,8 @@
     "checkout": "Pay order",
     "subscriptions": "Subscription",
     "subscription": "My plan",
-    "plans": "Plans"
+    "plans": "Plans",
+    "deliveries": "Deliveries"
   },
   "billing": {
     "history": {
@@ -139,6 +140,64 @@
       "expired": "Your plan has expired. Renew it to enable your features again.",
       "none": "Your laundry has no active subscription.",
       "choose": "Choose a plan"
+    }
+  },
+  "delivery": {
+    "list": {
+      "title": "Pickups & deliveries",
+      "new": "Schedule",
+      "active": "In progress",
+      "empty": "No deliveries match the filters.",
+      "track": "Track delivery",
+      "advance": "Advance to next step"
+    },
+    "filters": {
+      "status": "Status",
+      "type": "Type",
+      "all": "All",
+      "clear": "Clear"
+    },
+    "fields": {
+      "order": "Order",
+      "customer": "Customer",
+      "type": "Type",
+      "address": "Address",
+      "driver": "Driver",
+      "status": "Status",
+      "scheduled-at": "Scheduled for"
+    },
+    "status": {
+      "SCHEDULED": "Scheduled",
+      "ON_THE_WAY": "On the way",
+      "COMPLETED": "Completed",
+      "FAILED": "Failed"
+    },
+    "type": {
+      "PICKUP": "Pickup",
+      "DELIVERY": "Delivery"
+    },
+    "events": {
+      "SCHEDULED": "Delivery scheduled.",
+      "ON_THE_WAY": "The driver is on the way.",
+      "COMPLETED": "Delivery completed.",
+      "FAILED": "The delivery could not be completed."
+    },
+    "schedule": {
+      "title": "Schedule pickup or delivery",
+      "subtitle": "Coordinate the collection or return of an order.",
+      "submit": "Schedule"
+    },
+    "tracking": {
+      "title": "Delivery tracking",
+      "history": "Tracking history",
+      "advance-to": "Move to:",
+      "mark-failed": "Mark as failed",
+      "back": "Back to deliveries",
+      "not-found": "Delivery not found."
+    },
+    "errors": {
+      "required": "This field is required.",
+      "past-date": "The scheduled date cannot be in the past."
     }
   }
 }
