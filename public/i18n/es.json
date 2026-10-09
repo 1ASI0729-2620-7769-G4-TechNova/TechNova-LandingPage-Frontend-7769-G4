@@ -47,7 +47,8 @@
     "checkout": "Pagar pedido",
     "subscriptions": "Suscripción",
     "subscription": "Mi plan",
-    "plans": "Planes"
+    "plans": "Planes",
+    "deliveries": "Entregas"
   },
   "billing": {
     "history": {
@@ -139,6 +140,64 @@
       "expired": "Tu plan venció. Renuévalo para habilitar tus funciones nuevamente.",
       "none": "Tu lavandería no tiene una suscripción activa.",
       "choose": "Elegir un plan"
+    }
+  },
+  "delivery": {
+    "list": {
+      "title": "Recojos y entregas",
+      "new": "Programar",
+      "active": "En curso",
+      "empty": "Ninguna entrega coincide con los filtros.",
+      "track": "Rastrear entrega",
+      "advance": "Avanzar al siguiente paso"
+    },
+    "filters": {
+      "status": "Estado",
+      "type": "Tipo",
+      "all": "Todos",
+      "clear": "Limpiar"
+    },
+    "fields": {
+      "order": "Pedido",
+      "customer": "Cliente",
+      "type": "Tipo",
+      "address": "Dirección",
+      "driver": "Repartidor",
+      "status": "Estado",
+      "scheduled-at": "Programada para"
+    },
+    "status": {
+      "SCHEDULED": "Programada",
+      "ON_THE_WAY": "En camino",
+      "COMPLETED": "Completada",
+      "FAILED": "Fallida"
+    },
+    "type": {
+      "PICKUP": "Recojo",
+      "DELIVERY": "Entrega"
+    },
+    "events": {
+      "SCHEDULED": "Entrega programada.",
+      "ON_THE_WAY": "El repartidor está en camino.",
+      "COMPLETED": "Entrega completada.",
+      "FAILED": "No se pudo completar la entrega."
+    },
+    "schedule": {
+      "title": "Programar recojo o entrega",
+      "subtitle": "Coordina el recojo o la devolución de un pedido.",
+      "submit": "Programar"
+    },
+    "tracking": {
+      "title": "Seguimiento de entrega",
+      "history": "Historial de seguimiento",
+      "advance-to": "Pasar a:",
+      "mark-failed": "Marcar como fallida",
+      "back": "Volver a entregas",
+      "not-found": "Entrega no encontrada."
+    },
+    "errors": {
+      "required": "Este campo es obligatorio.",
+      "past-date": "La fecha programada no puede estar en el pasado."
     }
   }
 }

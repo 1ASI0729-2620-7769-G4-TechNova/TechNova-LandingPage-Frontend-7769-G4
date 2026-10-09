@@ -221,5 +221,148 @@
       "startDate": "2026-01-01T00:00:00.000Z",
       "endDate": "2027-01-01T00:00:00.000Z"
     }
+  ],
+  "deliveries": [
+    {
+      "id": 1,
+      "orderId": 101,
+      "customerName": "Ana Martínez",
+      "type": "DELIVERY",
+      "address": "Av. Larco 123, Miraflores",
+      "driverName": "Luis Quispe",
+      "scheduledAt": "2026-10-02T15:00:00.000Z",
+      "status": "COMPLETED",
+      "completedAt": "2026-10-02T15:40:00.000Z"
+    },
+    {
+      "id": 2,
+      "orderId": 102,
+      "customerName": "Carlos Gómez",
+      "type": "PICKUP",
+      "address": "Jr. Union 456, Lima",
+      "driverName": "Luis Quispe",
+      "scheduledAt": "2026-10-06T09:00:00.000Z",
+      "status": "COMPLETED",
+      "completedAt": "2026-10-06T09:25:00.000Z"
+    },
+    {
+      "id": 3,
+      "orderId": 103,
+      "customerName": "Lucía Torres",
+      "type": "DELIVERY",
+      "address": "Calle Los Pinos 78, San Isidro",
+      "driverName": "Marco Rojas",
+      "scheduledAt": "2026-10-09T16:00:00.000Z",
+      "status": "ON_THE_WAY",
+      "completedAt": ""
+    },
+    {
+      "id": 4,
+      "orderId": 104,
+      "customerName": "Jorge Ramos",
+      "type": "PICKUP",
+      "address": "Av. Arequipa 900, Lince",
+      "driverName": "Marco Rojas",
+      "scheduledAt": "2026-10-10T10:30:00.000Z",
+      "status": "SCHEDULED",
+      "completedAt": ""
+    },
+    {
+      "id": 5,
+      "orderId": 105,
+      "customerName": "Mía Salazar",
+      "type": "DELIVERY",
+      "address": "Av. Brasil 310, Pueblo Libre",
+      "driverName": "Luis Quispe",
+      "scheduledAt": "2026-10-08T12:00:00.000Z",
+      "status": "FAILED",
+      "completedAt": ""
+    }
+  ],
+  "trackingEvents": [
+    {
+      "id": 1,
+      "deliveryId": 1,
+      "status": "SCHEDULED",
+      "note": "delivery.events.SCHEDULED",
+      "occurredAt": "2026-10-01T18:00:00.000Z"
+    },
+    {
+      "id": 2,
+      "deliveryId": 1,
+      "status": "ON_THE_WAY",
+      "note": "delivery.events.ON_THE_WAY",
+      "occurredAt": "2026-10-02T15:05:00.000Z"
+    },
+    {
+      "id": 3,
+      "deliveryId": 1,
+      "status": "COMPLETED",
+      "note": "delivery.events.COMPLETED",
+      "occurredAt": "2026-10-02T15:40:00.000Z"
+    },
+    {
+      "id": 4,
+      "deliveryId": 2,
+      "status": "SCHEDULED",
+      "note": "delivery.events.SCHEDULED",
+      "occurredAt": "2026-10-05T17:00:00.000Z"
+    },
+    {
+      "id": 5,
+      "deliveryId": 2,
+      "status": "ON_THE_WAY",
+      "note": "delivery.events.ON_THE_WAY",
+      "occurredAt": "2026-10-06T09:05:00.000Z"
+    },
+    {
+      "id": 6,
+      "deliveryId": 2,
+      "status": "COMPLETED",
+      "note": "delivery.events.COMPLETED",
+      "occurredAt": "2026-10-06T09:25:00.000Z"
+    },
+    {
+      "id": 7,
+      "deliveryId": 3,
+      "status": "SCHEDULED",
+      "note": "delivery.events.SCHEDULED",
+      "occurredAt": "2026-10-08T18:30:00.000Z"
+    },
+    {
+      "id": 8,
+      "deliveryId": 3,
+      "status": "ON_THE_WAY",
+      "note": "delivery.events.ON_THE_WAY",
+      "occurredAt": "2026-10-09T15:10:00.000Z"
+    },
+    {
+      "id": 9,
+      "deliveryId": 4,
+      "status": "SCHEDULED",
+      "note": "delivery.events.SCHEDULED",
+      "occurredAt": "2026-10-09T11:00:00.000Z"
+    },
+    {
+      "id": 10,
+      "deliveryId": 5,
+      "status": "SCHEDULED",
+      "note": "delivery.events.SCHEDULED",
+      "occurredAt": "2026-10-07T18:00:00.000Z"
+    },
+    {
+      "id": 11,
+      "deliveryId": 5,
+      "status": "ON_THE_WAY",
+      "note": "delivery.events.ON_THE_WAY",
+      "occurredAt": "2026-10-08T11:45:00.000Z"
+    },
+    {
+      "id": 12,
+      "deliveryId": 5,
+      "status": "FAILED",
+      "note": "delivery.events.FAILED",
+      "occurredAt": "2026-10-08T12:20:00.000Z"
+    }
   ]
 }
