@@ -364,5 +364,236 @@
       "note": "delivery.events.FAILED",
       "occurredAt": "2026-10-08T12:20:00.000Z"
     }
+  ],
+  "orders": [
+    {
+      "id": 101,
+      "orderNumber": "ORD-000001",
+      "customerId": 4,
+      "deliveryMethod": "HOME_DELIVERY",
+      "status": "COMPLETED",
+      "totalAmount": 45.5,
+      "createdAt": "2026-10-01T14:30:00.000Z",
+      "garments": [
+        {
+          "id": 1,
+          "type": "Abrigo",
+          "color": "negro",
+          "notes": "Forro descosido en la manga izquierda",
+          "quantity": 1,
+          "unitPrice": 20
+        },
+        {
+          "id": 2,
+          "type": "Saco",
+          "color": "azul marino",
+          "notes": "",
+          "quantity": 1,
+          "unitPrice": 10.5
+        },
+        {
+          "id": 3,
+          "type": "Vestido",
+          "color": "rojo",
+          "notes": "",
+          "quantity": 1,
+          "unitPrice": 10
+        }
+      ]
+    },
+    {
+      "id": 102,
+      "orderNumber": "ORD-000002",
+      "customerId": 5,
+      "deliveryMethod": "STORE_PICKUP",
+      "status": "COMPLETED",
+      "totalAmount": 80,
+      "createdAt": "2026-10-01T16:10:00.000Z",
+      "garments": [
+        {
+          "id": 1,
+          "type": "Terno",
+          "color": "gris oscuro",
+          "notes": "",
+          "quantity": 1,
+          "unitPrice": 25
+        },
+        {
+          "id": 2,
+          "type": "Terno",
+          "color": "gris claro",
+          "notes": "",
+          "quantity": 1,
+          "unitPrice": 25
+        },
+        {
+          "id": 3,
+          "type": "Frazada",
+          "color": "blanco",
+          "notes": "",
+          "quantity": 1,
+          "unitPrice": 15
+        },
+        {
+          "id": 4,
+          "type": "Frazada",
+          "color": "beige",
+          "notes": "",
+          "quantity": 1,
+          "unitPrice": 15
+        }
+      ]
+    },
+    {
+      "id": 103,
+      "orderNumber": "ORD-000003",
+      "customerId": 4,
+      "deliveryMethod": "HOME_DELIVERY",
+      "status": "CONFIRMED",
+      "totalAmount": 32,
+      "createdAt": "2026-10-05T15:20:00.000Z",
+      "garments": [
+        {
+          "id": 1,
+          "type": "Saco",
+          "color": "verde",
+          "notes": "",
+          "quantity": 1,
+          "unitPrice": 10
+        },
+        {
+          "id": 2,
+          "type": "Vestido",
+          "color": "blanco",
+          "notes": "Mancha de vino al frente",
+          "quantity": 1,
+          "unitPrice": 9
+        },
+        {
+          "id": 3,
+          "type": "Camisa",
+          "color": "celeste",
+          "notes": "",
+          "quantity": 2,
+          "unitPrice": 4
+        }
+      ]
+    },
+    {
+      "id": 104,
+      "orderNumber": "ORD-000004",
+      "customerId": 5,
+      "deliveryMethod": "STORE_PICKUP",
+      "status": "PENDING",
+      "totalAmount": 26,
+      "createdAt": "2026-10-07T13:45:00.000Z",
+      "garments": [
+        {
+          "id": 1,
+          "type": "Camisa",
+          "color": "blanco",
+          "notes": "",
+          "quantity": 1,
+          "unitPrice": 8
+        },
+        {
+          "id": 2,
+          "type": "Camisa",
+          "color": "rosado",
+          "notes": "",
+          "quantity": 1,
+          "unitPrice": 8
+        },
+        {
+          "id": 3,
+          "type": "Pantalón",
+          "color": "negro",
+          "notes": "",
+          "quantity": 1,
+          "unitPrice": 10
+        }
+      ]
+    },
+    {
+      "id": 105,
+      "orderNumber": "ORD-000005",
+      "customerId": 4,
+      "deliveryMethod": "HOME_DELIVERY",
+      "status": "PENDING",
+      "totalAmount": 64.9,
+      "createdAt": "2026-10-08T17:05:00.000Z",
+      "garments": [
+        {
+          "id": 1,
+          "type": "Abrigo",
+          "color": "camel",
+          "notes": "",
+          "quantity": 1,
+          "unitPrice": 20
+        },
+        {
+          "id": 2,
+          "type": "Terno",
+          "color": "azul marino",
+          "notes": "",
+          "quantity": 1,
+          "unitPrice": 25
+        },
+        {
+          "id": 3,
+          "type": "Saco",
+          "color": "marrón",
+          "notes": "",
+          "quantity": 1,
+          "unitPrice": 14.9
+        }
+      ]
+    },
+    {
+      "id": 106,
+      "orderNumber": "ORD-000006",
+      "customerId": 5,
+      "deliveryMethod": "HOME_DELIVERY",
+      "status": "CONFIRMED",
+      "totalAmount": 27.5,
+      "createdAt": "2026-10-08T21:30:00.000Z",
+      "garments": [
+        {
+          "id": 1,
+          "type": "Abrigo",
+          "color": "gris",
+          "notes": "",
+          "quantity": 1,
+          "unitPrice": 15
+        },
+        {
+          "id": 2,
+          "type": "Camisa",
+          "color": "blanco",
+          "notes": "Cuello con cuidado especial",
+          "quantity": 1,
+          "unitPrice": 7.5
+        }
+      ]
+    },
+    {
+      "id": 107,
+      "orderNumber": "ORD-000007",
+      "customerId": 1,
+      "deliveryMethod": "STORE_PICKUP",
+      "status": "COMPLETED",
+      "totalAmount": 180,
+      "createdAt": "2026-10-09T14:54:44.774Z",
+      "garments": [
+        {
+          "id": 1,
+          "type": "sabana",
+          "color": "blanco",
+          "notes": "Lavar por separado",
+          "quantity": 6,
+          "unitPrice": 30
+        }
+      ]
+    }
   ]
 }
