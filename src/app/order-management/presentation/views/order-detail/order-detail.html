@@ -1,0 +1,115 @@
+@if (order(); as currentOrder) {
+  <header class="dialog-header">
+    <h2 mat-dialog-title>
+      {{ 'order-management.detail.title' | translate: {orderNumber: currentOrder.orderNumber} }}
+    </h2>
+    <span [class]="'badge status-' + currentOrder.status">
+      {{ 'order-management.status.' + currentOrder.status | translate }}
+    </span>
+    <button mat-icon-button type="button" class="close-button" mat-dialog-close
+            [attr.aria-label]="'order-management.detail.close' | translate">
+      <mat-icon>close</mat-icon>
+    </button>
+  </header>
+
+  <mat-dialog-content>
+    <div class="info-cards">
+      <article class="info-card">
+        <h3>{{ 'order-management.detail.customer-data' | translate }}</h3>
+        @if (customer(); as customerData) {
+          <strong>{{ customerData.fullName }}</strong>
+          <span>{{ customerData.email }}</span>
+        } @else {
+          <strong>{{ 'order-management.list.customer-number' | translate: {id: currentOrder.customerId} }}</strong>
+        }
+        <span class="delivery-method">
+          {{ 'order-management.delivery-method.' + currentOrder.deliveryMethod | translate }}
+        </span>
+      </article>
+
+      @for (service of logisticServices(); track service.titleKey) {
+        <article class="info-card">
+          <h3>{{ service.titleKey | translate }}</h3>
+          @if (service.delivery; as delivery) {
+            <strong>{{ delivery.driverName }}</strong>
+            <span>{{ delivery.address }}</span>
+            <span class="service-status">{{ 'delivery.status.' + delivery.status | translate }}</span>
+          } @else {
+            <span class="muted">{{ 'order-management.detail.not-assigned' | translate }}</span>
+          }
+        </article>
+      }
+    </div>
+
+    <h3 class="section-title">{{ 'order-management.detail.breakdown-title' | translate }}</h3>
+    <div class="table-scroll">
+      <table class="breakdown-table">
+        <thead>
+        <tr>
+          <th>{{ 'order-management.detail.item' | translate }}</th>
+          <th class="number-column">{{ 'order-management.detail.quantity' | translate }}</th>
+          <th class="number-column">{{ 'order-management.detail.unit-price' | translate }}</th>
+          <th class="number-column">{{ 'order-management.fields.subtotal' | translate }}</th>
+        </tr>
+        </thead>
+        <tbody>
+          @for (garment of currentOrder.garments; track garment.id) {
+            <tr>
+              <td>
+                {{ garment.type }}
+                <span class="muted">({{ garment.color }})</span>
+              </td>
+              <td class="number-column">{{ garment.quantity }}</td>
+              <td class="number-column">{{ garment.unitPrice | currency: currencyCode : currencySymbol }}</td>
+              <td class="number-column amount">{{ garment.subtotal | currency: currencyCode : currencySymbol }}</td>
+            </tr>
+          }
+          @if (deliveryFee() > 0) {
+            <tr>
+              <td>{{ 'order-management.detail.delivery-service' | translate }}</td>
+              <td class="number-column">1</td>
+              <td class="number-column">{{ deliveryFee() | currency: currencyCode : currencySymbol }}</td>
+              <td class="number-column amount">{{ deliveryFee() | currency: currencyCode : currencySymbol }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+
+    <section class="summary">
+      <div>
+        <span class="summary-label">{{ 'order-management.detail.payment-method' | translate }}</span>
+        @if (payment(); as currentPayment) {
+          <strong>{{ 'billing.method.' + currentPayment.paymentMethod | translate }}</strong>
+          <span class="muted">{{ 'billing.status.' + currentPayment.status | translate }}</span>
+        } @else {
+          <span class="muted">{{ 'order-management.detail.no-payment' | translate }}</span>
+        }
+      </div>
+      <div class="summary-total">
+        <span class="summary-label">{{ 'order-management.fields.total' | translate }}</span>
+        <strong>{{ currentOrder.totalAmount | currency: currencyCode : currencySymbol }}</strong>
+      </div>
+    </section>
+
+    @if (error(); as errorKey) {
+      <p class="error" role="alert">{{ errorKey | translate }}</p>
+    }
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-stroked-button type="button" mat-dialog-close>
+      {{ 'order-management.detail.close' | translate }}
+    </button>
+    @if (currentOrder.status === orderStatus.PENDING) {
+      <button mat-flat-button type="button" [disabled]="loading()" (click)="confirmOrder()">
+        {{ 'order-management.detail.confirm' | translate }}
+      </button>
+    }
+    @if (currentOrder.status === orderStatus.CONFIRMED) {
+      <button mat-flat-button type="button" [disabled]="loading()" (click)="completeOrder()">
+        {{ 'order-management.detail.complete' | translate }}
+      </button>
+    }
+  </mat-dialog-actions>
+}
