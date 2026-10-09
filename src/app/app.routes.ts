@@ -6,6 +6,7 @@ import {billingRoutes} from './billing/presentation/billing.routes';
 import {deliveryRoutes} from './delivery/presentation/delivery.routes';
 import {trackingRoutes} from './tracking/presentation/tracking.routes';
 import {customerLaundryRoutes} from './customer-laundry/presentation/customer-laundry.routes';
+import {laundryOperationsRoutes} from './laundry-operations/presentation/laundry-operations.routes';
 import {orderManagementRoutes} from './order-management/presentation/order-management-routes';
 
 const about = () => import('./shared/presentation/views/about/about')
@@ -25,6 +26,7 @@ export const routes: Routes = [
   {path: 'orders', canActivate: [authGuard], children: orderManagementRoutes},
   {path: 'billing', canActivate: [authGuard], children: billingRoutes},
   {path: 'operations/deliveries', canActivate: [authGuard], children: deliveryRoutes},
+  {path: 'operations', canActivate: [authGuard], children: laundryOperationsRoutes},
   {path: 'tracking', canActivate: [authGuard], children: trackingRoutes},
   {path: 'management', canActivate: [authGuard], children: customerLaundryRoutes},
   {path: '',      redirectTo: '/home',     pathMatch: 'full'},

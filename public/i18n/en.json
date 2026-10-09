@@ -465,5 +465,41 @@
       "invalid-price": "The price must be greater than zero.",
       "invalid-phone": "The phone must have 9 digits."
     }
+  },
+  "laundry-operations": {
+    "reception": {
+      "title": "Order reception",
+      "subtitle": "Confirmed orders waiting to be received by the laundry.",
+      "receive": "Receive",
+      "empty": "There are no orders waiting to be received."
+    },
+    "processing": {
+      "title": "Laundry processing",
+      "subtitle": "Follow the garments through each stage of the process.",
+      "advance-to": "Move to:",
+      "empty": "No orders match the filter."
+    },
+    "fields": {
+      "order": "Order",
+      "garments": "Garments",
+      "status": "Stage",
+      "created-at": "Ordered on",
+      "updated-at": "Last update"
+    },
+    "filters": {
+      "all": "All"
+    },
+    "status": {
+      "RECEIVED": "Received",
+      "CLASSIFIED": "Classified",
+      "WASHING": "Washing",
+      "DRYING": "Drying",
+      "IRONING": "Ironing",
+      "READY_FOR_DELIVERY": "Ready for delivery"
+    },
+    "errors": {
+      "no-garments": "The order has no garments to receive.",
+      "already-ready": "The garments are already ready for delivery."
+    }
   }
 }
