@@ -853,5 +853,37 @@
       "vehicle": "Bicicleta eléctrica",
       "status": "INACTIVE"
     }
+  ],
+  "laundryOrders": [
+    {
+      "id": 1,
+      "orderId": 101,
+      "orderNumber": "ORD-000001",
+      "customerId": 4,
+      "garmentCount": 3,
+      "status": "READY_FOR_DELIVERY",
+      "receivedAt": "2026-10-01T15:30:00.000Z",
+      "updatedAt": "2026-10-01T15:30:00.000Z"
+    },
+    {
+      "id": 2,
+      "orderId": 102,
+      "orderNumber": "ORD-000002",
+      "customerId": 5,
+      "garmentCount": 4,
+      "status": "READY_FOR_DELIVERY",
+      "receivedAt": "2026-10-01T17:10:00.000Z",
+      "updatedAt": "2026-10-01T17:10:00.000Z"
+    },
+    {
+      "id": 3,
+      "orderId": 103,
+      "orderNumber": "ORD-000003",
+      "customerId": 4,
+      "garmentCount": 4,
+      "status": "WASHING",
+      "receivedAt": "2026-10-05T16:20:00.000Z",
+      "updatedAt": "2026-10-05T16:20:00.000Z"
+    }
   ]
 }
