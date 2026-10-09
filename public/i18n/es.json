@@ -256,7 +256,8 @@
     "schedule": {
       "title": "Programar recojo o entrega",
       "subtitle": "Coordina el recojo o la devolución de un pedido.",
-      "submit": "Programar"
+      "submit": "Programar",
+      "choose-driver": "Elige un repartidor"
     },
     "errors": {
       "required": "Este campo es obligatorio.",
@@ -477,7 +478,8 @@
       "title": "Proceso de lavado",
       "subtitle": "Sigue las prendas por cada etapa del proceso.",
       "advance-to": "Pasar a:",
-      "empty": "Ningún pedido coincide con el filtro."
+      "empty": "Ningún pedido coincide con el filtro.",
+      "schedule-delivery": "Programar entrega"
     },
     "fields": {
       "order": "Pedido",

@@ -256,7 +256,8 @@
     "schedule": {
       "title": "Schedule pickup or delivery",
       "subtitle": "Coordinate the collection or return of an order.",
-      "submit": "Schedule"
+      "submit": "Schedule",
+      "choose-driver": "Choose a driver"
     },
     "errors": {
       "required": "This field is required.",
@@ -477,7 +478,8 @@
       "title": "Laundry processing",
       "subtitle": "Follow the garments through each stage of the process.",
       "advance-to": "Move to:",
-      "empty": "No orders match the filter."
+      "empty": "No orders match the filter.",
+      "schedule-delivery": "Schedule delivery"
     },
     "fields": {
       "order": "Order",
