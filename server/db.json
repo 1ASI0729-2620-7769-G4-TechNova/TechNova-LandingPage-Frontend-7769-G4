@@ -98,5 +98,67 @@
       "assignedAt": "2026-01-01T00:00:00.000Z",
       "status": "ASSIGNED"
     }
+  ],
+  "payments": [
+    {
+      "id": 1,
+      "orderId": 101,
+      "customerName": "Ana Martínez",
+      "amount": 45.5,
+      "paymentMethod": "CARD",
+      "status": "CONFIRMED",
+      "reference": "PAY-0001",
+      "paidAt": "2026-09-02T10:15:00.000Z"
+    },
+    {
+      "id": 2,
+      "orderId": 102,
+      "customerName": "Carlos Gómez",
+      "amount": 80,
+      "paymentMethod": "YAPE",
+      "status": "CONFIRMED",
+      "reference": "PAY-0002",
+      "paidAt": "2026-09-10T14:30:00.000Z"
+    },
+    {
+      "id": 3,
+      "orderId": 103,
+      "customerName": "Lucía Torres",
+      "amount": 32,
+      "paymentMethod": "CASH",
+      "status": "PENDING",
+      "reference": "PAY-0003",
+      "paidAt": "2026-09-18T09:00:00.000Z"
+    },
+    {
+      "id": 4,
+      "orderId": 104,
+      "customerName": "Ana Martínez",
+      "amount": 1500,
+      "paymentMethod": "CARD",
+      "status": "REJECTED",
+      "reference": "PAY-0004",
+      "paidAt": "2026-09-21T16:45:00.000Z"
+    },
+    {
+      "id": 5,
+      "orderId": 105,
+      "customerName": "Jorge Ramos",
+      "amount": 64.9,
+      "paymentMethod": "PLIN",
+      "status": "CONFIRMED",
+      "reference": "PAY-0005",
+      "paidAt": "2026-10-01T11:20:00.000Z"
+    },
+    {
+      "id": 6,
+      "orderId": 106,
+      "customerName": "Mía Salazar",
+      "amount": 27.5,
+      "paymentMethod": "CARD",
+      "status": "CONFIRMED",
+      "reference": "PAY-0006",
+      "paidAt": "2026-10-05T18:10:00.000Z"
+    }
   ]
 }
