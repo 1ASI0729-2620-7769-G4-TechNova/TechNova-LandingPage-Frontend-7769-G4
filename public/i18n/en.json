@@ -420,5 +420,50 @@
       "already-delivered": "The order was already delivered.",
       "recipient-not-found": "The customer does not exist, so no notification was sent."
     }
+  },
+  "customer-laundry": {
+    "services": {
+      "title": "Services",
+      "subtitle": "Catalog of services your laundry offers.",
+      "new": "New service",
+      "edit": "Edit service",
+      "empty": "No services registered yet."
+    },
+    "drivers": {
+      "title": "Drivers",
+      "subtitle": "Drivers in charge of pickups and deliveries.",
+      "new": "New driver",
+      "edit": "Edit driver",
+      "empty": "No drivers registered yet."
+    },
+    "fields": {
+      "name": "Name",
+      "description": "Description",
+      "unit": "Charged by",
+      "price": "Price",
+      "status": "Status",
+      "full-name": "Full name",
+      "phone": "Phone",
+      "vehicle": "Vehicle"
+    },
+    "unit": {
+      "KILO": "Kilo",
+      "PIECE": "Piece"
+    },
+    "status": {
+      "ACTIVE": "Active",
+      "INACTIVE": "Inactive"
+    },
+    "actions": {
+      "save": "Save",
+      "cancel": "Cancel",
+      "edit": "Edit",
+      "toggle": "Enable or disable"
+    },
+    "errors": {
+      "name-required": "The name is required.",
+      "invalid-price": "The price must be greater than zero.",
+      "invalid-phone": "The phone must have 9 digits."
+    }
   }
 }
