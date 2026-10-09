@@ -37,7 +37,12 @@
 
   <label>
     {{ 'delivery.fields.driver' | translate }}
-    <input type="text" formControlName="driverName">
+    <select formControlName="driverName">
+      <option value="" disabled>{{ 'delivery.schedule.choose-driver' | translate }}</option>
+      @for (driver of drivers.activeDrivers(); track driver.id) {
+        <option [value]="driver.fullName">{{ driver.fullName }}</option>
+      }
+    </select>
     @if (isInvalid('driverName')) {
       <small class="error">{{ 'delivery.errors.required' | translate }}</small>
     }

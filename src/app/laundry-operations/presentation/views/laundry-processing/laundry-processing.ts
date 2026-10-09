@@ -1,5 +1,6 @@
 import {Component, computed, inject, signal} from '@angular/core';
 import {DatePipe} from '@angular/common';
+import {RouterLink} from '@angular/router';
 import {FormsModule} from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
@@ -13,7 +14,7 @@ import {LAUNDRY_FLOW} from '../../../domain/model/laundry-status';
  */
 @Component({
   selector: 'app-laundry-processing',
-  imports: [DatePipe, FormsModule, MatTableModule, MatButtonModule, MatIconModule, TranslatePipe],
+  imports: [DatePipe, RouterLink, FormsModule, MatTableModule, MatButtonModule, MatIconModule, TranslatePipe],
   templateUrl: './laundry-processing.html',
   styleUrl: './laundry-processing.css'
 })
