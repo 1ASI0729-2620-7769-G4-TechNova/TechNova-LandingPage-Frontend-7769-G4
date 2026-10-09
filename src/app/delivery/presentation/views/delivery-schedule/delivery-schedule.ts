@@ -51,6 +51,6 @@ export class DeliverySchedule extends BaseForm {
       value.address, value.driverName, new Date(value.scheduledAt).toISOString(),
       DeliveryStatus.SCHEDULED, '');
     this.store.scheduleDelivery(delivery, created =>
-      this.router.navigate(['/operations/deliveries', created.id]).then());
+      this.router.navigate(['/tracking', created.id]).then());
   }
 }

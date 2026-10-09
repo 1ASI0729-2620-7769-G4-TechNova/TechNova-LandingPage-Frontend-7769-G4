@@ -2,23 +2,22 @@ import {computed, inject, Injectable, signal} from '@angular/core';
 import {DeliveryApi} from '../infrastructure/delivery-api';
 import {Delivery} from '../domain/model/delivery.entity';
 import {DeliveryStatus} from '../domain/model/delivery-status';
-import {TrackingEvent} from '../domain/model/tracking-event.entity';
+import {TrackingStore} from '../../tracking/application/tracking.store';
 
 /**
- * Application state of the Delivery bounded context (deliveries and their tracking).
+ * Application state of the Delivery bounded context. Every status it reaches is reported to the
+ * Tracking bounded context.
  */
 @Injectable({providedIn: 'root'})
 export class DeliveryStore {
   private readonly api = inject(DeliveryApi);
+  private readonly tracking = inject(TrackingStore);
 
   private readonly deliveriesSignal = signal<Delivery[]>([]);
-  private readonly eventsSignal = signal<TrackingEvent[]>([]);
   private readonly errorsSignal = signal<string[]>([]);
   private readonly loadedSignal = signal<boolean>(false);
 
   readonly deliveries = this.deliveriesSignal.asReadonly();
-  /** Tracking history of the delivery last loaded with {@link fetchTracking}. */
-  readonly events = this.eventsSignal.asReadonly();
   readonly errors = this.errorsSignal.asReadonly();
   readonly loaded = this.loadedSignal.asReadonly();
 
@@ -41,21 +40,13 @@ export class DeliveryStore {
     return this.deliveriesSignal().find(delivery => delivery.id === id);
   }
 
-  /** Loads the tracking history of a delivery. */
-  fetchTracking(deliveryId: number): void {
-    this.eventsSignal.set([]);
-    this.api.getTrackingEvents(deliveryId).subscribe({
-      next: events => this.eventsSignal.set(events),
-      error: (e: Error) => this.errorsSignal.set([e.message])
-    });
-  }
-
   /** Schedules a delivery and, on success, runs the optional callback with the stored delivery. */
   scheduleDelivery(delivery: Delivery, onSuccess?: (created: Delivery) => void): void {
     this.errorsSignal.set([]);
     this.api.scheduleDelivery(delivery).subscribe({
       next: created => {
         this.deliveriesSignal.update(deliveries => [...deliveries, created]);
+        this.tracking.record(created.id, created.status);
         onSuccess?.(created);
       },
       error: (e: Error) => this.errorsSignal.set([e.message])
@@ -86,7 +77,7 @@ export class DeliveryStore {
     this.api.updateStatus(delivery, status).subscribe({
       next: updated => {
         this.deliveriesSignal.update(deliveries => deliveries.map(d => d.id === updated.id ? updated : d));
-        this.fetchTracking(updated.id);
+        this.tracking.record(updated.id, status);
       },
       error: (e: Error) => this.errorsSignal.set([e.message])
     });
