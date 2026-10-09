@@ -1,0 +1,46 @@
+<h1>{{ 'billing.checkout.title' | translate }}</h1>
+<p class="muted">{{ 'billing.checkout.subtitle' | translate }}</p>
+
+<form [formGroup]="form" (ngSubmit)="submit()" class="card" novalidate>
+  <label>
+    {{ 'billing.fields.order' | translate }}
+    <input type="number" formControlName="orderId" min="1">
+    @if (isInvalid('orderId')) {
+      <small class="error">{{ 'billing.errors.required' | translate }}</small>
+    }
+  </label>
+
+  <label>
+    {{ 'billing.fields.customer' | translate }}
+    <input type="text" formControlName="customerName">
+    @if (isInvalid('customerName')) {
+      <small class="error">{{ 'billing.errors.required' | translate }}</small>
+    }
+  </label>
+
+  <label>
+    {{ 'billing.fields.amount' | translate }} (S/)
+    <input type="number" formControlName="amount" step="0.01" min="0.01">
+    @if (isInvalid('amount')) {
+      <small class="error">{{ 'billing.errors.invalid-amount' | translate }}</small>
+    }
+  </label>
+
+  <label>
+    {{ 'billing.fields.method' | translate }}
+    <select formControlName="paymentMethod">
+      @for (method of methods; track method) {
+        <option [value]="method">{{ 'billing.method.' + method | translate }}</option>
+      }
+    </select>
+  </label>
+
+  @if (failure()) {
+    <p class="error" role="alert">{{ failure() | translate }}</p>
+  }
+  @for (error of store.errors(); track error) {
+    <p class="error" role="alert">{{ error | translate }}</p>
+  }
+
+  <button mat-flat-button type="submit">{{ 'billing.checkout.pay' | translate }}</button>
+</form>

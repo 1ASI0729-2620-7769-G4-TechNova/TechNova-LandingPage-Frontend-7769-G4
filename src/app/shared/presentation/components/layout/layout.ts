@@ -69,6 +69,12 @@ export class Layout {
         {link: '/management/drivers', label: 'option.drivers', icon: 'two_wheeler'}
       ]
     },
+    {
+      label: 'option.billing', icon: 'payments', children: [
+        {link: '/billing/payments', label: 'option.payments', icon: 'receipt_long'},
+        {link: '/billing/checkout', label: 'option.checkout', icon: 'credit_card'}
+      ]
+    },
     {link: '/iam/users', label: 'option.users', icon: 'group', adminOnly: true},
     {link: '/about', label: 'option.about', icon: 'info'}
   ]);

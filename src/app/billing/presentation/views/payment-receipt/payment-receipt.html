@@ -1,0 +1,19 @@
+<h1>{{ 'billing.receipt.title' | translate }}</h1>
+
+@if (payment(); as p) {
+  <div class="card">
+    <dl>
+      <dt>{{ 'billing.fields.reference' | translate }}</dt><dd>{{ p.reference }}</dd>
+      <dt>{{ 'billing.fields.order' | translate }}</dt><dd>#{{ p.orderId }}</dd>
+      <dt>{{ 'billing.fields.customer' | translate }}</dt><dd>{{ p.customerName }}</dd>
+      <dt>{{ 'billing.fields.method' | translate }}</dt><dd>{{ 'billing.method.' + p.paymentMethod | translate }}</dd>
+      <dt>{{ 'billing.fields.date' | translate }}</dt><dd>{{ p.paidAt | date: 'dd/MM/yyyy HH:mm' }}</dd>
+      <dt>{{ 'billing.fields.status' | translate }}</dt><dd>{{ 'billing.status.' + p.status | translate }}</dd>
+      <dt>{{ 'billing.fields.amount' | translate }}</dt>
+      <dd class="amount">{{ p.amount | currency: 'PEN':'S/ ' }}</dd>
+    </dl>
+    <a mat-stroked-button routerLink="/billing/payments">{{ 'billing.receipt.back' | translate }}</a>
+  </div>
+} @else if (store.loaded()) {
+  <p class="muted">{{ 'billing.receipt.not-found' | translate }}</p>
+}

@@ -40,5 +40,62 @@
     "password": {
       "rules": "La contraseña debe tener al menos 8 caracteres, una mayúscula y un número."
     }
+  },
+  "option": {
+    "billing": "Facturación",
+    "payments": "Pagos",
+    "checkout": "Pagar pedido"
+  },
+  "billing": {
+    "history": {
+      "title": "Historial de pagos",
+      "new": "Nuevo pago",
+      "total": "Total confirmado",
+      "empty": "No hay pagos con esos filtros.",
+      "receipt": "Ver recibo",
+      "confirm": "Confirmar pago"
+    },
+    "filters": {
+      "from": "Desde",
+      "to": "Hasta",
+      "status": "Estado",
+      "all": "Todos",
+      "clear": "Limpiar"
+    },
+    "fields": {
+      "date": "Fecha",
+      "order": "Pedido",
+      "customer": "Cliente",
+      "amount": "Monto",
+      "status": "Estado",
+      "method": "Medio de pago",
+      "reference": "Referencia"
+    },
+    "status": {
+      "PENDING": "Pendiente",
+      "CONFIRMED": "Confirmado",
+      "REJECTED": "Rechazado"
+    },
+    "method": {
+      "CARD": "Tarjeta",
+      "YAPE": "Yape",
+      "PLIN": "Plin",
+      "CASH": "Efectivo"
+    },
+    "checkout": {
+      "title": "Pagar pedido",
+      "subtitle": "Completa el pago de tu pedido de lavandería.",
+      "pay": "Pagar"
+    },
+    "receipt": {
+      "title": "Recibo digital",
+      "back": "Volver al historial",
+      "not-found": "Pago no encontrado."
+    },
+    "errors": {
+      "required": "Este campo es obligatorio.",
+      "invalid-amount": "El monto debe ser mayor a cero.",
+      "rejected": "El pago fue rechazado. El monto sigue pendiente."
+    }
   }
 }
