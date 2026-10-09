@@ -1,33 +1,40 @@
-<section class="auth-card">
-  <div class="brand"><span class="brand-logo">WT</span><h1>WashTrack</h1></div>
-  <p class="subtitle">{{ 'iam.sign-in.subtitle' | translate }}</p>
-
+<app-auth-card [title]="'iam.sign-in.title' | translate" [subtitle]="'iam.sign-in.subtitle' | translate">
+  @if (notice) {
+    <div class="notice" role="status">{{ 'iam.notice.' + notice | translate }}</div>
+  }
   @for (error of store.errors(); track error) {
     <div class="error-box" role="alert">{{ error | translate }}</div>
   }
 
-  <form [formGroup]="form" (ngSubmit)="submitSignIn()">
-    <mat-form-field appearance="outline">
-      <mat-label>{{ 'iam.fields.email' | translate }}</mat-label>
-      <input matInput type="email" formControlName="email" autocomplete="username">
-      @if (isInvalidControl(form, 'email')) {
-        <mat-error>{{ errorMessageForControl(form, 'email') }}</mat-error>
-      }
-    </mat-form-field>
+  <app-account-type-toggle [(value)]="accountType"/>
 
-    <mat-form-field appearance="outline">
-      <mat-label>{{ 'iam.fields.password' | translate }}</mat-label>
-      <input matInput type="password" formControlName="password" autocomplete="current-password">
-      @if (isInvalidControl(form, 'password')) {
-        <mat-error>{{ errorMessageForControl(form, 'password') }}</mat-error>
+  <form [formGroup]="form" (ngSubmit)="submitSignIn()" novalidate>
+    <div class="field">
+      <label class="field-label" for="email">{{ 'iam.fields.email' | translate }}</label>
+      <input id="email" class="input" type="email" formControlName="email"
+             autocomplete="username" placeholder="nombre@correo.com"
+             [class.invalid]="errorKey('email')">
+      @if (errorKey('email')) {
+        <span class="field-error">{{ errorKey('email') | translate }}</span>
       }
-    </mat-form-field>
+    </div>
 
-    <button mat-flat-button type="submit">{{ 'iam.sign-in.submit' | translate }}</button>
+    <app-password-field [control]="form.controls.password" label="iam.fields.password">
+      <button label-action type="button" class="link small" (click)="navigateToForgotPassword()">
+        {{ 'iam.sign-in.forgot' | translate }}
+      </button>
+    </app-password-field>
+
+    <button type="submit" class="submit">
+      {{ 'iam.sign-in.submit' | translate }}
+      <mat-icon>arrow_forward</mat-icon>
+    </button>
   </form>
 
-  <p class="switch">
+  <p class="footer-text">
     {{ 'iam.sign-in.no-account' | translate }}
-    <a href="javascript:void(0)" (click)="navigateToSignUp()">{{ 'iam.sign-up.title' | translate }}</a>
+    <button type="button" class="link" (click)="navigateToSignUp()">
+      {{ 'iam.sign-in.create-account' | translate }}
+    </button>
   </p>
-</section>
+</app-auth-card>

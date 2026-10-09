@@ -12,6 +12,7 @@ import {BaseForm} from '../../../../shared/presentation/components/base-form/bas
 import {IamStore} from '../../../application/iam.store';
 import {UserAccount} from '../../../domain/model/user-account.entity';
 import {UserStatus} from '../../../domain/model/user-status';
+import {AccountType} from '../../../domain/model/account-type';
 import {RoleAssignment} from '../../../domain/model/role-assignment.entity';
 
 /**
@@ -113,7 +114,7 @@ export class UserRoleSummary extends BaseForm {
     } else {
       this.store.signUp({
         firstName: value.firstName, lastName: value.lastName,
-        email: value.email, password: value.password
+        email: value.email, password: value.password, accountType: AccountType.LAUNDRY
       }, () => this.navigateBack());
     }
   }

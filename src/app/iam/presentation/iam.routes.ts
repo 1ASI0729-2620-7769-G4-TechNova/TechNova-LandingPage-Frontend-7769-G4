@@ -1,10 +1,15 @@
 import {Routes} from '@angular/router';
+import {authGuard} from '../application/iam.guards';
 
 const userList = () => import('./views/user-list/user-list').then(m => m.UserList);
 const userRoleSummary = () => import('./views/user-role-summary/user-role-summary')
   .then(m => m.UserRoleSummary);
 const signInForm = () => import('./views/sign-in-form/sign-in-form').then(m => m.SignInForm);
 const signUpForm = () => import('./views/sign-up-form/sign-up-form').then(m => m.SignUpForm);
+const forgotPassword = () => import('./views/forgot-password/forgot-password')
+  .then(m => m.ForgotPassword);
+const changePassword = () => import('./views/change-password/change-password')
+  .then(m => m.ChangePassword);
 const baseTitle = 'WashTrack';
 
 /**
@@ -12,7 +17,16 @@ const baseTitle = 'WashTrack';
  */
 export const iamPublicRoutes: Routes = [
   {path: 'sign-in', loadComponent: signInForm, title: `${baseTitle} - Sign In`},
-  {path: 'sign-up', loadComponent: signUpForm, title: `${baseTitle} - Sign Up`}
+  {path: 'sign-up', loadComponent: signUpForm, title: `${baseTitle} - Sign Up`},
+  {path: 'forgot-password', loadComponent: forgotPassword, title: `${baseTitle} - Forgot Password`}
+];
+
+/**
+ * Account routes available to any signed-in user.
+ */
+export const iamAccountRoutes: Routes = [
+  {path: 'change-password', loadComponent: changePassword, canActivate: [authGuard],
+    title: `${baseTitle} - Change Password`}
 ];
 
 /**

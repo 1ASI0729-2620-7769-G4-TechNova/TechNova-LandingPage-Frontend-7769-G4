@@ -1,51 +1,73 @@
-<section class="auth-card">
-  <div class="brand"><span class="brand-logo">WT</span><h1>WashTrack</h1></div>
-  <p class="subtitle">{{ 'iam.sign-up.subtitle' | translate }}</p>
-
+<app-auth-card [title]="'iam.sign-up.title' | translate" [subtitle]="'iam.sign-up.subtitle' | translate"
+               [maxWidth]="480">
   @for (error of store.errors(); track error) {
     <div class="error-box" role="alert">{{ error | translate }}</div>
   }
 
-  <form [formGroup]="form" (ngSubmit)="submitSignUp()">
+  <app-account-type-toggle [value]="accountType()" (valueChange)="setAccountType($event)"/>
+
+  <form [formGroup]="form" (ngSubmit)="submitSignUp()" novalidate>
+    @if (accountType() === AccountType.LAUNDRY) {
+      <div class="field">
+        <label class="field-label" for="businessName">{{ 'iam.fields.business-name' | translate }}</label>
+        <input id="businessName" class="input" formControlName="businessName"
+               [class.invalid]="errorKey('businessName')">
+        @if (errorKey('businessName')) {
+          <span class="field-error">{{ errorKey('businessName') | translate }}</span>
+        }
+      </div>
+    }
+
     <div class="row">
-      <mat-form-field appearance="outline">
-        <mat-label>{{ 'iam.fields.first-name' | translate }}</mat-label>
-        <input matInput formControlName="firstName">
-        @if (isInvalidControl(form, 'firstName')) {
-          <mat-error>{{ errorMessageForControl(form, 'firstName') }}</mat-error>
+      <div class="field">
+        <label class="field-label" for="firstName">
+          {{ (accountType() === AccountType.LAUNDRY ? 'iam.fields.contact-first-name' : 'iam.fields.first-name') | translate }}
+        </label>
+        <input id="firstName" class="input" formControlName="firstName"
+               [class.invalid]="errorKey('firstName')">
+        @if (errorKey('firstName')) {
+          <span class="field-error">{{ errorKey('firstName') | translate }}</span>
         }
-      </mat-form-field>
-      <mat-form-field appearance="outline">
-        <mat-label>{{ 'iam.fields.last-name' | translate }}</mat-label>
-        <input matInput formControlName="lastName">
-        @if (isInvalidControl(form, 'lastName')) {
-          <mat-error>{{ errorMessageForControl(form, 'lastName') }}</mat-error>
+      </div>
+      <div class="field">
+        <label class="field-label" for="lastName">{{ 'iam.fields.last-name' | translate }}</label>
+        <input id="lastName" class="input" formControlName="lastName"
+               [class.invalid]="errorKey('lastName')">
+        @if (errorKey('lastName')) {
+          <span class="field-error">{{ errorKey('lastName') | translate }}</span>
         }
-      </mat-form-field>
+      </div>
     </div>
 
-    <mat-form-field appearance="outline">
-      <mat-label>{{ 'iam.fields.email' | translate }}</mat-label>
-      <input matInput type="email" formControlName="email" autocomplete="username">
-      @if (isInvalidControl(form, 'email')) {
-        <mat-error>{{ errorMessageForControl(form, 'email') }}</mat-error>
+    <div class="field">
+      <label class="field-label" for="email">{{ 'iam.fields.email' | translate }}</label>
+      <input id="email" class="input" type="email" formControlName="email"
+             autocomplete="username" placeholder="nombre@correo.com"
+             [class.invalid]="errorKey('email')">
+      @if (errorKey('email')) {
+        <span class="field-error">{{ errorKey('email') | translate }}</span>
       }
-    </mat-form-field>
+    </div>
 
-    <mat-form-field appearance="outline">
-      <mat-label>{{ 'iam.fields.password' | translate }}</mat-label>
-      <input matInput type="password" formControlName="password" autocomplete="new-password">
-      <mat-hint>{{ 'iam.fields.password-hint' | translate }}</mat-hint>
-      @if (isInvalidControl(form, 'password')) {
-        <mat-error>{{ errorMessageForControl(form, 'password') }}</mat-error>
-      }
-    </mat-form-field>
+    <app-password-field [control]="form.controls.password" label="iam.fields.password"
+                        autocomplete="new-password" [showStrength]="true"/>
+    <app-password-field [control]="form.controls.confirmPassword" label="iam.fields.confirm-password"
+                        autocomplete="new-password" [mismatch]="form.hasError('mismatch')"/>
 
-    <button mat-flat-button type="submit">{{ 'iam.sign-up.submit' | translate }}</button>
+    <p class="footer-text" style="margin: 0 0 8px; text-align: left;">
+      {{ 'iam.password.rules' | translate }}
+    </p>
+
+    <button type="submit" class="submit">
+      {{ 'iam.sign-up.submit' | translate }}
+      <mat-icon>arrow_forward</mat-icon>
+    </button>
   </form>
 
-  <p class="switch">
+  <p class="footer-text">
     {{ 'iam.sign-up.have-account' | translate }}
-    <a href="javascript:void(0)" (click)="navigateToSignIn()">{{ 'iam.sign-in.submit' | translate }}</a>
+    <button type="button" class="link" (click)="navigateToSignIn()">
+      {{ 'iam.sign-up.sign-in' | translate }}
+    </button>
   </p>
-</section>
+</app-auth-card>

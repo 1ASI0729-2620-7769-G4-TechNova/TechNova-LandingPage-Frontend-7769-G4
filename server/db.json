@@ -6,7 +6,9 @@
       "password": "admin123",
       "firstName": "Ana",
       "lastName": "Administradora",
-      "status": "ACTIVE"
+      "status": "ACTIVE",
+      "accountType": "LAUNDRY",
+      "businessName": "WashTrack Lima"
     },
     {
       "id": 2,
@@ -14,7 +16,9 @@
       "password": "operator123",
       "firstName": "Pedro",
       "lastName": "Fernández",
-      "status": "ACTIVE"
+      "status": "ACTIVE",
+      "accountType": "LAUNDRY",
+      "businessName": "WashTrack Lima"
     },
     {
       "id": 3,
@@ -22,7 +26,19 @@
       "password": "driver123",
       "firstName": "Luis",
       "lastName": "Rojas",
-      "status": "ACTIVE"
+      "status": "ACTIVE",
+      "accountType": "LAUNDRY",
+      "businessName": "WashTrack Lima"
+    },
+    {
+      "id": 4,
+      "email": "ana.martinez@email.com",
+      "password": "cliente123",
+      "firstName": "Ana",
+      "lastName": "Martínez",
+      "status": "ACTIVE",
+      "accountType": "CLIENT",
+      "businessName": ""
     }
   ],
   "roles": [

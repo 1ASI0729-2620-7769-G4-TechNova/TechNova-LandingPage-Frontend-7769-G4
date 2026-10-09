@@ -1,0 +1,52 @@
+:host {
+  display: block;
+  margin-bottom: 20px;
+}
+
+.caption {
+  display: block;
+  margin-bottom: 8px;
+  text-align: center;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #8a92a8;
+}
+
+.toggle {
+  display: flex;
+  gap: 4px;
+  padding: 4px;
+  border-radius: 10px;
+  background-color: #f1f3f9;
+}
+
+.option {
+  display: flex;
+  flex: 1 1 0;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 38px;
+  border: none;
+  border-radius: 8px;
+  background: none;
+  color: var(--wt-text-muted);
+  font: inherit;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.15s, color 0.15s;
+}
+
+.option mat-icon {
+  width: 16px;
+  height: 16px;
+  font-size: 16px;
+}
+
+.option.selected {
+  background-color: var(--wt-primary);
+  color: #fff;
+}
