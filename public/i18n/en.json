@@ -35,10 +35,75 @@
       "last-name": "Last name",
       "business-name": "Business name",
       "contact-first-name": "Contact first name",
-      "contact-last-name": "Contact last name"
+      "contact-last-name": "Contact last name",
+      "name": "Name",
+      "roles": "Roles",
+      "status": "Status",
+      "password-hint": "Minimum 6 characters."
     },
     "password": {
-      "rules": "Password must be at least 8 characters long and include an uppercase letter and a number."
+      "rules": "Password must be at least 8 characters long and include an uppercase letter and a number.",
+      "hide": "Hide password",
+      "show": "Show password"
+    },
+    "actions": {
+      "cancel": "Cancel",
+      "save": "Save"
+    },
+    "change": {
+      "title": "Change password",
+      "subtitle": "Enter your current password and choose a new one.",
+      "submit": "Update password"
+    },
+    "errors": {
+      "required": "This field is required.",
+      "email": "Enter a valid email address.",
+      "password-length": "The password must be at least 8 characters long.",
+      "password-pattern": "The password must include an uppercase letter and a number.",
+      "invalid": "The value is not valid.",
+      "mismatch": "The passwords do not match.",
+      "invalid-credentials": "Incorrect email or password.",
+      "account-disabled": "This account is disabled.",
+      "wrong-account-type": "This account does not belong to the selected account type.",
+      "email-taken": "This email is already registered.",
+      "current-password-wrong": "The current password is incorrect.",
+      "same-password": "The new password must be different from the current one.",
+      "email-not-found": "No account was found with this email."
+    },
+    "notice": {
+      "password-changed": "Your password was updated.",
+      "password-reset": "Password reset. You can sign in now.",
+      "registered": "Account created. You can sign in now."
+    },
+    "roles": {
+      "ADMIN": "Administrator",
+      "OPERATOR": "Operator",
+      "DRIVER": "Driver",
+      "NONE": "No role assigned",
+      "assign": "Assign role",
+      "revoke": "Revoke role",
+      "select": "Select a role"
+    },
+    "status": {
+      "ACTIVE": "Active",
+      "INACTIVE": "Inactive",
+      "BLOCKED": "Blocked"
+    },
+    "strength": {
+      "weak": "Weak",
+      "medium": "Medium",
+      "strong": "Strong"
+    },
+    "users": {
+      "title": "Users",
+      "new": "New user",
+      "edit": "Edit user",
+      "delete": "Delete user",
+      "empty": "There are no users yet.",
+      "new-title": "New user",
+      "edit-title": "Edit user",
+      "form-subtitle": "Fill in the account details and assign roles.",
+      "confirm-delete": "Delete {{name}}? This action cannot be undone."
     }
   },
   "option": {
@@ -48,7 +113,18 @@
     "subscriptions": "Subscription",
     "subscription": "My plan",
     "plans": "Plans",
-    "deliveries": "Deliveries"
+    "deliveries": "Deliveries",
+    "orders": "Orders",
+    "home": "Home",
+    "operations": "Operations",
+    "pickup": "Pickup",
+    "reception": "Reception",
+    "laundry": "Laundry",
+    "management": "Management",
+    "services": "Services",
+    "drivers": "Drivers",
+    "users": "Users",
+    "about": "About"
   },
   "billing": {
     "history": {
@@ -199,5 +275,127 @@
       "required": "This field is required.",
       "past-date": "The scheduled date cannot be in the past."
     }
+  },
+  "order-management": {
+    "errors": {
+      "load-failed": "The orders could not be loaded.",
+      "create-failed": "The order could not be registered.",
+      "confirm-failed": "The order could not be confirmed.",
+      "complete-failed": "The order could not be completed.",
+      "order-not-editable": "The order can no longer be modified because it is not pending.",
+      "invalid-quantity": "The quantity must be a whole number greater than zero.",
+      "invalid-unit-price": "The unit price cannot be negative.",
+      "invalid-delivery-fee": "The delivery fee is not valid.",
+      "customer-required": "The order needs a customer.",
+      "garments-required": "The order needs at least one garment.",
+      "cannot-confirm": "Only a pending order can be confirmed.",
+      "cannot-complete": "Only a confirmed order can be completed."
+    },
+    "list": {
+      "title": "Orders",
+      "subtitle": "Comprehensive tracking and registration of active and completed orders.",
+      "new": "New order",
+      "loading": "Loading orders...",
+      "empty": "There are no orders yet.",
+      "no-results": "No orders match your search.",
+      "search-placeholder": "Search by customer name, email or order number...",
+      "search-label": "Search orders",
+      "filter-label": "Filter orders by status",
+      "view-details": "View details",
+      "more-garments": "+ {{count}} more",
+      "customer-number": "Customer #{{id}}",
+      "showing": "Showing {{shown}} of {{total}} orders",
+      "pagination-label": "Orders pagination",
+      "previous-page": "Previous page",
+      "next-page": "Next page"
+    },
+    "fields": {
+      "customer": "Customer",
+      "delivery-method": "Delivery method",
+      "garment-count": "Garments",
+      "subtotal": "Subtotal",
+      "delivery-fee": "Delivery fee",
+      "total": "Total",
+      "garment-type": "Garment type",
+      "color": "Color",
+      "quantity": "Quantity",
+      "unit-price": "Unit price",
+      "notes": "Notes",
+      "order-customer": "Order / Customer",
+      "date": "Date",
+      "garments": "Garments",
+      "status": "Status",
+      "details": "Details"
+    },
+    "status": {
+      "PENDING": "Pending",
+      "CONFIRMED": "Confirmed",
+      "COMPLETED": "Completed"
+    },
+    "delivery-method": {
+      "HOME_DELIVERY": "Home delivery",
+      "STORE_PICKUP": "Store pickup"
+    },
+    "form": {
+      "title": "New order",
+      "subtitle": "Register the garments of a customer and choose how they will be returned.",
+      "garments-title": "Garments",
+      "garment-number": "Garment {{number}}",
+      "add-garment": "Add garment",
+      "remove-garment": "Remove",
+      "summary-title": "Order summary",
+      "cancel": "Cancel",
+      "submit": "Register order"
+    },
+    "validation": {
+      "required": "This field is required.",
+      "positive-whole-number": "Enter a whole number greater than zero.",
+      "non-negative": "The value cannot be negative."
+    },
+    "filter": {
+      "all": "All"
+    },
+    "detail": {
+      "title": "Order {{orderNumber}} details",
+      "customer-data": "Customer data",
+      "pickup-driver": "Pickup driver",
+      "delivery-driver": "Delivery driver",
+      "not-assigned": "Not assigned yet",
+      "breakdown-title": "Garments and services breakdown",
+      "item": "Item",
+      "delivery-service": "Delivery service",
+      "payment-method": "Payment method",
+      "no-payment": "No payment registered",
+      "close": "Close",
+      "confirm": "Confirm order",
+      "complete": "Complete order",
+      "quantity": "Qty.",
+      "unit-price": "Unit price"
+    }
+  },
+  "home": {
+    "title": "Welcome",
+    "content": "Welcome to WashTrack, the platform to manage the orders of your laundry."
+  },
+  "about": {
+    "title": "About us",
+    "content": "WashTrack is a platform that helps laundries manage orders, deliveries, payments and subscriptions."
+  },
+  "page-not-found": {
+    "title": "Page not found",
+    "content": "The path <strong>{{ invalid_path }}</strong> is not valid.",
+    "go-home": "Go Home"
+  },
+  "footer": {
+    "rights": "All rights reserved.",
+    "powered-by": "Powered by",
+    "and": "and"
+  },
+  "topbar": {
+    "notifications": "Notifications"
+  },
+  "user": {
+    "logout": "Sign out",
+    "change-password": "Change password"
   }
 }
