@@ -1,0 +1,64 @@
+h1 {
+  margin: 0 0 4px;
+  color: var(--wt-text);
+}
+
+.subtitle {
+  margin: 0 0 24px;
+  color: var(--wt-text-muted);
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 20px;
+  background-color: var(--wt-surface);
+  border: 1px solid var(--wt-border);
+  border-radius: 12px;
+  color: var(--wt-text);
+  text-decoration: none;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.card:hover,
+.card:focus-visible {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+}
+
+.icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  margin-bottom: 8px;
+  border-radius: 10px;
+}
+
+.value {
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.label {
+  font-size: 0.875rem;
+  color: var(--wt-text-muted);
+}
+
+.hint {
+  font-size: 0.75rem;
+  color: var(--wt-text-muted);
+}
+
+.tone-info .icon { background-color: #e6efff; color: #1d4fa3; }
+.tone-warn .icon { background-color: #fff4d6; color: #8a6100; }
+.tone-ok .icon { background-color: #e3f6ea; color: #1b7a3e; }
