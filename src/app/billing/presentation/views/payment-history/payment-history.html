@@ -1,0 +1,90 @@
+<div class="header">
+  <h1>{{ 'billing.history.title' | translate }}</h1>
+  <a mat-flat-button routerLink="/billing/checkout">
+    <mat-icon>add</mat-icon>{{ 'billing.history.new' | translate }}
+  </a>
+</div>
+
+<div class="filters">
+  <label>
+    {{ 'billing.filters.from' | translate }}
+    <input type="date" [ngModel]="from()" (ngModelChange)="from.set($event)">
+  </label>
+  <label>
+    {{ 'billing.filters.to' | translate }}
+    <input type="date" [ngModel]="to()" (ngModelChange)="to.set($event)">
+  </label>
+  <label>
+    {{ 'billing.filters.status' | translate }}
+    <select [ngModel]="status()" (ngModelChange)="status.set($event)">
+      <option value="">{{ 'billing.filters.all' | translate }}</option>
+      @for (s of statuses; track s) {
+        <option [value]="s">{{ 'billing.status.' + s | translate }}</option>
+      }
+    </select>
+  </label>
+  <button mat-button type="button" (click)="clearFilters()">{{ 'billing.filters.clear' | translate }}</button>
+  <span class="total">
+    {{ 'billing.history.total' | translate }}: {{ store.totalConfirmed() | currency: 'PEN':'S/ ' }}
+  </span>
+</div>
+
+@for (error of store.errors(); track error) {
+  <p class="muted" role="alert">{{ error | translate }}</p>
+}
+
+<div class="table-wrapper">
+  <table mat-table [dataSource]="filtered()">
+    <ng-container matColumnDef="date">
+      <th mat-header-cell *matHeaderCellDef>{{ 'billing.fields.date' | translate }}</th>
+      <td mat-cell *matCellDef="let payment">{{ payment.paidAt | date: 'dd/MM/yyyy HH:mm' }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="order">
+      <th mat-header-cell *matHeaderCellDef>{{ 'billing.fields.order' | translate }}</th>
+      <td mat-cell *matCellDef="let payment">#{{ payment.orderId }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="customer">
+      <th mat-header-cell *matHeaderCellDef>{{ 'billing.fields.customer' | translate }}</th>
+      <td mat-cell *matCellDef="let payment">{{ payment.customerName }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="amount">
+      <th mat-header-cell *matHeaderCellDef>{{ 'billing.fields.amount' | translate }}</th>
+      <td mat-cell *matCellDef="let payment">{{ payment.amount | currency: 'PEN':'S/ ' }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef>{{ 'billing.fields.status' | translate }}</th>
+      <td mat-cell *matCellDef="let payment">
+        <span class="badge" [class]="'badge status-' + payment.status">
+          {{ 'billing.status.' + payment.status | translate }}
+        </span>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let payment">
+        <a mat-icon-button [routerLink]="['/billing/payments', payment.id]"
+           [attr.aria-label]="'billing.history.receipt' | translate">
+          <mat-icon>receipt_long</mat-icon>
+        </a>
+        @if (payment.status === 'PENDING') {
+          <button mat-icon-button type="button" [attr.aria-label]="'billing.history.confirm' | translate"
+                  (click)="store.confirmPayment(payment.id)">
+            <mat-icon>check_circle</mat-icon>
+          </button>
+        }
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="columns"></tr>
+    <tr mat-row *matRowDef="let row; columns: columns"></tr>
+  </table>
+
+  @if (store.loaded() && filtered().length === 0) {
+    <p class="empty">{{ 'billing.history.empty' | translate }}</p>
+  }
+</div>

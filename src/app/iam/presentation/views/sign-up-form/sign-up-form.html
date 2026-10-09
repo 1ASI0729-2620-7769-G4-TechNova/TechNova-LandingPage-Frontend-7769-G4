@@ -1,0 +1,73 @@
+<app-auth-card [title]="'iam.sign-up.title' | translate" [subtitle]="'iam.sign-up.subtitle' | translate"
+               [maxWidth]="480">
+  @for (error of store.errors(); track error) {
+    <div class="error-box" role="alert">{{ error | translate }}</div>
+  }
+
+  <app-account-type-toggle [value]="accountType()" (valueChange)="setAccountType($event)"/>
+
+  <form [formGroup]="form" (ngSubmit)="submitSignUp()" novalidate>
+    @if (accountType() === AccountType.LAUNDRY) {
+      <div class="field">
+        <label class="field-label" for="businessName">{{ 'iam.fields.business-name' | translate }}</label>
+        <input id="businessName" class="input" formControlName="businessName"
+               [class.invalid]="errorKey('businessName')">
+        @if (errorKey('businessName')) {
+          <span class="field-error">{{ errorKey('businessName') | translate }}</span>
+        }
+      </div>
+    }
+
+    <div class="row">
+      <div class="field">
+        <label class="field-label" for="firstName">
+          {{ (accountType() === AccountType.LAUNDRY ? 'iam.fields.contact-first-name' : 'iam.fields.first-name') | translate }}
+        </label>
+        <input id="firstName" class="input" formControlName="firstName"
+               [class.invalid]="errorKey('firstName')">
+        @if (errorKey('firstName')) {
+          <span class="field-error">{{ errorKey('firstName') | translate }}</span>
+        }
+      </div>
+      <div class="field">
+        <label class="field-label" for="lastName">{{ 'iam.fields.last-name' | translate }}</label>
+        <input id="lastName" class="input" formControlName="lastName"
+               [class.invalid]="errorKey('lastName')">
+        @if (errorKey('lastName')) {
+          <span class="field-error">{{ errorKey('lastName') | translate }}</span>
+        }
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="field-label" for="email">{{ 'iam.fields.email' | translate }}</label>
+      <input id="email" class="input" type="email" formControlName="email"
+             autocomplete="username" placeholder="nombre@correo.com"
+             [class.invalid]="errorKey('email')">
+      @if (errorKey('email')) {
+        <span class="field-error">{{ errorKey('email') | translate }}</span>
+      }
+    </div>
+
+    <app-password-field [control]="form.controls.password" label="iam.fields.password"
+                        autocomplete="new-password" [showStrength]="true"/>
+    <app-password-field [control]="form.controls.confirmPassword" label="iam.fields.confirm-password"
+                        autocomplete="new-password" [mismatch]="form.hasError('mismatch')"/>
+
+    <p class="footer-text" style="margin: 0 0 8px; text-align: left;">
+      {{ 'iam.password.rules' | translate }}
+    </p>
+
+    <button type="submit" class="submit">
+      {{ 'iam.sign-up.submit' | translate }}
+      <mat-icon>arrow_forward</mat-icon>
+    </button>
+  </form>
+
+  <p class="footer-text">
+    {{ 'iam.sign-up.have-account' | translate }}
+    <button type="button" class="link" (click)="navigateToSignIn()">
+      {{ 'iam.sign-up.sign-in' | translate }}
+    </button>
+  </p>
+</app-auth-card>

@@ -1,0 +1,401 @@
+{
+  "iam": {
+    "sign-in": {
+      "title": "Iniciar Sesión",
+      "subtitle": "Ingresa a tu cuenta para continuar",
+      "forgot": "¿Olvidaste tu contraseña?",
+      "submit": "Iniciar Sesión",
+      "no-account": "¿No tienes cuenta?",
+      "create-account": "Regístrate aquí"
+    },
+    "sign-up": {
+      "title": "Crear Cuenta",
+      "subtitle": "Regístrate para comenzar a usar WashTrack",
+      "submit": "Registrarse",
+      "have-account": "¿Ya tienes una cuenta?",
+      "sign-in": "Inicia sesión aquí"
+    },
+    "forgot": {
+      "title": "Recuperar Contraseña",
+      "subtitle": "Ingresa tu correo para restablecer el acceso",
+      "submit": "Enviar instrucciones",
+      "back": "Volver al inicio de sesión"
+    },
+    "account-type": {
+      "label": "Tipo de cuenta",
+      "CLIENT": "Cliente",
+      "LAUNDRY": "Lavandería"
+    },
+    "fields": {
+      "email": "Correo electrónico",
+      "password": "Contraseña",
+      "new-password": "Nueva contraseña",
+      "confirm-password": "Confirmar contraseña",
+      "first-name": "Nombres",
+      "last-name": "Apellidos",
+      "business-name": "Razón social",
+      "contact-first-name": "Nombre de contacto",
+      "contact-last-name": "Apellido de contacto",
+      "name": "Nombre",
+      "roles": "Roles",
+      "status": "Estado",
+      "password-hint": "Mínimo 6 caracteres."
+    },
+    "password": {
+      "rules": "La contraseña debe tener al menos 8 caracteres, una mayúscula y un número.",
+      "hide": "Ocultar contraseña",
+      "show": "Mostrar contraseña"
+    },
+    "actions": {
+      "cancel": "Cancelar",
+      "save": "Guardar"
+    },
+    "change": {
+      "title": "Cambiar contraseña",
+      "subtitle": "Ingresa tu contraseña actual y elige una nueva.",
+      "submit": "Actualizar contraseña"
+    },
+    "errors": {
+      "required": "Este campo es obligatorio.",
+      "email": "Ingresa un correo electrónico válido.",
+      "password-length": "La contraseña debe tener al menos 8 caracteres.",
+      "password-pattern": "La contraseña debe incluir una mayúscula y un número.",
+      "invalid": "El valor no es válido.",
+      "mismatch": "Las contraseñas no coinciden.",
+      "invalid-credentials": "Correo o contraseña incorrectos.",
+      "account-disabled": "Esta cuenta está deshabilitada.",
+      "wrong-account-type": "Esta cuenta no corresponde al tipo de cuenta seleccionado.",
+      "email-taken": "Este correo ya está registrado.",
+      "current-password-wrong": "La contraseña actual es incorrecta.",
+      "same-password": "La nueva contraseña debe ser distinta de la actual.",
+      "email-not-found": "No se encontró una cuenta con este correo."
+    },
+    "notice": {
+      "password-changed": "Tu contraseña fue actualizada.",
+      "password-reset": "Contraseña restablecida. Ya puedes iniciar sesión.",
+      "registered": "Cuenta creada. Ya puedes iniciar sesión."
+    },
+    "roles": {
+      "ADMIN": "Administrador",
+      "OPERATOR": "Operador",
+      "DRIVER": "Repartidor",
+      "NONE": "Sin rol asignado",
+      "assign": "Asignar rol",
+      "revoke": "Quitar rol",
+      "select": "Selecciona un rol"
+    },
+    "status": {
+      "ACTIVE": "Activo",
+      "INACTIVE": "Inactivo",
+      "BLOCKED": "Bloqueado"
+    },
+    "strength": {
+      "weak": "Débil",
+      "medium": "Media",
+      "strong": "Fuerte"
+    },
+    "users": {
+      "title": "Usuarios",
+      "new": "Nuevo usuario",
+      "edit": "Editar usuario",
+      "delete": "Eliminar usuario",
+      "empty": "Aún no hay usuarios.",
+      "new-title": "Nuevo usuario",
+      "edit-title": "Editar usuario",
+      "form-subtitle": "Completa los datos de la cuenta y asigna roles.",
+      "confirm-delete": "¿Eliminar a {{name}}? Esta acción no se puede deshacer."
+    }
+  },
+  "option": {
+    "billing": "Facturación",
+    "payments": "Pagos",
+    "checkout": "Pagar pedido",
+    "subscriptions": "Suscripción",
+    "subscription": "Mi plan",
+    "plans": "Planes",
+    "deliveries": "Entregas",
+    "orders": "Pedidos",
+    "home": "Inicio",
+    "operations": "Operaciones",
+    "pickup": "Recojo",
+    "reception": "Recepción",
+    "laundry": "Lavado",
+    "management": "Gestión",
+    "services": "Servicios",
+    "drivers": "Repartidores",
+    "users": "Usuarios",
+    "about": "Acerca de"
+  },
+  "billing": {
+    "history": {
+      "title": "Historial de pagos",
+      "new": "Nuevo pago",
+      "total": "Total confirmado",
+      "empty": "No hay pagos con esos filtros.",
+      "receipt": "Ver recibo",
+      "confirm": "Confirmar pago"
+    },
+    "filters": {
+      "from": "Desde",
+      "to": "Hasta",
+      "status": "Estado",
+      "all": "Todos",
+      "clear": "Limpiar"
+    },
+    "fields": {
+      "date": "Fecha",
+      "order": "Pedido",
+      "customer": "Cliente",
+      "amount": "Monto",
+      "status": "Estado",
+      "method": "Medio de pago",
+      "reference": "Referencia"
+    },
+    "status": {
+      "PENDING": "Pendiente",
+      "CONFIRMED": "Confirmado",
+      "REJECTED": "Rechazado"
+    },
+    "method": {
+      "CARD": "Tarjeta",
+      "YAPE": "Yape",
+      "PLIN": "Plin",
+      "CASH": "Efectivo"
+    },
+    "checkout": {
+      "title": "Pagar pedido",
+      "subtitle": "Completa el pago de tu pedido de lavandería.",
+      "pay": "Pagar"
+    },
+    "receipt": {
+      "title": "Recibo digital",
+      "back": "Volver al historial",
+      "not-found": "Pago no encontrado."
+    },
+    "errors": {
+      "required": "Este campo es obligatorio.",
+      "invalid-amount": "El monto debe ser mayor a cero.",
+      "rejected": "El pago fue rechazado. El monto sigue pendiente."
+    }
+  },
+  "subscriptions": {
+    "plan": {
+      "FREE": "Gratuito",
+      "BASIC": "Básico",
+      "ADVANCED": "Avanzado"
+    },
+    "features": {
+      "orders": "Gestión de pedidos",
+      "reports": "Reportes",
+      "digital-payments": "Pagos digitales",
+      "advanced-history": "Historial avanzado",
+      "delivery": "Coordinación de delivery"
+    },
+    "status": {
+      "ACTIVE": "Activa",
+      "EXPIRED": "Vencida",
+      "CANCELLED": "Cancelada"
+    },
+    "plans": {
+      "title": "Planes y precios",
+      "subtitle": "Compara los planes y elige el que se ajuste a tu lavandería.",
+      "month": "mes",
+      "current": "Plan actual",
+      "choose": "Elegir plan",
+      "confirm-change": "¿Cambiar al plan {{plan}}?"
+    },
+    "mine": {
+      "title": "Mi suscripción",
+      "plan": "Plan",
+      "status": "Estado",
+      "start": "Fecha de inicio",
+      "end": "Vigente hasta",
+      "renew": "Renovar",
+      "change": "Cambiar de plan",
+      "expiring": "Tu plan vence en {{days}} día(s). Renuévalo para mantener tus funciones.",
+      "expired": "Tu plan venció. Renuévalo para habilitar tus funciones nuevamente.",
+      "none": "Tu lavandería no tiene una suscripción activa.",
+      "choose": "Elegir un plan"
+    }
+  },
+  "delivery": {
+    "list": {
+      "title": "Recojos y entregas",
+      "new": "Programar",
+      "active": "En curso",
+      "empty": "Ninguna entrega coincide con los filtros.",
+      "track": "Rastrear entrega",
+      "advance": "Avanzar al siguiente paso"
+    },
+    "filters": {
+      "status": "Estado",
+      "type": "Tipo",
+      "all": "Todos",
+      "clear": "Limpiar"
+    },
+    "fields": {
+      "order": "Pedido",
+      "customer": "Cliente",
+      "type": "Tipo",
+      "address": "Dirección",
+      "driver": "Repartidor",
+      "status": "Estado",
+      "scheduled-at": "Programada para"
+    },
+    "status": {
+      "SCHEDULED": "Programada",
+      "ON_THE_WAY": "En camino",
+      "COMPLETED": "Completada",
+      "FAILED": "Fallida"
+    },
+    "type": {
+      "PICKUP": "Recojo",
+      "DELIVERY": "Entrega"
+    },
+    "events": {
+      "SCHEDULED": "Entrega programada.",
+      "ON_THE_WAY": "El repartidor está en camino.",
+      "COMPLETED": "Entrega completada.",
+      "FAILED": "No se pudo completar la entrega."
+    },
+    "schedule": {
+      "title": "Programar recojo o entrega",
+      "subtitle": "Coordina el recojo o la devolución de un pedido.",
+      "submit": "Programar"
+    },
+    "tracking": {
+      "title": "Seguimiento de entrega",
+      "history": "Historial de seguimiento",
+      "advance-to": "Pasar a:",
+      "mark-failed": "Marcar como fallida",
+      "back": "Volver a entregas",
+      "not-found": "Entrega no encontrada."
+    },
+    "errors": {
+      "required": "Este campo es obligatorio.",
+      "past-date": "La fecha programada no puede estar en el pasado."
+    }
+  },
+  "order-management": {
+    "errors": {
+      "load-failed": "No se pudieron cargar los pedidos.",
+      "create-failed": "No se pudo registrar el pedido.",
+      "confirm-failed": "No se pudo confirmar el pedido.",
+      "complete-failed": "No se pudo completar el pedido.",
+      "order-not-editable": "El pedido ya no se puede modificar porque no está pendiente.",
+      "invalid-quantity": "La cantidad debe ser un número entero mayor que cero.",
+      "invalid-unit-price": "El precio unitario no puede ser negativo.",
+      "invalid-delivery-fee": "La tarifa de delivery no es válida.",
+      "customer-required": "El pedido necesita un cliente.",
+      "garments-required": "El pedido necesita al menos una prenda.",
+      "cannot-confirm": "Solo se puede confirmar un pedido pendiente.",
+      "cannot-complete": "Solo se puede completar un pedido confirmado."
+    },
+    "list": {
+      "title": "Pedidos",
+      "subtitle": "Seguimiento integral y registro de pedidos activos y completados.",
+      "new": "Nuevo pedido",
+      "loading": "Cargando pedidos...",
+      "empty": "Aún no hay pedidos.",
+      "no-results": "Ningún pedido coincide con tu búsqueda.",
+      "search-placeholder": "Buscar por nombre de cliente, correo o número de pedido...",
+      "search-label": "Buscar pedidos",
+      "filter-label": "Filtrar pedidos por estado",
+      "view-details": "Ver detalle",
+      "more-garments": "+ {{count}} más",
+      "customer-number": "Cliente #{{id}}",
+      "showing": "Mostrando {{shown}} de {{total}} pedidos",
+      "pagination-label": "Paginación de pedidos",
+      "previous-page": "Página anterior",
+      "next-page": "Página siguiente"
+    },
+    "fields": {
+      "customer": "Cliente",
+      "delivery-method": "Método de entrega",
+      "garment-count": "Prendas",
+      "subtotal": "Subtotal",
+      "delivery-fee": "Tarifa de delivery",
+      "total": "Total",
+      "garment-type": "Tipo de prenda",
+      "color": "Color",
+      "quantity": "Cantidad",
+      "unit-price": "Precio unitario",
+      "notes": "Notas",
+      "order-customer": "Pedido / Cliente",
+      "date": "Fecha",
+      "garments": "Prendas",
+      "status": "Estado",
+      "details": "Detalle"
+    },
+    "status": {
+      "PENDING": "Pendiente",
+      "CONFIRMED": "Confirmado",
+      "COMPLETED": "Completado"
+    },
+    "delivery-method": {
+      "HOME_DELIVERY": "Delivery a domicilio",
+      "STORE_PICKUP": "Recojo en tienda"
+    },
+    "form": {
+      "title": "Nuevo pedido",
+      "subtitle": "Registra las prendas de un cliente y elige cómo se las devolverán.",
+      "garments-title": "Prendas",
+      "garment-number": "Prenda {{number}}",
+      "add-garment": "Agregar prenda",
+      "remove-garment": "Quitar",
+      "summary-title": "Resumen del pedido",
+      "cancel": "Cancelar",
+      "submit": "Registrar pedido"
+    },
+    "validation": {
+      "required": "Este campo es obligatorio.",
+      "positive-whole-number": "Ingresa un número entero mayor que cero.",
+      "non-negative": "El valor no puede ser negativo."
+    },
+    "filter": {
+      "all": "Todos"
+    },
+    "detail": {
+      "title": "Detalle del pedido {{orderNumber}}",
+      "customer-data": "Datos del cliente",
+      "pickup-driver": "Repartidor de recojo",
+      "delivery-driver": "Repartidor de entrega",
+      "not-assigned": "Aún sin asignar",
+      "breakdown-title": "Desglose de prendas y servicios",
+      "item": "Ítem",
+      "delivery-service": "Servicio de delivery",
+      "payment-method": "Método de pago",
+      "no-payment": "Sin pago registrado",
+      "close": "Cerrar",
+      "confirm": "Confirmar pedido",
+      "complete": "Completar pedido",
+      "quantity": "Cant.",
+      "unit-price": "Precio unit."
+    }
+  },
+  "home": {
+    "title": "Bienvenido",
+    "content": "Bienvenido a WashTrack, la plataforma para gestionar los pedidos de tu lavandería."
+  },
+  "about": {
+    "title": "Acerca de nosotros",
+    "content": "WashTrack es una plataforma que ayuda a las lavanderías a gestionar pedidos, entregas, pagos y suscripciones."
+  },
+  "page-not-found": {
+    "title": "Página no encontrada",
+    "content": "La ruta <strong>{{ invalid_path }}</strong> no es válida.",
+    "go-home": "Ir a Inicio"
+  },
+  "footer": {
+    "rights": "Todos los derechos reservados.",
+    "powered-by": "Desarrollado con",
+    "and": "y"
+  },
+  "topbar": {
+    "notifications": "Notificaciones"
+  },
+  "user": {
+    "logout": "Cerrar sesión",
+    "change-password": "Cambiar contraseña"
+  }
+}

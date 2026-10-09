@@ -1,0 +1,101 @@
+<section class="form-card">
+  <h1>{{ (isEdit ? 'iam.users.edit-title' : 'iam.users.new-title') | translate }}</h1>
+  <p class="subtitle">{{ 'iam.users.form-subtitle' | translate }}</p>
+
+  @for (error of store.errors(); track error) {
+    <div class="error-box" role="alert">{{ error | translate }}</div>
+  }
+
+  <form [formGroup]="form" (ngSubmit)="saveUser()">
+    <div class="row">
+      <mat-form-field appearance="outline">
+        <mat-label>{{ 'iam.fields.first-name' | translate }}</mat-label>
+        <input matInput formControlName="firstName">
+        @if (isInvalidControl(form, 'firstName')) {
+          <mat-error>{{ errorMessageForControl(form, 'firstName') }}</mat-error>
+        }
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>{{ 'iam.fields.last-name' | translate }}</mat-label>
+        <input matInput formControlName="lastName">
+        @if (isInvalidControl(form, 'lastName')) {
+          <mat-error>{{ errorMessageForControl(form, 'lastName') }}</mat-error>
+        }
+      </mat-form-field>
+    </div>
+
+    <mat-form-field appearance="outline">
+      <mat-label>{{ 'iam.fields.email' | translate }}</mat-label>
+      <input matInput type="email" formControlName="email">
+      @if (isInvalidControl(form, 'email')) {
+        <mat-error>{{ errorMessageForControl(form, 'email') }}</mat-error>
+      }
+    </mat-form-field>
+
+    @if (!isEdit) {
+      <mat-form-field appearance="outline">
+        <mat-label>{{ 'iam.fields.password' | translate }}</mat-label>
+        <input matInput type="password" formControlName="password" autocomplete="new-password">
+        <mat-hint>{{ 'iam.fields.password-hint' | translate }}</mat-hint>
+        @if (isInvalidControl(form, 'password')) {
+          <mat-error>{{ errorMessageForControl(form, 'password') }}</mat-error>
+        }
+      </mat-form-field>
+    }
+
+    @if (isEdit) {
+      <mat-form-field appearance="outline">
+        <mat-label>{{ 'iam.fields.status' | translate }}</mat-label>
+        <mat-select formControlName="status">
+          @for (status of statuses; track status) {
+            <mat-option [value]="status">{{ 'iam.status.' + status | translate }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+    }
+
+    <div class="actions">
+      <button mat-stroked-button type="button" (click)="navigateBack()">
+        {{ 'iam.actions.cancel' | translate }}
+      </button>
+      <button mat-flat-button type="submit">{{ 'iam.actions.save' | translate }}</button>
+    </div>
+  </form>
+
+  @if (isEdit) {
+    <div class="roles-section">
+      <h2>{{ 'iam.fields.roles' | translate }}</h2>
+
+      <ul class="role-list">
+        @for (assignment of assignments(); track assignment.id) {
+          <li class="role-item">
+            <div>
+              {{ 'iam.roles.' + roleName(assignment) | translate }}
+              <small>{{ assignment.assignedAt | date: 'medium' }}</small>
+            </div>
+            <button mat-icon-button type="button" [attr.aria-label]="'iam.roles.revoke' | translate"
+                    (click)="revokeRole(assignment)">
+              <mat-icon>link_off</mat-icon>
+            </button>
+          </li>
+        } @empty {
+          <li class="muted">{{ 'iam.roles.NONE' | translate }}</li>
+        }
+      </ul>
+
+      <div class="assign-row">
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'iam.roles.select' | translate }}</mat-label>
+          <mat-select [formControl]="roleControl">
+            @for (role of availableRoles(); track role.id) {
+              <mat-option [value]="role.id">{{ 'iam.roles.' + role.name | translate }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+        <button mat-flat-button type="button" [disabled]="roleControl.value === null" (click)="assignRole()">
+          {{ 'iam.roles.assign' | translate }}
+        </button>
+      </div>
+    </div>
+  }
+</section>

@@ -1,0 +1,599 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "email": "admin@washtrack.com",
+      "password": "admin123",
+      "firstName": "Ana",
+      "lastName": "Administradora",
+      "status": "ACTIVE",
+      "accountType": "LAUNDRY",
+      "businessName": "WashTrack Lima"
+    },
+    {
+      "id": 2,
+      "email": "operator@washtrack.com",
+      "password": "operator123",
+      "firstName": "Pedro",
+      "lastName": "Fernández",
+      "status": "ACTIVE",
+      "accountType": "LAUNDRY",
+      "businessName": "WashTrack Lima"
+    },
+    {
+      "id": 3,
+      "email": "driver@washtrack.com",
+      "password": "driver123",
+      "firstName": "Luis",
+      "lastName": "Rojas",
+      "status": "ACTIVE",
+      "accountType": "LAUNDRY",
+      "businessName": "WashTrack Lima"
+    },
+    {
+      "id": 4,
+      "email": "ana.martinez@email.com",
+      "password": "cliente123",
+      "firstName": "Ana",
+      "lastName": "Martínez",
+      "status": "ACTIVE",
+      "accountType": "CLIENT",
+      "businessName": ""
+    },
+    {
+      "accountType": "CLIENT",
+      "businessName": "",
+      "firstName": "Ariana",
+      "lastName": "Perez",
+      "email": "arianaperez81106@gmail.com",
+      "password": "Ar8$23IsLLL",
+      "status": "ACTIVE",
+      "id": 5
+    }
+  ],
+  "roles": [
+    {
+      "id": 1,
+      "name": "ADMIN",
+      "permissions": [
+        "users:manage",
+        "roles:manage"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "OPERATOR",
+      "permissions": [
+        "orders:manage",
+        "operations:manage"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "DRIVER",
+      "permissions": [
+        "deliveries:view"
+      ]
+    }
+  ],
+  "roleAssignments": [
+    {
+      "id": 1,
+      "userId": 1,
+      "roleId": 1,
+      "assignedAt": "2026-01-01T00:00:00.000Z",
+      "status": "ASSIGNED"
+    },
+    {
+      "id": 2,
+      "userId": 2,
+      "roleId": 2,
+      "assignedAt": "2026-01-01T00:00:00.000Z",
+      "status": "ASSIGNED"
+    },
+    {
+      "id": 3,
+      "userId": 3,
+      "roleId": 3,
+      "assignedAt": "2026-01-01T00:00:00.000Z",
+      "status": "ASSIGNED"
+    }
+  ],
+  "payments": [
+    {
+      "id": 1,
+      "orderId": 101,
+      "customerName": "Ana Martínez",
+      "amount": 45.5,
+      "paymentMethod": "CARD",
+      "status": "CONFIRMED",
+      "reference": "PAY-0001",
+      "paidAt": "2026-09-02T10:15:00.000Z"
+    },
+    {
+      "id": 2,
+      "orderId": 102,
+      "customerName": "Carlos Gómez",
+      "amount": 80,
+      "paymentMethod": "YAPE",
+      "status": "CONFIRMED",
+      "reference": "PAY-0002",
+      "paidAt": "2026-09-10T14:30:00.000Z"
+    },
+    {
+      "id": 3,
+      "orderId": 103,
+      "customerName": "Lucía Torres",
+      "amount": 32,
+      "paymentMethod": "CASH",
+      "status": "PENDING",
+      "reference": "PAY-0003",
+      "paidAt": "2026-09-18T09:00:00.000Z"
+    },
+    {
+      "id": 4,
+      "orderId": 104,
+      "customerName": "Ana Martínez",
+      "amount": 1500,
+      "paymentMethod": "CARD",
+      "status": "REJECTED",
+      "reference": "PAY-0004",
+      "paidAt": "2026-09-21T16:45:00.000Z"
+    },
+    {
+      "id": 5,
+      "orderId": 105,
+      "customerName": "Jorge Ramos",
+      "amount": 64.9,
+      "paymentMethod": "PLIN",
+      "status": "CONFIRMED",
+      "reference": "PAY-0005",
+      "paidAt": "2026-10-01T11:20:00.000Z"
+    },
+    {
+      "id": 6,
+      "orderId": 106,
+      "customerName": "Mía Salazar",
+      "amount": 27.5,
+      "paymentMethod": "CARD",
+      "status": "CONFIRMED",
+      "reference": "PAY-0006",
+      "paidAt": "2026-10-05T18:10:00.000Z"
+    }
+  ],
+  "plans": [
+    {
+      "id": 1,
+      "name": "FREE",
+      "price": 0,
+      "currency": "PEN",
+      "features": [
+        "orders"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "BASIC",
+      "price": 49,
+      "currency": "PEN",
+      "features": [
+        "orders",
+        "reports",
+        "digital-payments"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "ADVANCED",
+      "price": 99,
+      "currency": "PEN",
+      "features": [
+        "orders",
+        "reports",
+        "digital-payments",
+        "advanced-history",
+        "delivery"
+      ]
+    }
+  ],
+  "subscriptions": [
+    {
+      "id": 1,
+      "laundryId": 1,
+      "planId": 2,
+      "status": "ACTIVE",
+      "startDate": "2026-09-14T00:00:00.000Z",
+      "endDate": "2026-10-14T00:00:00.000Z"
+    },
+    {
+      "id": 2,
+      "laundryId": 2,
+      "planId": 3,
+      "status": "ACTIVE",
+      "startDate": "2026-10-01T00:00:00.000Z",
+      "endDate": "2026-10-31T00:00:00.000Z"
+    },
+    {
+      "id": 3,
+      "laundryId": 3,
+      "planId": 1,
+      "status": "ACTIVE",
+      "startDate": "2026-01-01T00:00:00.000Z",
+      "endDate": "2027-01-01T00:00:00.000Z"
+    }
+  ],
+  "deliveries": [
+    {
+      "id": 1,
+      "orderId": 101,
+      "customerName": "Ana Martínez",
+      "type": "DELIVERY",
+      "address": "Av. Larco 123, Miraflores",
+      "driverName": "Luis Quispe",
+      "scheduledAt": "2026-10-02T15:00:00.000Z",
+      "status": "COMPLETED",
+      "completedAt": "2026-10-02T15:40:00.000Z"
+    },
+    {
+      "id": 2,
+      "orderId": 102,
+      "customerName": "Carlos Gómez",
+      "type": "PICKUP",
+      "address": "Jr. Union 456, Lima",
+      "driverName": "Luis Quispe",
+      "scheduledAt": "2026-10-06T09:00:00.000Z",
+      "status": "COMPLETED",
+      "completedAt": "2026-10-06T09:25:00.000Z"
+    },
+    {
+      "id": 3,
+      "orderId": 103,
+      "customerName": "Lucía Torres",
+      "type": "DELIVERY",
+      "address": "Calle Los Pinos 78, San Isidro",
+      "driverName": "Marco Rojas",
+      "scheduledAt": "2026-10-09T16:00:00.000Z",
+      "status": "ON_THE_WAY",
+      "completedAt": ""
+    },
+    {
+      "id": 4,
+      "orderId": 104,
+      "customerName": "Jorge Ramos",
+      "type": "PICKUP",
+      "address": "Av. Arequipa 900, Lince",
+      "driverName": "Marco Rojas",
+      "scheduledAt": "2026-10-10T10:30:00.000Z",
+      "status": "SCHEDULED",
+      "completedAt": ""
+    },
+    {
+      "id": 5,
+      "orderId": 105,
+      "customerName": "Mía Salazar",
+      "type": "DELIVERY",
+      "address": "Av. Brasil 310, Pueblo Libre",
+      "driverName": "Luis Quispe",
+      "scheduledAt": "2026-10-08T12:00:00.000Z",
+      "status": "FAILED",
+      "completedAt": ""
+    }
+  ],
+  "trackingEvents": [
+    {
+      "id": 1,
+      "deliveryId": 1,
+      "status": "SCHEDULED",
+      "note": "delivery.events.SCHEDULED",
+      "occurredAt": "2026-10-01T18:00:00.000Z"
+    },
+    {
+      "id": 2,
+      "deliveryId": 1,
+      "status": "ON_THE_WAY",
+      "note": "delivery.events.ON_THE_WAY",
+      "occurredAt": "2026-10-02T15:05:00.000Z"
+    },
+    {
+      "id": 3,
+      "deliveryId": 1,
+      "status": "COMPLETED",
+      "note": "delivery.events.COMPLETED",
+      "occurredAt": "2026-10-02T15:40:00.000Z"
+    },
+    {
+      "id": 4,
+      "deliveryId": 2,
+      "status": "SCHEDULED",
+      "note": "delivery.events.SCHEDULED",
+      "occurredAt": "2026-10-05T17:00:00.000Z"
+    },
+    {
+      "id": 5,
+      "deliveryId": 2,
+      "status": "ON_THE_WAY",
+      "note": "delivery.events.ON_THE_WAY",
+      "occurredAt": "2026-10-06T09:05:00.000Z"
+    },
+    {
+      "id": 6,
+      "deliveryId": 2,
+      "status": "COMPLETED",
+      "note": "delivery.events.COMPLETED",
+      "occurredAt": "2026-10-06T09:25:00.000Z"
+    },
+    {
+      "id": 7,
+      "deliveryId": 3,
+      "status": "SCHEDULED",
+      "note": "delivery.events.SCHEDULED",
+      "occurredAt": "2026-10-08T18:30:00.000Z"
+    },
+    {
+      "id": 8,
+      "deliveryId": 3,
+      "status": "ON_THE_WAY",
+      "note": "delivery.events.ON_THE_WAY",
+      "occurredAt": "2026-10-09T15:10:00.000Z"
+    },
+    {
+      "id": 9,
+      "deliveryId": 4,
+      "status": "SCHEDULED",
+      "note": "delivery.events.SCHEDULED",
+      "occurredAt": "2026-10-09T11:00:00.000Z"
+    },
+    {
+      "id": 10,
+      "deliveryId": 5,
+      "status": "SCHEDULED",
+      "note": "delivery.events.SCHEDULED",
+      "occurredAt": "2026-10-07T18:00:00.000Z"
+    },
+    {
+      "id": 11,
+      "deliveryId": 5,
+      "status": "ON_THE_WAY",
+      "note": "delivery.events.ON_THE_WAY",
+      "occurredAt": "2026-10-08T11:45:00.000Z"
+    },
+    {
+      "id": 12,
+      "deliveryId": 5,
+      "status": "FAILED",
+      "note": "delivery.events.FAILED",
+      "occurredAt": "2026-10-08T12:20:00.000Z"
+    }
+  ],
+  "orders": [
+    {
+      "id": 101,
+      "orderNumber": "ORD-000001",
+      "customerId": 4,
+      "deliveryMethod": "HOME_DELIVERY",
+      "status": "COMPLETED",
+      "totalAmount": 45.5,
+      "createdAt": "2026-10-01T14:30:00.000Z",
+      "garments": [
+        {
+          "id": 1,
+          "type": "Abrigo",
+          "color": "negro",
+          "notes": "Forro descosido en la manga izquierda",
+          "quantity": 1,
+          "unitPrice": 20
+        },
+        {
+          "id": 2,
+          "type": "Saco",
+          "color": "azul marino",
+          "notes": "",
+          "quantity": 1,
+          "unitPrice": 10.5
+        },
+        {
+          "id": 3,
+          "type": "Vestido",
+          "color": "rojo",
+          "notes": "",
+          "quantity": 1,
+          "unitPrice": 10
+        }
+      ]
+    },
+    {
+      "id": 102,
+      "orderNumber": "ORD-000002",
+      "customerId": 5,
+      "deliveryMethod": "STORE_PICKUP",
+      "status": "COMPLETED",
+      "totalAmount": 80,
+      "createdAt": "2026-10-01T16:10:00.000Z",
+      "garments": [
+        {
+          "id": 1,
+          "type": "Terno",
+          "color": "gris oscuro",
+          "notes": "",
+          "quantity": 1,
+          "unitPrice": 25
+        },
+        {
+          "id": 2,
+          "type": "Terno",
+          "color": "gris claro",
+          "notes": "",
+          "quantity": 1,
+          "unitPrice": 25
+        },
+        {
+          "id": 3,
+          "type": "Frazada",
+          "color": "blanco",
+          "notes": "",
+          "quantity": 1,
+          "unitPrice": 15
+        },
+        {
+          "id": 4,
+          "type": "Frazada",
+          "color": "beige",
+          "notes": "",
+          "quantity": 1,
+          "unitPrice": 15
+        }
+      ]
+    },
+    {
+      "id": 103,
+      "orderNumber": "ORD-000003",
+      "customerId": 4,
+      "deliveryMethod": "HOME_DELIVERY",
+      "status": "CONFIRMED",
+      "totalAmount": 32,
+      "createdAt": "2026-10-05T15:20:00.000Z",
+      "garments": [
+        {
+          "id": 1,
+          "type": "Saco",
+          "color": "verde",
+          "notes": "",
+          "quantity": 1,
+          "unitPrice": 10
+        },
+        {
+          "id": 2,
+          "type": "Vestido",
+          "color": "blanco",
+          "notes": "Mancha de vino al frente",
+          "quantity": 1,
+          "unitPrice": 9
+        },
+        {
+          "id": 3,
+          "type": "Camisa",
+          "color": "celeste",
+          "notes": "",
+          "quantity": 2,
+          "unitPrice": 4
+        }
+      ]
+    },
+    {
+      "id": 104,
+      "orderNumber": "ORD-000004",
+      "customerId": 5,
+      "deliveryMethod": "STORE_PICKUP",
+      "status": "PENDING",
+      "totalAmount": 26,
+      "createdAt": "2026-10-07T13:45:00.000Z",
+      "garments": [
+        {
+          "id": 1,
+          "type": "Camisa",
+          "color": "blanco",
+          "notes": "",
+          "quantity": 1,
+          "unitPrice": 8
+        },
+        {
+          "id": 2,
+          "type": "Camisa",
+          "color": "rosado",
+          "notes": "",
+          "quantity": 1,
+          "unitPrice": 8
+        },
+        {
+          "id": 3,
+          "type": "Pantalón",
+          "color": "negro",
+          "notes": "",
+          "quantity": 1,
+          "unitPrice": 10
+        }
+      ]
+    },
+    {
+      "id": 105,
+      "orderNumber": "ORD-000005",
+      "customerId": 4,
+      "deliveryMethod": "HOME_DELIVERY",
+      "status": "PENDING",
+      "totalAmount": 64.9,
+      "createdAt": "2026-10-08T17:05:00.000Z",
+      "garments": [
+        {
+          "id": 1,
+          "type": "Abrigo",
+          "color": "camel",
+          "notes": "",
+          "quantity": 1,
+          "unitPrice": 20
+        },
+        {
+          "id": 2,
+          "type": "Terno",
+          "color": "azul marino",
+          "notes": "",
+          "quantity": 1,
+          "unitPrice": 25
+        },
+        {
+          "id": 3,
+          "type": "Saco",
+          "color": "marrón",
+          "notes": "",
+          "quantity": 1,
+          "unitPrice": 14.9
+        }
+      ]
+    },
+    {
+      "id": 106,
+      "orderNumber": "ORD-000006",
+      "customerId": 5,
+      "deliveryMethod": "HOME_DELIVERY",
+      "status": "CONFIRMED",
+      "totalAmount": 27.5,
+      "createdAt": "2026-10-08T21:30:00.000Z",
+      "garments": [
+        {
+          "id": 1,
+          "type": "Abrigo",
+          "color": "gris",
+          "notes": "",
+          "quantity": 1,
+          "unitPrice": 15
+        },
+        {
+          "id": 2,
+          "type": "Camisa",
+          "color": "blanco",
+          "notes": "Cuello con cuidado especial",
+          "quantity": 1,
+          "unitPrice": 7.5
+        }
+      ]
+    },
+    {
+      "id": 107,
+      "orderNumber": "ORD-000007",
+      "customerId": 1,
+      "deliveryMethod": "STORE_PICKUP",
+      "status": "COMPLETED",
+      "totalAmount": 180,
+      "createdAt": "2026-10-09T14:54:44.774Z",
+      "garments": [
+        {
+          "id": 1,
+          "type": "sabana",
+          "color": "blanco",
+          "notes": "Lavar por separado",
+          "quantity": 6,
+          "unitPrice": 30
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+<h1>{{ 'subscriptions.plans.title' | translate }}</h1>
+<p class="muted">{{ 'subscriptions.plans.subtitle' | translate }}</p>
+
+@for (error of store.errors(); track error) {
+  <p class="muted" role="alert">{{ error | translate }}</p>
+}
+
+<div class="plans">
+  @for (plan of store.plans(); track plan.id) {
+    <section class="plan" [class.current]="isCurrent(plan)">
+      <h2>{{ 'subscriptions.plan.' + plan.name | translate }}</h2>
+      <p class="price">
+        {{ plan.price | currency: plan.currency:'S/ ':'1.0-0' }}
+        <span class="muted">/ {{ 'subscriptions.plans.month' | translate }}</span>
+      </p>
+      <ul>
+        @for (feature of features; track feature) {
+          <li [class.disabled]="!plan.hasFeature(feature)">
+            <mat-icon>{{ plan.hasFeature(feature) ? 'check' : 'close' }}</mat-icon>
+            {{ 'subscriptions.features.' + feature | translate }}
+          </li>
+        }
+      </ul>
+      @if (isCurrent(plan)) {
+        <span class="badge">{{ 'subscriptions.plans.current' | translate }}</span>
+      } @else {
+        <button mat-flat-button type="button" (click)="choose(plan)">
+          {{ 'subscriptions.plans.choose' | translate }}
+        </button>
+      }
+    </section>
+  }
+</div>
