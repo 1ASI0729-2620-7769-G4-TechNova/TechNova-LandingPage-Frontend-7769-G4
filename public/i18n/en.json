@@ -44,7 +44,10 @@
   "option": {
     "billing": "Billing",
     "payments": "Payments",
-    "checkout": "Pay order"
+    "checkout": "Pay order",
+    "subscriptions": "Subscription",
+    "subscription": "My plan",
+    "plans": "Plans"
   },
   "billing": {
     "history": {
@@ -96,6 +99,46 @@
       "required": "This field is required.",
       "invalid-amount": "The amount must be greater than zero.",
       "rejected": "The payment was rejected. The amount remains pending."
+    }
+  },
+  "subscriptions": {
+    "plan": {
+      "FREE": "Free",
+      "BASIC": "Basic",
+      "ADVANCED": "Advanced"
+    },
+    "features": {
+      "orders": "Order management",
+      "reports": "Reports",
+      "digital-payments": "Digital payments",
+      "advanced-history": "Advanced history",
+      "delivery": "Delivery coordination"
+    },
+    "status": {
+      "ACTIVE": "Active",
+      "EXPIRED": "Expired",
+      "CANCELLED": "Cancelled"
+    },
+    "plans": {
+      "title": "Plans and prices",
+      "subtitle": "Compare the plans and pick the one that fits your laundry.",
+      "month": "month",
+      "current": "Current plan",
+      "choose": "Choose plan",
+      "confirm-change": "Change to the {{plan}} plan?"
+    },
+    "mine": {
+      "title": "My subscription",
+      "plan": "Plan",
+      "status": "Status",
+      "start": "Start date",
+      "end": "Valid until",
+      "renew": "Renew",
+      "change": "Change plan",
+      "expiring": "Your plan expires in {{days}} day(s). Renew it to keep your features.",
+      "expired": "Your plan has expired. Renew it to enable your features again.",
+      "none": "Your laundry has no active subscription.",
+      "choose": "Choose a plan"
     }
   }
 }
