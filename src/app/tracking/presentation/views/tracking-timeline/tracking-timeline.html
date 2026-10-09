@@ -1,6 +1,9 @@
-<h1>{{ 'delivery.tracking.title' | translate }}</h1>
+<h1>{{ 'tracking.title' | translate }}</h1>
 
-@for (error of store.errors(); track error) {
+@for (error of deliveryStore.errors(); track error) {
+  <p class="error" role="alert">{{ error | translate }}</p>
+}
+@for (error of trackingStore.errors(); track error) {
   <p class="error" role="alert">{{ error | translate }}</p>
 }
 
@@ -25,21 +28,21 @@
 
       <div class="actions">
         @if (nextStatus(); as next) {
-          <button mat-flat-button type="button" (click)="store.advance(d.id)">
-            {{ 'delivery.tracking.advance-to' | translate }} {{ 'delivery.status.' + next | translate }}
+          <button mat-flat-button type="button" (click)="deliveryStore.advance(d.id)">
+            {{ 'tracking.advance-to' | translate }} {{ 'delivery.status.' + next | translate }}
           </button>
         }
         @if (canFail()) {
-          <button mat-stroked-button type="button" (click)="store.markFailed(d.id)">
-            {{ 'delivery.tracking.mark-failed' | translate }}
+          <button mat-stroked-button type="button" (click)="deliveryStore.markFailed(d.id)">
+            {{ 'tracking.mark-failed' | translate }}
           </button>
         }
-        <a mat-button routerLink="/operations/deliveries">{{ 'delivery.tracking.back' | translate }}</a>
+        <a mat-button routerLink="/operations/deliveries">{{ 'tracking.back' | translate }}</a>
       </div>
     </div>
 
-    <ol class="timeline" [attr.aria-label]="'delivery.tracking.history' | translate">
-      @for (event of store.events(); track event.id) {
+    <ol class="timeline" [attr.aria-label]="'tracking.history' | translate">
+      @for (event of trackingStore.events(); track event.id) {
         <li>
           <span class="dot" [class]="'dot status-' + event.status"></span>
           <div>
@@ -51,6 +54,6 @@
       }
     </ol>
   </div>
-} @else if (store.loaded()) {
-  <p class="muted">{{ 'delivery.tracking.not-found' | translate }}</p>
+} @else if (deliveryStore.loaded()) {
+  <p class="muted">{{ 'tracking.not-found' | translate }}</p>
 }
