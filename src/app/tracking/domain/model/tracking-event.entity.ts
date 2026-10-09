@@ -1,5 +1,5 @@
 import {BaseEntity} from '../../../shared/domain/model/base-entity';
-import {DeliveryStatus} from './delivery-status';
+import {DeliveryStatus} from '../../../delivery/domain/model/delivery-status';
 
 /**
  * Entry of the tracking history of a delivery: a status reached at a given moment.

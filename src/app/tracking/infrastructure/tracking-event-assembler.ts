@@ -1,6 +1,6 @@
 import {BaseAssembler} from '../../shared/infrastructure/base-assembler';
 import {TrackingEvent} from '../domain/model/tracking-event.entity';
-import {DeliveryStatus} from '../domain/model/delivery-status';
+import {DeliveryStatus} from '../../delivery/domain/model/delivery-status';
 import {TrackingEventResource, TrackingEventsResponse} from './tracking-event-resource';
 
 /**
