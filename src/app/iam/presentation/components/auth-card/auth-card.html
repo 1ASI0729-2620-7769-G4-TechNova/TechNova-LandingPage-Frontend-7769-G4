@@ -1,0 +1,8 @@
+<div class="lang"><app-language-switcher/></div>
+<section class="card" [style.max-width.px]="maxWidth()">
+  <h1>{{ title() }}</h1>
+  @if (subtitle()) {
+    <p class="subtitle">{{ subtitle() }}</p>
+  }
+  <ng-content/>
+</section>

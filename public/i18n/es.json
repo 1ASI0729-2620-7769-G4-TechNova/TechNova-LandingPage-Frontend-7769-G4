@@ -1,10 +1,44 @@
 {
-  "compilerOptions": {
-    "target": "es2016",
-    "module": "commonjs",
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "strict": true,
-    "skipLibCheck": true
+  "iam": {
+    "sign-in": {
+      "title": "Iniciar Sesión",
+      "subtitle": "Ingresa a tu cuenta para continuar",
+      "forgot": "¿Olvidaste tu contraseña?",
+      "submit": "Iniciar Sesión",
+      "no-account": "¿No tienes cuenta?",
+      "create-account": "Regístrate aquí"
+    },
+    "sign-up": {
+      "title": "Crear Cuenta",
+      "subtitle": "Regístrate para comenzar a usar WashTrack",
+      "submit": "Registrarse",
+      "have-account": "¿Ya tienes una cuenta?",
+      "sign-in": "Inicia sesión aquí"
+    },
+    "forgot": {
+      "title": "Recuperar Contraseña",
+      "subtitle": "Ingresa tu correo para restablecer el acceso",
+      "submit": "Enviar instrucciones",
+      "back": "Volver al inicio de sesión"
+    },
+    "account-type": {
+      "label": "Tipo de cuenta",
+      "CLIENT": "Cliente",
+      "LAUNDRY": "Lavandería"
+    },
+    "fields": {
+      "email": "Correo electrónico",
+      "password": "Contraseña",
+      "new-password": "Nueva contraseña",
+      "confirm-password": "Confirmar contraseña",
+      "first-name": "Nombres",
+      "last-name": "Apellidos",
+      "business-name": "Razón social",
+      "contact-first-name": "Nombre de contacto",
+      "contact-last-name": "Apellido de contacto"
+    },
+    "password": {
+      "rules": "La contraseña debe tener al menos 8 caracteres, una mayúscula y un número."
+    }
   }
 }

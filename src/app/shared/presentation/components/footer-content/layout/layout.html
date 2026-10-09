@@ -41,6 +41,10 @@
           <span class="user-name">{{ user().name }}</span>
           <span class="user-role">{{ user().role | translate }}</span>
         </div>
+        <a mat-icon-button routerLink="/change-password" routerLinkActive="active"
+           [attr.aria-label]="'user.change-password' | translate">
+          <mat-icon>lock_reset</mat-icon>
+        </a>
         <button mat-icon-button type="button" [attr.aria-label]="'user.logout' | translate"
                 (click)="signOut()">
           <mat-icon>logout</mat-icon>

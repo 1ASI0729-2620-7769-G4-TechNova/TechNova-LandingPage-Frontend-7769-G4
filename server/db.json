@@ -1,0 +1,102 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "email": "admin@washtrack.com",
+      "password": "admin123",
+      "firstName": "Ana",
+      "lastName": "Administradora",
+      "status": "ACTIVE",
+      "accountType": "LAUNDRY",
+      "businessName": "WashTrack Lima"
+    },
+    {
+      "id": 2,
+      "email": "operator@washtrack.com",
+      "password": "operator123",
+      "firstName": "Pedro",
+      "lastName": "Fernández",
+      "status": "ACTIVE",
+      "accountType": "LAUNDRY",
+      "businessName": "WashTrack Lima"
+    },
+    {
+      "id": 3,
+      "email": "driver@washtrack.com",
+      "password": "driver123",
+      "firstName": "Luis",
+      "lastName": "Rojas",
+      "status": "ACTIVE",
+      "accountType": "LAUNDRY",
+      "businessName": "WashTrack Lima"
+    },
+    {
+      "id": 4,
+      "email": "ana.martinez@email.com",
+      "password": "cliente123",
+      "firstName": "Ana",
+      "lastName": "Martínez",
+      "status": "ACTIVE",
+      "accountType": "CLIENT",
+      "businessName": ""
+    },
+    {
+      "accountType": "CLIENT",
+      "businessName": "",
+      "firstName": "Ariana",
+      "lastName": "Perez",
+      "email": "arianaperez81106@gmail.com",
+      "password": "Ar8$23IsLLL",
+      "status": "ACTIVE",
+      "id": 5
+    }
+  ],
+  "roles": [
+    {
+      "id": 1,
+      "name": "ADMIN",
+      "permissions": [
+        "users:manage",
+        "roles:manage"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "OPERATOR",
+      "permissions": [
+        "orders:manage",
+        "operations:manage"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "DRIVER",
+      "permissions": [
+        "deliveries:view"
+      ]
+    }
+  ],
+  "roleAssignments": [
+    {
+      "id": 1,
+      "userId": 1,
+      "roleId": 1,
+      "assignedAt": "2026-01-01T00:00:00.000Z",
+      "status": "ASSIGNED"
+    },
+    {
+      "id": 2,
+      "userId": 2,
+      "roleId": 2,
+      "assignedAt": "2026-01-01T00:00:00.000Z",
+      "status": "ASSIGNED"
+    },
+    {
+      "id": 3,
+      "userId": 3,
+      "roleId": 3,
+      "assignedAt": "2026-01-01T00:00:00.000Z",
+      "status": "ASSIGNED"
+    }
+  ]
+}
