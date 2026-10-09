@@ -124,7 +124,8 @@
     "services": "Services",
     "drivers": "Drivers",
     "users": "Users",
-    "about": "About"
+    "about": "About",
+    "tracking": "Tracking"
   },
   "billing": {
     "history": {
@@ -252,24 +253,10 @@
       "PICKUP": "Pickup",
       "DELIVERY": "Delivery"
     },
-    "events": {
-      "SCHEDULED": "Delivery scheduled.",
-      "ON_THE_WAY": "The driver is on the way.",
-      "COMPLETED": "Delivery completed.",
-      "FAILED": "The delivery could not be completed."
-    },
     "schedule": {
       "title": "Schedule pickup or delivery",
       "subtitle": "Coordinate the collection or return of an order.",
       "submit": "Schedule"
-    },
-    "tracking": {
-      "title": "Delivery tracking",
-      "history": "Tracking history",
-      "advance-to": "Move to:",
-      "mark-failed": "Mark as failed",
-      "back": "Back to deliveries",
-      "not-found": "Delivery not found."
     },
     "errors": {
       "required": "This field is required.",
@@ -397,5 +384,41 @@
   "user": {
     "logout": "Sign out",
     "change-password": "Change password"
+  },
+  "tracking": {
+    "list": {
+      "title": "Order tracking",
+      "notifications": "Notifications",
+      "empty": "There are no orders to track yet.",
+      "view": "View stages"
+    },
+    "fields": {
+      "order": "Order",
+      "stage": "Stage",
+      "updated-at": "Last update"
+    },
+    "stage": {
+      "RECEIVED": "Received",
+      "IN_PROCESS": "In process",
+      "READY_FOR_DELIVERY": "Ready for delivery",
+      "DELIVERED": "Delivered"
+    },
+    "detail": {
+      "title": "Order progress",
+      "advance-to": "Move to:",
+      "back": "Back to tracking",
+      "not-found": "Order not found."
+    },
+    "notifications": {
+      "title": "Notifications",
+      "message": "Your order {{order}} is now: {{stage}}.",
+      "mark-all": "Mark all as read",
+      "mark-read": "Mark as read",
+      "empty": "You have no notifications."
+    },
+    "errors": {
+      "already-delivered": "The order was already delivered.",
+      "recipient-not-found": "The customer does not exist, so no notification was sent."
+    }
   }
 }

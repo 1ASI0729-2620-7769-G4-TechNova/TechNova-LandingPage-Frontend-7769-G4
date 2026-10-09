@@ -51,11 +51,13 @@
     <div class="layout-main">
       <mat-toolbar class="topbar">
         <app-language-switcher/>
-        <button mat-icon-button type="button" class="notifications"
-                [attr.aria-label]="'topbar.notifications' | translate">
-          <mat-icon>notifications_none</mat-icon>
-          <span class="notifications-dot"></span>
-        </button>
+        <a mat-icon-button routerLink="/tracking/notifications" class="notifications"
+           [attr.aria-label]="'topbar.notifications' | translate">
+          <mat-icon>{{ tracking.unreadCount() > 0 ? 'notifications' : 'notifications_none' }}</mat-icon>
+          @if (tracking.unreadCount() > 0) {
+            <span class="notifications-dot"></span>
+          }
+        </a>
         <span class="topbar-divider"></span>
         <div class="topbar-user">
           <span class="avatar"><mat-icon>person</mat-icon></span>

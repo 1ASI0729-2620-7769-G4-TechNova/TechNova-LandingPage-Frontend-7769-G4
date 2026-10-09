@@ -1,0 +1,36 @@
+<h1>{{ 'tracking.detail.title' | translate }}</h1>
+
+@for (error of store.errors(); track error) {
+  <p class="error" role="alert">{{ error | translate }}</p>
+}
+
+@if (tracking(); as t) {
+  <div class="card">
+    <p class="order">{{ t.orderNumber }}</p>
+
+    <ol class="stages">
+      @for (stage of stages; track stage; let i = $index) {
+        <li [class.done]="i <= t.stageIndex()" [class.current]="i === t.stageIndex()">
+          <span class="dot"><mat-icon>{{ i <= t.stageIndex() ? 'check' : 'radio_button_unchecked' }}</mat-icon></span>
+          <div>
+            <strong>{{ 'tracking.stage.' + stage | translate }}</strong>
+            @if (changedAt()(stage); as date) {
+              <time class="muted">{{ date | date: 'dd/MM/yyyy HH:mm' }}</time>
+            }
+          </div>
+        </li>
+      }
+    </ol>
+
+    <div class="actions">
+      @if (isLaundry() && nextStage(); as next) {
+        <button mat-flat-button type="button" (click)="store.advance(t.orderId)">
+          {{ 'tracking.detail.advance-to' | translate }} {{ 'tracking.stage.' + next | translate }}
+        </button>
+      }
+      <a mat-button routerLink="/tracking">{{ 'tracking.detail.back' | translate }}</a>
+    </div>
+  </div>
+} @else if (store.loaded()) {
+  <p class="muted">{{ 'tracking.detail.not-found' | translate }}</p>
+}
