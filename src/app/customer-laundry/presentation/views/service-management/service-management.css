@@ -1,0 +1,96 @@
+h1 {
+  margin: 0 0 4px;
+  color: var(--wt-text);
+}
+
+h2 {
+  margin: 0;
+  font-size: 1.1rem;
+  color: var(--wt-text);
+}
+
+.content {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 24px;
+  margin-top: 16px;
+}
+
+.card {
+  display: flex;
+  flex: 1 1 280px;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 360px;
+  padding: 24px;
+  background-color: var(--wt-surface);
+  border: 1px solid var(--wt-border);
+  border-radius: 12px;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.875rem;
+  color: var(--wt-text);
+}
+
+input,
+select {
+  padding: 8px 10px;
+  border: 1px solid var(--wt-border);
+  border-radius: 8px;
+  background-color: var(--wt-background);
+  color: var(--wt-text);
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+}
+
+.table-wrapper {
+  flex: 2 1 480px;
+  overflow-x: auto;
+  background-color: var(--wt-surface);
+  border: 1px solid var(--wt-border);
+  border-radius: 12px;
+}
+
+table {
+  width: 100%;
+}
+
+.badge {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 999px;
+  background-color: #e3f6ea;
+  color: #1b7a3e;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.badge.inactive {
+  background-color: #fdecec;
+  color: #b3261e;
+}
+
+.muted {
+  font-size: 0.75rem;
+  color: var(--wt-text-muted);
+}
+
+.error {
+  margin: 0;
+  color: #b3261e;
+  font-size: 0.8rem;
+}
+
+.empty {
+  padding: 24px;
+  text-align: center;
+  color: var(--wt-text-muted);
+}

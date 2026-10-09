@@ -788,5 +788,70 @@
       "createdAt": "2026-10-09T09:30:00.000Z",
       "read": false
     }
+  ],
+  "laundryServices": [
+    {
+      "id": 1,
+      "name": "Lavado por kilo",
+      "description": "Lavado y secado de ropa de uso diario",
+      "unit": "KILO",
+      "price": 6,
+      "active": true
+    },
+    {
+      "id": 2,
+      "name": "Lavado en seco",
+      "description": "Prendas delicadas, sacos y ternos",
+      "unit": "PIECE",
+      "price": 15,
+      "active": true
+    },
+    {
+      "id": 3,
+      "name": "Planchado",
+      "description": "Planchado y doblado de prendas",
+      "unit": "PIECE",
+      "price": 4,
+      "active": true
+    },
+    {
+      "id": 4,
+      "name": "Lavado exprés",
+      "description": "Entrega en el mismo día con recargo",
+      "unit": "KILO",
+      "price": 9,
+      "active": true
+    },
+    {
+      "id": 5,
+      "name": "Frazadas y cobertores",
+      "description": "Lavado de frazadas y cobertores grandes",
+      "unit": "PIECE",
+      "price": 15,
+      "active": false
+    }
+  ],
+  "drivers": [
+    {
+      "id": 1,
+      "fullName": "Luis Quispe",
+      "phone": "987654321",
+      "vehicle": "Moto Honda 150cc - ABC-123",
+      "status": "ACTIVE"
+    },
+    {
+      "id": 2,
+      "fullName": "Marco Rojas",
+      "phone": "986123456",
+      "vehicle": "Moto Yamaha 125cc - XYZ-456",
+      "status": "ACTIVE"
+    },
+    {
+      "id": 3,
+      "fullName": "Carla Díaz",
+      "phone": "985321654",
+      "vehicle": "Bicicleta eléctrica",
+      "status": "INACTIVE"
+    }
   ]
 }
