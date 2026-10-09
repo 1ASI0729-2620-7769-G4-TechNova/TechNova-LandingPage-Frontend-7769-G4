@@ -1,0 +1,44 @@
+{
+  "iam": {
+    "sign-in": {
+      "title": "Sign In",
+      "subtitle": "Log in to your account to continue",
+      "forgot": "Forgot your password?",
+      "submit": "Sign In",
+      "no-account": "Don't have an account?",
+      "create-account": "Sign up here"
+    },
+    "sign-up": {
+      "title": "Create Account",
+      "subtitle": "Register to start using WashTrack",
+      "submit": "Sign Up",
+      "have-account": "Already have an account?",
+      "sign-in": "Sign in here"
+    },
+    "forgot": {
+      "title": "Reset Password",
+      "subtitle": "Enter your email to restore access",
+      "submit": "Send instructions",
+      "back": "Back to sign in"
+    },
+    "account-type": {
+      "label": "Account type",
+      "CLIENT": "Client",
+      "LAUNDRY": "Laundry"
+    },
+    "fields": {
+      "email": "Email address",
+      "password": "Password",
+      "new-password": "New password",
+      "confirm-password": "Confirm password",
+      "first-name": "First name",
+      "last-name": "Last name",
+      "business-name": "Business name",
+      "contact-first-name": "Contact first name",
+      "contact-last-name": "Contact last name"
+    },
+    "password": {
+      "rules": "Password must be at least 8 characters long and include an uppercase letter and a number."
+    }
+  }
+}

@@ -39,6 +39,16 @@
       "status": "ACTIVE",
       "accountType": "CLIENT",
       "businessName": ""
+    },
+    {
+      "accountType": "CLIENT",
+      "businessName": "",
+      "firstName": "Ariana",
+      "lastName": "Perez",
+      "email": "arianaperez81106@gmail.com",
+      "password": "Ar8$23IsLLL",
+      "status": "ACTIVE",
+      "id": 5
     }
   ],
   "roles": [
