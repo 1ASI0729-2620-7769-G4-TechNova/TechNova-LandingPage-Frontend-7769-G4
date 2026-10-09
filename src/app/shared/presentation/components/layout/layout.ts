@@ -1,4 +1,4 @@
-import {Component, computed, inject, signal} from '@angular/core';
+import {Component, computed, effect, inject, signal} from '@angular/core';
 import {Router, RouterLink, RouterLinkActive, RouterOutlet} from '@angular/router';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatIconModule} from '@angular/material/icon';
@@ -7,6 +7,7 @@ import {TranslatePipe} from '@ngx-translate/core';
 import {LanguageSwitcher} from '../language-switcher/language-switcher';
 import {FooterContent} from '../footer-content/footer-content';
 import {IamStore} from '../../../../iam/application/iam.store';
+import {TrackingStore} from '../../../../tracking/application/tracking.store';
 
 /**
  * A navigation entry of the sidebar. Entries with `children` behave as expandable groups.
@@ -47,6 +48,11 @@ export class Layout {
    */
   protected readonly store = inject(IamStore);
 
+  /**
+   * Tracking store with the notifications of the signed-in user.
+   */
+  protected readonly tracking = inject(TrackingStore);
+
   private readonly router = inject(Router);
 
   /**
@@ -57,6 +63,7 @@ export class Layout {
   options = signal<NavOption[]>([
     {link: '/home', label: 'option.home', icon: 'dashboard'},
     {link: '/orders', label: 'option.orders', icon: 'shopping_bag'},
+    {link: '/tracking', label: 'option.tracking', icon: 'location_searching'},
     {
       label: 'option.operations', icon: 'tune', children: [
         {link: '/operations/pickup', label: 'option.pickup', icon: 'local_shipping'},
@@ -107,6 +114,13 @@ export class Layout {
     name: this.store.currentUser()?.fullName ?? '',
     role: this.store.primaryRoleKey()
   }));
+
+  constructor() {
+    effect(() => {
+      const user = this.store.currentUser();
+      if (user) this.tracking.fetchNotifications(user.id);
+    });
+  }
 
   /**
    * Signs the user out and goes to the sign-in view.
