@@ -252,24 +252,10 @@
       "PICKUP": "Recojo",
       "DELIVERY": "Entrega"
     },
-    "events": {
-      "SCHEDULED": "Entrega programada.",
-      "ON_THE_WAY": "El repartidor está en camino.",
-      "COMPLETED": "Entrega completada.",
-      "FAILED": "No se pudo completar la entrega."
-    },
     "schedule": {
       "title": "Programar recojo o entrega",
       "subtitle": "Coordina el recojo o la devolución de un pedido.",
       "submit": "Programar"
-    },
-    "tracking": {
-      "title": "Seguimiento de entrega",
-      "history": "Historial de seguimiento",
-      "advance-to": "Pasar a:",
-      "mark-failed": "Marcar como fallida",
-      "back": "Volver a entregas",
-      "not-found": "Entrega no encontrada."
     },
     "errors": {
       "required": "Este campo es obligatorio.",
@@ -397,5 +383,19 @@
   "user": {
     "logout": "Cerrar sesión",
     "change-password": "Cambiar contraseña"
+  },
+  "tracking": {
+    "title": "Seguimiento de entrega",
+    "history": "Historial de seguimiento",
+    "advance-to": "Pasar a:",
+    "mark-failed": "Marcar como fallida",
+    "back": "Volver a entregas",
+    "not-found": "Entrega no encontrada.",
+    "events": {
+      "SCHEDULED": "Entrega programada.",
+      "ON_THE_WAY": "El repartidor está en camino.",
+      "COMPLETED": "Entrega completada.",
+      "FAILED": "No se pudo completar la entrega."
+    }
   }
 }

@@ -252,24 +252,10 @@
       "PICKUP": "Pickup",
       "DELIVERY": "Delivery"
     },
-    "events": {
-      "SCHEDULED": "Delivery scheduled.",
-      "ON_THE_WAY": "The driver is on the way.",
-      "COMPLETED": "Delivery completed.",
-      "FAILED": "The delivery could not be completed."
-    },
     "schedule": {
       "title": "Schedule pickup or delivery",
       "subtitle": "Coordinate the collection or return of an order.",
       "submit": "Schedule"
-    },
-    "tracking": {
-      "title": "Delivery tracking",
-      "history": "Tracking history",
-      "advance-to": "Move to:",
-      "mark-failed": "Mark as failed",
-      "back": "Back to deliveries",
-      "not-found": "Delivery not found."
     },
     "errors": {
       "required": "This field is required.",
@@ -397,5 +383,19 @@
   "user": {
     "logout": "Sign out",
     "change-password": "Change password"
+  },
+  "tracking": {
+    "title": "Delivery tracking",
+    "history": "Tracking history",
+    "advance-to": "Move to:",
+    "mark-failed": "Mark as failed",
+    "back": "Back to deliveries",
+    "not-found": "Delivery not found.",
+    "events": {
+      "SCHEDULED": "Delivery scheduled.",
+      "ON_THE_WAY": "The driver is on the way.",
+      "COMPLETED": "Delivery completed.",
+      "FAILED": "The delivery could not be completed."
+    }
   }
 }
