@@ -1,12 +1,11 @@
 /**
- * Environment configuration of production builds. Development builds replace this file with
- * `environment.development.ts` (see angular.json).
+ * Environment configuration used by `ng serve` and development builds (local json-server).
  */
 export const environment = {
   /**
-   * Base URL of the fake REST API (json-server) deployed on Render.
+   * Base URL of the fake REST API (json-server).
    */
-  apiBaseUrl: 'https://technova-landingpage-frontend-7769-g4-mrsy.onrender.com',
+  apiBaseUrl: 'http://localhost:3002',
 
   /**
    * Path of the orders collection of the order management bounded context.
