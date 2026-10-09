@@ -1,0 +1,749 @@
+@startuml
+' WashTrack Frontend Application - Domain-Driven Design Class Diagram
+
+package "app" {
+
+  ' ==========================================
+  ' SHARED BOUNDED CONTEXT
+  ' ==========================================
+  package "shared" {
+    package "domain.model" {
+      interface BaseEntity {
+        +id: string
+      }
+    }
+
+    package "infrastructure" {
+      interface BaseResource {
+        +id: string
+      }
+
+      interface BaseResponse {
+      }
+
+      interface BaseAssembler<TEntity, TResource, TResponse> {
+        +toEntitiesFromResponse(response: TResponse): TEntity[]
+        +toEntityFromResource(resource: TResource): TEntity
+        +toResourceFromEntity(entity: TEntity): TResource
+      }
+
+      abstract class ErrorHandlingEnabledBaseType {
+        #handleError(operation: string): (error: HttpErrorResponse) => Observable<never>
+      }
+
+      abstract class BaseApiEndpoint<TEntity, TResource, TResponse, TAssembler> {
+        #http: HttpClient
+        #endpointUrl: string
+        #assembler: TAssembler
+        +getAll(): Observable<TEntity[]>
+        +getById(id: string): Observable<TEntity>
+        +create(entity: TEntity): Observable<TEntity>
+        +update(entity: TEntity, id: string): Observable<TEntity>
+        +delete(id: string): Observable<void>
+      }
+
+      abstract class BaseApi {
+      }
+
+      BaseApiEndpoint --|> ErrorHandlingEnabledBaseType : extends
+      BaseApiEndpoint --> BaseAssembler : uses
+      BaseAssembler ..> BaseEntity : converts
+      BaseAssembler ..> BaseResource : converts
+      BaseAssembler ..> BaseResponse : converts
+    }
+
+    package "presentation" {
+      abstract class BaseForm {
+        #isInvalidControl(form: FormGroup, controlName: string): boolean
+        #errorMessageForControl(form: FormGroup, controlName: string): string
+      }
+
+      package "components" {
+        class FooterContent <<Component>> {
+        }
+        class LanguageSwitcher <<Component>> {
+          +currentLang: string
+          +languages: string[]
+          +useLanguage(language: string): void
+        }
+        class Layout <<Component>> {
+          +options: Array<{link: string, label: string}>
+        }
+      }
+
+      package "views" {
+        class About <<Component>> {
+        }
+        class Home <<Component>> {
+        }
+        class PageNotFound <<Component>> {
+          +invalidPath: string
+          +ngOnInit(): void
+          +navigateToHome(): void
+        }
+      }
+
+      Layout --> FooterContent : contains
+      Layout --> LanguageSwitcher : contains
+      Layout --> Home : renders
+      Layout --> About : renders
+      Layout --> PageNotFound : renders
+    }
+  }
+
+  ' ==========================================
+  ' IDENTITY & ACCESS BOUNDED CONTEXT (IAM)
+  ' ==========================================
+  package "iam" {
+    package "domain.model" {
+      class User <<Entity>> {
+        - #id: string
+        - #username: string
+        - #email: string
+        - #role: string
+        +id: string
+        +username: string
+        +email: string
+        +role: string
+      }
+      User ..|> app.shared.domain.model.BaseEntity : implements
+
+      class SignInCommand {
+        - #username: string
+        - #password: string
+        +username: string
+        +password: string
+      }
+
+      class SignUpCommand {
+        - #username: string
+        - #email: string
+        - #password: string
+        - #role: string
+        +username: string
+        +email: string
+        +password: string
+        +role: string
+      }
+    }
+
+    package "infrastructure" {
+      class SignInResource <<Resource>> {
+        +id: string
+        +username: string
+        +token: string
+      }
+      class SignUpResource <<Resource>> {
+        +id: string
+        +username: string
+      }
+
+      class SignInAssembler <<Assembler>> {
+        +toEntityFromResource(resource: SignInResource): User
+      }
+      class SignUpAssembler <<Assembler>> {
+        +toEntityFromResource(resource: SignUpResource): User
+      }
+
+      class SignInApiEndpoint {
+        -endpointUrl: string
+        -assembler: SignInAssembler
+        +signIn(command: SignInCommand): Observable<User>
+      }
+      class SignUpApiEndpoint {
+        -endpointUrl: string
+        -assembler: SignUpAssembler
+        +signUp(command: SignUpCommand): Observable<User>
+      }
+
+      class IamApi {
+        -signInEndpoint: SignInApiEndpoint
+        -signUpEndpoint: SignUpApiEndpoint
+        +signIn(command: SignInCommand): Observable<User>
+        +signUp(command: SignUpCommand): Observable<User>
+      }
+
+      SignInApiEndpoint --|> app.shared.infrastructure.ErrorHandlingEnabledBaseType : extends
+      SignUpApiEndpoint --|> app.shared.infrastructure.ErrorHandlingEnabledBaseType : extends
+      IamApi --|> app.shared.infrastructure.BaseApi : extends
+      IamApi --> SignInApiEndpoint : delegates to
+      IamApi --> SignUpApiEndpoint : delegates to
+      SignInApiEndpoint --> SignInAssembler : uses
+      SignUpApiEndpoint --> SignUpAssembler : uses
+    }
+
+    package "application" {
+      class IamStore <<Store>> {
+        -iamApi: IamApi
+        -currentUserSignal: WritableSignal<User | null>
+        -tokenSignal: WritableSignal<string | null>
+        +currentUser: Signal<User | null>
+        +isSignedIn: Signal<boolean>
+        +currentUsername: Signal<string>
+        +signIn(command: SignInCommand, navigateTo: string[]): void
+        +signUp(command: SignUpCommand, navigateTo: string[]): void
+        +signOut(): void
+      }
+      IamStore --> IamApi : uses
+      IamStore --> User : manages
+    }
+
+    package "presentation" {
+      package "components" {
+        class AuthenticationSection <<Component>> {
+          -iamStore: IamStore
+          -router: Router
+          +isSignedIn: Signal<boolean>
+          +currentUsername: Signal<string>
+          +onSignIn(): void
+          +onSignUp(): void
+          +onSignOut(): void
+        }
+      }
+
+      package "views" {
+        class SignInForm <<Component>> {
+          -formBuilder: FormBuilder
+          -iamStore: IamStore
+          -router: Router
+          +signInForm: FormGroup
+          +onSubmit(): void
+        }
+        class SignUpForm <<Component>> {
+          -formBuilder: FormBuilder
+          -iamStore: IamStore
+          -router: Router
+          +signUpForm: FormGroup
+          +onSubmit(): void
+        }
+      }
+
+      AuthenticationSection --> IamStore : uses
+      SignInForm --|> app.shared.presentation.BaseForm : extends
+      SignUpForm --|> app.shared.presentation.BaseForm : extends
+      SignInForm --> IamStore : uses
+      SignUpForm --> IamStore : uses
+    }
+  }
+
+  ' ==========================================
+  ' CUSTOMER & LAUNDRY MANAGEMENT BOUNDED CONTEXT
+  ' ==========================================
+  package "customer_management" {
+    package "domain.model" {
+      class Customer <<Entity>> {
+        - #id: string
+        - #userId: string
+        - #fullName: string
+        - #phone: string
+        - #address: string
+        +id: string
+        +userId: string
+        +fullName: string
+        +phone: string
+        +address: string
+      }
+      Customer ..|> app.shared.domain.model.BaseEntity : implements
+
+      class LaundryBranch <<Entity>> {
+        - #id: string
+        - #name: string
+        - #address: string
+        - #phone: string
+        +id: string
+        +name: string
+        +address: string
+        +phone: string
+      }
+      LaundryBranch ..|> app.shared.domain.model.BaseEntity : implements
+    }
+
+    package "infrastructure" {
+      class CustomerResource <<Resource>> {
+        +id: string
+        +userId: string
+        +fullName: string
+        +phone: string
+        +address: string
+      }
+      class CustomersResponse <<Response>> {}
+
+      class CustomerAssembler <<Assembler>> {
+        +toEntitiesFromResponse(response: CustomersResponse): Customer[]
+        +toEntityFromResource(resource: CustomerResource): Customer
+        +toResourceFromEntity(entity: Customer): CustomerResource
+      }
+
+      class CustomersApiEndpoint {
+      }
+
+      class CustomerManagementApi {
+        -customersEndpoint: CustomersApiEndpoint
+        +getCustomers(): Observable<Customer[]>
+        +registerCustomer(customer: Customer): Observable<Customer>
+      }
+
+      CustomerAssembler ..|> app.shared.infrastructure.BaseAssembler : implements
+      CustomersApiEndpoint --|> app.shared.infrastructure.BaseApiEndpoint : extends
+      CustomerManagementApi --|> app.shared.infrastructure.BaseApi : extends
+      CustomerManagementApi --> CustomersApiEndpoint : delegates to
+      CustomersApiEndpoint --> CustomerAssembler : uses
+    }
+
+    package "application" {
+      class CustomerStore <<Store>> {
+        -api: CustomerManagementApi
+        -customersSignal: WritableSignal<Customer[]>
+        +customers: Signal<Customer[]>
+        +registerCustomer(customer: Customer): void
+        +loadCustomers(): void
+      }
+      CustomerStore --> CustomerManagementApi : uses
+      CustomerStore --> Customer : manages
+    }
+
+    package "presentation" {
+      package "views" {
+        class CustomerForm <<Component>> {
+          -formBuilder: FormBuilder
+          -store: CustomerStore
+          +customerForm: FormGroup
+          +onSubmit(): void
+        }
+        class CustomerList <<Component>> {
+          -store: CustomerStore
+          +customers: Signal<Customer[]>
+        }
+      }
+      CustomerForm --|> app.shared.presentation.BaseForm : extends
+      CustomerForm --> CustomerStore : uses
+      CustomerList --> CustomerStore : uses
+    }
+  }
+
+  ' ==========================================
+  ' ORDER MANAGEMENT BOUNDED CONTEXT
+  ' ==========================================
+  package "order_management" {
+    package "domain.model" {
+      class Order <<Entity>> {
+        - #id: string
+        - #orderNumber: string
+        - #customerId: string
+        - #deliveryMethod: string
+        - #status: string
+        - #totalAmount: number
+        +id: string
+        +orderNumber: string
+        +customerId: string
+        +deliveryMethod: string
+        +status: string
+        +totalAmount: number
+      }
+      Order ..|> app.shared.domain.model.BaseEntity : implements
+
+      class Garment <<Entity>> {
+        - #id: string
+        - #orderId: string
+        - #type: string
+        - #color: string
+        - #notes: string
+        +id: string
+        +orderId: string
+        +type: string
+        +color: string
+        +notes: string
+      }
+      Garment ..|> app.shared.domain.model.BaseEntity : implements
+      Order "1" <-- "*" Garment : contains
+    }
+
+    package "infrastructure" {
+      class OrderResource <<Resource>> {
+        +id: string
+        +orderNumber: string
+        +customerId: string
+        +deliveryMethod: string
+        +status: string
+      }
+      class OrdersResponse <<Response>> {}
+
+      class OrderAssembler <<Assembler>> {
+        +toEntitiesFromResponse(response: OrdersResponse): Order[]
+        +toEntityFromResource(resource: OrderResource): Order
+        +toResourceFromEntity(entity: Order): OrderResource
+      }
+
+      class OrdersApiEndpoint {
+      }
+
+      class OrderManagementApi {
+        -ordersEndpoint: OrdersApiEndpoint
+        +getOrders(): Observable<Order[]>
+        +createOrder(order: Order): Observable<Order>
+        +confirmOrder(id: string): Observable<Order>
+        +completeOrder(id: string): Observable<Order>
+      }
+
+      OrderAssembler ..|> app.shared.infrastructure.BaseAssembler : implements
+      OrdersApiEndpoint --|> app.shared.infrastructure.BaseApiEndpoint : extends
+      OrderManagementApi --|> app.shared.infrastructure.BaseApi : extends
+      OrderManagementApi --> OrdersApiEndpoint : delegates to
+      OrdersApiEndpoint --> OrderAssembler : uses
+    }
+
+    package "application" {
+      class OrderStore <<Store>> {
+        -api: OrderManagementApi
+        -ordersSignal: WritableSignal<Order[]>
+        +orders: Signal<Order[]>
+        +createOrder(order: Order): void
+        +confirmOrder(id: string): void
+        +completeOrder(id: string): void
+      }
+      OrderStore --> OrderManagementApi : uses
+      OrderStore --> Order : manages
+    }
+
+    package "presentation" {
+      package "views" {
+        class OrderForm <<Component>> {
+          -formBuilder: FormBuilder
+          -store: OrderStore
+          +orderForm: FormGroup
+          +onSubmit(): void
+        }
+        class OrderList <<Component>> {
+          -store: OrderStore
+          +orders: Signal<Order[]>
+        }
+      }
+      OrderForm --|> app.shared.presentation.BaseForm : extends
+      OrderForm --> OrderStore : uses
+      OrderList --> OrderStore : uses
+    }
+  }
+
+  ' ==========================================
+  ' LAUNDRY OPERATIONS BOUNDED CONTEXT
+  ' ==========================================
+  package "laundry_operations" {
+    package "domain.model" {
+      class LaundryOrder <<Entity>> {
+        - #id: string
+        - #originalOrderId: string
+        - #currentStage: string
+        +id: string
+        +originalOrderId: string
+        +currentStage: string
+      }
+      LaundryOrder ..|> app.shared.domain.model.BaseEntity : implements
+    }
+
+    package "infrastructure" {
+      class LaundryOrderResource <<Resource>> {
+        +id: string
+        +originalOrderId: string
+        +currentStage: string
+      }
+      class LaundryOrdersResponse <<Response>> {}
+
+      class LaundryOrderAssembler <<Assembler>> {
+        +toEntitiesFromResponse(response: LaundryOrdersResponse): LaundryOrder[]
+        +toEntityFromResource(resource: LaundryOrderResource): LaundryOrder
+        +toResourceFromEntity(entity: LaundryOrder): LaundryOrderResource
+      }
+
+      class LaundryOrdersApiEndpoint {
+      }
+
+      class LaundryOperationsApi {
+        -endpoint: LaundryOrdersApiEndpoint
+        +getLaundryOrders(): Observable<LaundryOrder[]>
+        +advanceStage(id: string, stage: string): Observable<LaundryOrder>
+      }
+
+      LaundryOrderAssembler ..|> app.shared.infrastructure.BaseAssembler : implements
+      LaundryOrdersApiEndpoint --|> app.shared.infrastructure.BaseApiEndpoint : extends
+      LaundryOperationsApi --|> app.shared.infrastructure.BaseApi : extends
+      LaundryOperationsApi --> LaundryOrdersApiEndpoint : delegates to
+      LaundryOrdersApiEndpoint --> LaundryOrderAssembler : uses
+    }
+
+    package "application" {
+      class LaundryOperationsStore <<Store>> {
+        -api: LaundryOperationsApi
+        -ordersSignal: WritableSignal<LaundryOrder[]>
+        +laundryOrders: Signal<LaundryOrder[]>
+        +advanceStage(id: string, stage: string): void
+      }
+      LaundryOperationsStore --> LaundryOperationsApi : uses
+      LaundryOperationsStore --> LaundryOrder : manages
+    }
+
+    package "presentation" {
+      package "views" {
+        class OperationsBoard <<Component>> {
+          -store: LaundryOperationsStore
+          +laundryOrders: Signal<LaundryOrder[]>
+          +onAdvanceStage(id: string, stage: string): void
+        }
+      }
+      OperationsBoard --> LaundryOperationsStore : uses
+    }
+  }
+
+  ' ==========================================
+  ' BILLING & SUBSCRIPTIONS BOUNDED CONTEXT
+  ' ==========================================
+  package "billing_subscriptions" {
+    package "domain.model" {
+      class Payment <<Entity>> {
+        - #id: string
+        - #orderId: string
+        - #amount: number
+        - #status: string
+        +id: string
+        +orderId: string
+        +amount: number
+        +status: string
+      }
+      Payment ..|> app.shared.domain.model.BaseEntity : implements
+
+      class Subscription <<Entity>> {
+        - #id: string
+        - #laundryId: string
+        - #planName: string
+        +id: string
+        +laundryId: string
+        +planName: string
+      }
+      Subscription ..|> app.shared.domain.model.BaseEntity : implements
+    }
+
+    package "infrastructure" {
+      class PaymentResource <<Resource>> {
+        +id: string
+        +orderId: string
+        +amount: number
+        +status: string
+      }
+      class PaymentsResponse <<Response>> {}
+
+      class PaymentAssembler <<Assembler>> {
+        +toEntitiesFromResponse(response: PaymentsResponse): Payment[]
+        +toEntityFromResource(resource: PaymentResource): Payment
+        +toResourceFromEntity(entity: Payment): PaymentResource
+      }
+
+      class PaymentsApiEndpoint {
+      }
+
+      class BillingApi {
+        -endpoint: PaymentsApiEndpoint
+        +registerPayment(payment: Payment): Observable<Payment>
+        +confirmPayment(id: string): Observable<Payment>
+      }
+
+      PaymentAssembler ..|> app.shared.infrastructure.BaseAssembler : implements
+      PaymentsApiEndpoint --|> app.shared.infrastructure.BaseApiEndpoint : extends
+      BillingApi --|> app.shared.infrastructure.BaseApi : extends
+      BillingApi --> PaymentsApiEndpoint : delegates to
+      PaymentsApiEndpoint --> PaymentAssembler : uses
+    }
+
+    package "application" {
+      class BillingStore <<Store>> {
+        -api: BillingApi
+        +registerPayment(payment: Payment): void
+        +confirmPayment(id: string): void
+      }
+      BillingStore --> BillingApi : uses
+      BillingStore --> Payment : manages
+      BillingStore --> Subscription : manages
+    }
+
+    package "presentation" {
+      package "views" {
+        class PaymentCheckout <<Component>> {
+          -formBuilder: FormBuilder
+          -store: BillingStore
+          +paymentForm: FormGroup
+          +onSubmit(): void
+        }
+        class SubscriptionPlanView <<Component>> {
+          -store: BillingStore
+          +onChangePlan(planName: string): void
+        }
+      }
+      PaymentCheckout --|> app.shared.presentation.BaseForm : extends
+      PaymentCheckout --> BillingStore : uses
+      SubscriptionPlanView --> BillingStore : uses
+    }
+  }
+
+  ' ==========================================
+  ' DELIVERY MANAGEMENT BOUNDED CONTEXT
+  ' ==========================================
+  package "delivery_management" {
+    package "domain.model" {
+      class Delivery <<Entity>> {
+        - #id: string
+        - #orderId: string
+        - #address: string
+        - #scheduledDate: string
+        - #status: string
+        +id: string
+        +orderId: string
+        +address: string
+        +scheduledDate: string
+        +status: string
+      }
+      Delivery ..|> app.shared.domain.model.BaseEntity : implements
+    }
+
+    package "infrastructure" {
+      class DeliveryResource <<Resource>> {
+        +id: string
+        +orderId: string
+        +address: string
+        +status: string
+      }
+      class DeliveriesResponse <<Response>> {}
+
+      class DeliveryAssembler <<Assembler>> {
+        +toEntitiesFromResponse(response: DeliveriesResponse): Delivery[]
+        +toEntityFromResource(resource: DeliveryResource): Delivery
+        +toResourceFromEntity(entity: Delivery): DeliveryResource
+      }
+
+      class DeliveriesApiEndpoint {
+      }
+
+      class DeliveryApi {
+        -endpoint: DeliveriesApiEndpoint
+        +scheduleDelivery(delivery: Delivery): Observable<Delivery>
+        +completeDelivery(id: string): Observable<Delivery>
+      }
+
+      DeliveryAssembler ..|> app.shared.infrastructure.BaseAssembler : implements
+      DeliveriesApiEndpoint --|> app.shared.infrastructure.BaseApiEndpoint : extends
+      DeliveryApi --|> app.shared.infrastructure.BaseApi : extends
+      DeliveryApi --> DeliveriesApiEndpoint : delegates to
+      DeliveriesApiEndpoint --> DeliveryAssembler : uses
+    }
+
+    package "application" {
+      class DeliveryStore <<Store>> {
+        -api: DeliveryApi
+        +scheduleDelivery(delivery: Delivery): void
+        +completeDelivery(id: string): void
+      }
+      DeliveryStore --> DeliveryApi : uses
+      DeliveryStore --> Delivery : manages
+    }
+
+    package "presentation" {
+      package "views" {
+        class DeliveryScheduler <<Component>> {
+          -formBuilder: FormBuilder
+          -store: DeliveryStore
+          +deliveryForm: FormGroup
+          +onSubmit(): void
+        }
+      }
+      DeliveryScheduler --|> app.shared.presentation.BaseForm : extends
+      DeliveryScheduler --> DeliveryStore : uses
+    }
+  }
+
+  ' ==========================================
+  ' TRACKING & NOTIFICATIONS BOUNDED CONTEXT
+  ' ==========================================
+  package "tracking_notifications" {
+    package "domain.model" {
+      class Tracking <<Entity>> {
+        - #id: string
+        - #orderId: string
+        - #status: string
+        - #updatedAt: string
+        +id: string
+        +orderId: string
+        +status: string
+        +updatedAt: string
+      }
+      Tracking ..|> app.shared.domain.model.BaseEntity : implements
+
+      class Notification <<Entity>> {
+        - #id: string
+        - #recipientId: string
+        - #message: string
+        - #sentAt: string
+        +id: string
+        +recipientId: string
+        +message: string
+        +sentAt: string
+      }
+      Notification ..|> app.shared.domain.model.BaseEntity : implements
+    }
+
+    package "infrastructure" {
+      class TrackingResource <<Resource>> {
+        +id: string
+        +orderId: string
+        +status: string
+      }
+      class TrackingsResponse <<Response>> {}
+
+      class TrackingAssembler <<Assembler>> {
+        +toEntitiesFromResponse(response: TrackingsResponse): Tracking[]
+        +toEntityFromResource(resource: TrackingResource): Tracking
+        +toResourceFromEntity(entity: Tracking): TrackingResource
+      }
+
+      class TrackingApiEndpoint {
+      }
+
+      class TrackingNotificationsApi {
+        -endpoint: TrackingApiEndpoint
+        +getTracking(orderId: string): Observable<Tracking>
+        +sendNotification(notification: Notification): Observable<Notification>
+      }
+
+      TrackingAssembler ..|> app.shared.infrastructure.BaseAssembler : implements
+      TrackingApiEndpoint --|> app.shared.infrastructure.BaseApiEndpoint : extends
+      TrackingNotificationsApi --|> app.shared.infrastructure.BaseApi : extends
+      TrackingNotificationsApi --> TrackingApiEndpoint : delegates to
+      TrackingApiEndpoint --> TrackingAssembler : uses
+    }
+
+    package "application" {
+      class TrackingNotificationsStore <<Store>> {
+        -api: TrackingNotificationsApi
+        +trackingSignal: WritableSignal<Tracking | null>
+        +getTracking(orderId: string): void
+      }
+      TrackingNotificationsStore --> TrackingNotificationsApi : uses
+      TrackingNotificationsStore --> Tracking : manages
+      TrackingNotificationsStore --> Notification : manages
+    }
+
+    package "presentation" {
+      package "views" {
+        class OrderStatusTracker <<Component>> {
+          -store: TrackingNotificationsStore
+          +trackingInfo: Signal<Tracking | null>
+        }
+      }
+      OrderStatusTracker --> TrackingNotificationsStore : uses
+    }
+  }
+
+  ' Root Application Component
+  class App <<Component>> {
+  }
+  App --> app.shared.presentation.components.Layout : renders
+  app.shared.presentation.components.Layout --> app.iam.presentation.components.AuthenticationSection : includes
+}
+
+@enduml

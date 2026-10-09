@@ -73,10 +73,6 @@
     <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef></th>
       <td mat-cell *matCellDef="let delivery">
-        <a mat-icon-button [routerLink]="['/operations/deliveries', delivery.id]"
-           [attr.aria-label]="'delivery.list.track' | translate">
-          <mat-icon>location_searching</mat-icon>
-        </a>
         @if (delivery.nextStatus()) {
           <button mat-icon-button type="button" [attr.aria-label]="'delivery.list.advance' | translate"
                   (click)="store.advance(delivery.id)">

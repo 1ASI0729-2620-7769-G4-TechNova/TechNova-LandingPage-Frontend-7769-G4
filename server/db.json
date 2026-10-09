@@ -279,92 +279,6 @@
       "completedAt": ""
     }
   ],
-  "trackingEvents": [
-    {
-      "id": 1,
-      "deliveryId": 1,
-      "status": "SCHEDULED",
-      "note": "delivery.events.SCHEDULED",
-      "occurredAt": "2026-10-01T18:00:00.000Z"
-    },
-    {
-      "id": 2,
-      "deliveryId": 1,
-      "status": "ON_THE_WAY",
-      "note": "delivery.events.ON_THE_WAY",
-      "occurredAt": "2026-10-02T15:05:00.000Z"
-    },
-    {
-      "id": 3,
-      "deliveryId": 1,
-      "status": "COMPLETED",
-      "note": "delivery.events.COMPLETED",
-      "occurredAt": "2026-10-02T15:40:00.000Z"
-    },
-    {
-      "id": 4,
-      "deliveryId": 2,
-      "status": "SCHEDULED",
-      "note": "delivery.events.SCHEDULED",
-      "occurredAt": "2026-10-05T17:00:00.000Z"
-    },
-    {
-      "id": 5,
-      "deliveryId": 2,
-      "status": "ON_THE_WAY",
-      "note": "delivery.events.ON_THE_WAY",
-      "occurredAt": "2026-10-06T09:05:00.000Z"
-    },
-    {
-      "id": 6,
-      "deliveryId": 2,
-      "status": "COMPLETED",
-      "note": "delivery.events.COMPLETED",
-      "occurredAt": "2026-10-06T09:25:00.000Z"
-    },
-    {
-      "id": 7,
-      "deliveryId": 3,
-      "status": "SCHEDULED",
-      "note": "delivery.events.SCHEDULED",
-      "occurredAt": "2026-10-08T18:30:00.000Z"
-    },
-    {
-      "id": 8,
-      "deliveryId": 3,
-      "status": "ON_THE_WAY",
-      "note": "delivery.events.ON_THE_WAY",
-      "occurredAt": "2026-10-09T15:10:00.000Z"
-    },
-    {
-      "id": 9,
-      "deliveryId": 4,
-      "status": "SCHEDULED",
-      "note": "delivery.events.SCHEDULED",
-      "occurredAt": "2026-10-09T11:00:00.000Z"
-    },
-    {
-      "id": 10,
-      "deliveryId": 5,
-      "status": "SCHEDULED",
-      "note": "delivery.events.SCHEDULED",
-      "occurredAt": "2026-10-07T18:00:00.000Z"
-    },
-    {
-      "id": 11,
-      "deliveryId": 5,
-      "status": "ON_THE_WAY",
-      "note": "delivery.events.ON_THE_WAY",
-      "occurredAt": "2026-10-08T11:45:00.000Z"
-    },
-    {
-      "id": 12,
-      "deliveryId": 5,
-      "status": "FAILED",
-      "note": "delivery.events.FAILED",
-      "occurredAt": "2026-10-08T12:20:00.000Z"
-    }
-  ],
   "orders": [
     {
       "id": 101,
@@ -594,6 +508,382 @@
           "unitPrice": 30
         }
       ]
+    }
+  ],
+  "orderTrackings": [
+    {
+      "id": 1,
+      "orderId": 101,
+      "orderNumber": "ORD-000001",
+      "customerId": 4,
+      "stage": "DELIVERED",
+      "updatedAt": "2026-10-02T08:30:00.000Z"
+    },
+    {
+      "id": 2,
+      "orderId": 102,
+      "orderNumber": "ORD-000002",
+      "customerId": 5,
+      "stage": "DELIVERED",
+      "updatedAt": "2026-10-02T10:10:00.000Z"
+    },
+    {
+      "id": 3,
+      "orderId": 103,
+      "orderNumber": "ORD-000003",
+      "customerId": 4,
+      "stage": "IN_PROCESS",
+      "updatedAt": "2026-10-05T21:20:00.000Z"
+    },
+    {
+      "id": 4,
+      "orderId": 104,
+      "orderNumber": "ORD-000004",
+      "customerId": 5,
+      "stage": "RECEIVED",
+      "updatedAt": "2026-10-07T13:45:00.000Z"
+    },
+    {
+      "id": 5,
+      "orderId": 105,
+      "orderNumber": "ORD-000005",
+      "customerId": 4,
+      "stage": "RECEIVED",
+      "updatedAt": "2026-10-08T17:05:00.000Z"
+    },
+    {
+      "id": 6,
+      "orderId": 106,
+      "orderNumber": "ORD-000006",
+      "customerId": 5,
+      "stage": "READY_FOR_DELIVERY",
+      "updatedAt": "2026-10-09T09:30:00.000Z"
+    }
+  ],
+  "stageChanges": [
+    {
+      "id": 1,
+      "orderId": 101,
+      "stage": "RECEIVED",
+      "changedAt": "2026-10-01T14:30:00.000Z"
+    },
+    {
+      "id": 2,
+      "orderId": 101,
+      "stage": "IN_PROCESS",
+      "changedAt": "2026-10-01T20:30:00.000Z"
+    },
+    {
+      "id": 3,
+      "orderId": 101,
+      "stage": "READY_FOR_DELIVERY",
+      "changedAt": "2026-10-02T02:30:00.000Z"
+    },
+    {
+      "id": 4,
+      "orderId": 101,
+      "stage": "DELIVERED",
+      "changedAt": "2026-10-02T08:30:00.000Z"
+    },
+    {
+      "id": 5,
+      "orderId": 102,
+      "stage": "RECEIVED",
+      "changedAt": "2026-10-01T16:10:00.000Z"
+    },
+    {
+      "id": 6,
+      "orderId": 102,
+      "stage": "IN_PROCESS",
+      "changedAt": "2026-10-01T22:10:00.000Z"
+    },
+    {
+      "id": 7,
+      "orderId": 102,
+      "stage": "READY_FOR_DELIVERY",
+      "changedAt": "2026-10-02T04:10:00.000Z"
+    },
+    {
+      "id": 8,
+      "orderId": 102,
+      "stage": "DELIVERED",
+      "changedAt": "2026-10-02T10:10:00.000Z"
+    },
+    {
+      "id": 9,
+      "orderId": 103,
+      "stage": "RECEIVED",
+      "changedAt": "2026-10-05T15:20:00.000Z"
+    },
+    {
+      "id": 10,
+      "orderId": 103,
+      "stage": "IN_PROCESS",
+      "changedAt": "2026-10-05T21:20:00.000Z"
+    },
+    {
+      "id": 11,
+      "orderId": 104,
+      "stage": "RECEIVED",
+      "changedAt": "2026-10-07T13:45:00.000Z"
+    },
+    {
+      "id": 12,
+      "orderId": 105,
+      "stage": "RECEIVED",
+      "changedAt": "2026-10-08T17:05:00.000Z"
+    },
+    {
+      "id": 13,
+      "orderId": 106,
+      "stage": "RECEIVED",
+      "changedAt": "2026-10-08T21:30:00.000Z"
+    },
+    {
+      "id": 14,
+      "orderId": 106,
+      "stage": "IN_PROCESS",
+      "changedAt": "2026-10-09T03:30:00.000Z"
+    },
+    {
+      "id": 15,
+      "orderId": 106,
+      "stage": "READY_FOR_DELIVERY",
+      "changedAt": "2026-10-09T09:30:00.000Z"
+    }
+  ],
+  "notifications": [
+    {
+      "id": 1,
+      "recipientId": 4,
+      "orderId": 101,
+      "orderNumber": "ORD-000001",
+      "stage": "RECEIVED",
+      "createdAt": "2026-10-01T14:30:00.000Z",
+      "read": true
+    },
+    {
+      "id": 2,
+      "recipientId": 4,
+      "orderId": 101,
+      "orderNumber": "ORD-000001",
+      "stage": "IN_PROCESS",
+      "createdAt": "2026-10-01T20:30:00.000Z",
+      "read": true
+    },
+    {
+      "id": 3,
+      "recipientId": 4,
+      "orderId": 101,
+      "orderNumber": "ORD-000001",
+      "stage": "READY_FOR_DELIVERY",
+      "createdAt": "2026-10-02T02:30:00.000Z",
+      "read": true
+    },
+    {
+      "id": 4,
+      "recipientId": 4,
+      "orderId": 101,
+      "orderNumber": "ORD-000001",
+      "stage": "DELIVERED",
+      "createdAt": "2026-10-02T08:30:00.000Z",
+      "read": true
+    },
+    {
+      "id": 5,
+      "recipientId": 5,
+      "orderId": 102,
+      "orderNumber": "ORD-000002",
+      "stage": "RECEIVED",
+      "createdAt": "2026-10-01T16:10:00.000Z",
+      "read": true
+    },
+    {
+      "id": 6,
+      "recipientId": 5,
+      "orderId": 102,
+      "orderNumber": "ORD-000002",
+      "stage": "IN_PROCESS",
+      "createdAt": "2026-10-01T22:10:00.000Z",
+      "read": true
+    },
+    {
+      "id": 7,
+      "recipientId": 5,
+      "orderId": 102,
+      "orderNumber": "ORD-000002",
+      "stage": "READY_FOR_DELIVERY",
+      "createdAt": "2026-10-02T04:10:00.000Z",
+      "read": true
+    },
+    {
+      "id": 8,
+      "recipientId": 5,
+      "orderId": 102,
+      "orderNumber": "ORD-000002",
+      "stage": "DELIVERED",
+      "createdAt": "2026-10-02T10:10:00.000Z",
+      "read": true
+    },
+    {
+      "id": 9,
+      "recipientId": 4,
+      "orderId": 103,
+      "orderNumber": "ORD-000003",
+      "stage": "RECEIVED",
+      "createdAt": "2026-10-05T15:20:00.000Z",
+      "read": true
+    },
+    {
+      "id": 10,
+      "recipientId": 4,
+      "orderId": 103,
+      "orderNumber": "ORD-000003",
+      "stage": "IN_PROCESS",
+      "createdAt": "2026-10-05T21:20:00.000Z",
+      "read": false
+    },
+    {
+      "id": 11,
+      "recipientId": 5,
+      "orderId": 104,
+      "orderNumber": "ORD-000004",
+      "stage": "RECEIVED",
+      "createdAt": "2026-10-07T13:45:00.000Z",
+      "read": false
+    },
+    {
+      "id": 12,
+      "recipientId": 4,
+      "orderId": 105,
+      "orderNumber": "ORD-000005",
+      "stage": "RECEIVED",
+      "createdAt": "2026-10-08T17:05:00.000Z",
+      "read": false
+    },
+    {
+      "id": 13,
+      "recipientId": 5,
+      "orderId": 106,
+      "orderNumber": "ORD-000006",
+      "stage": "RECEIVED",
+      "createdAt": "2026-10-08T21:30:00.000Z",
+      "read": true
+    },
+    {
+      "id": 14,
+      "recipientId": 5,
+      "orderId": 106,
+      "orderNumber": "ORD-000006",
+      "stage": "IN_PROCESS",
+      "createdAt": "2026-10-09T03:30:00.000Z",
+      "read": true
+    },
+    {
+      "id": 15,
+      "recipientId": 5,
+      "orderId": 106,
+      "orderNumber": "ORD-000006",
+      "stage": "READY_FOR_DELIVERY",
+      "createdAt": "2026-10-09T09:30:00.000Z",
+      "read": false
+    }
+  ],
+  "laundryServices": [
+    {
+      "id": 1,
+      "name": "Lavado por kilo",
+      "description": "Lavado y secado de ropa de uso diario",
+      "unit": "KILO",
+      "price": 6,
+      "active": true
+    },
+    {
+      "id": 2,
+      "name": "Lavado en seco",
+      "description": "Prendas delicadas, sacos y ternos",
+      "unit": "PIECE",
+      "price": 15,
+      "active": true
+    },
+    {
+      "id": 3,
+      "name": "Planchado",
+      "description": "Planchado y doblado de prendas",
+      "unit": "PIECE",
+      "price": 4,
+      "active": true
+    },
+    {
+      "id": 4,
+      "name": "Lavado exprés",
+      "description": "Entrega en el mismo día con recargo",
+      "unit": "KILO",
+      "price": 9,
+      "active": true
+    },
+    {
+      "id": 5,
+      "name": "Frazadas y cobertores",
+      "description": "Lavado de frazadas y cobertores grandes",
+      "unit": "PIECE",
+      "price": 15,
+      "active": false
+    }
+  ],
+  "drivers": [
+    {
+      "id": 1,
+      "fullName": "Luis Quispe",
+      "phone": "987654321",
+      "vehicle": "Moto Honda 150cc - ABC-123",
+      "status": "ACTIVE"
+    },
+    {
+      "id": 2,
+      "fullName": "Marco Rojas",
+      "phone": "986123456",
+      "vehicle": "Moto Yamaha 125cc - XYZ-456",
+      "status": "ACTIVE"
+    },
+    {
+      "id": 3,
+      "fullName": "Carla Díaz",
+      "phone": "985321654",
+      "vehicle": "Bicicleta eléctrica",
+      "status": "INACTIVE"
+    }
+  ],
+  "laundryOrders": [
+    {
+      "id": 1,
+      "orderId": 101,
+      "orderNumber": "ORD-000001",
+      "customerId": 4,
+      "garmentCount": 3,
+      "status": "READY_FOR_DELIVERY",
+      "receivedAt": "2026-10-01T15:30:00.000Z",
+      "updatedAt": "2026-10-01T15:30:00.000Z"
+    },
+    {
+      "id": 2,
+      "orderId": 102,
+      "orderNumber": "ORD-000002",
+      "customerId": 5,
+      "garmentCount": 4,
+      "status": "READY_FOR_DELIVERY",
+      "receivedAt": "2026-10-01T17:10:00.000Z",
+      "updatedAt": "2026-10-01T17:10:00.000Z"
+    },
+    {
+      "id": 3,
+      "orderId": 103,
+      "orderNumber": "ORD-000003",
+      "customerId": 4,
+      "garmentCount": 4,
+      "status": "WASHING",
+      "receivedAt": "2026-10-05T16:20:00.000Z",
+      "updatedAt": "2026-10-05T16:20:00.000Z"
     }
   ]
 }

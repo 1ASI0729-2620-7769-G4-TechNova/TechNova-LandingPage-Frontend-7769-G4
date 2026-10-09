@@ -124,7 +124,8 @@
     "services": "Services",
     "drivers": "Drivers",
     "users": "Users",
-    "about": "About"
+    "about": "About",
+    "tracking": "Tracking"
   },
   "billing": {
     "history": {
@@ -252,24 +253,10 @@
       "PICKUP": "Pickup",
       "DELIVERY": "Delivery"
     },
-    "events": {
-      "SCHEDULED": "Delivery scheduled.",
-      "ON_THE_WAY": "The driver is on the way.",
-      "COMPLETED": "Delivery completed.",
-      "FAILED": "The delivery could not be completed."
-    },
     "schedule": {
       "title": "Schedule pickup or delivery",
       "subtitle": "Coordinate the collection or return of an order.",
       "submit": "Schedule"
-    },
-    "tracking": {
-      "title": "Delivery tracking",
-      "history": "Tracking history",
-      "advance-to": "Move to:",
-      "mark-failed": "Mark as failed",
-      "back": "Back to deliveries",
-      "not-found": "Delivery not found."
     },
     "errors": {
       "required": "This field is required.",
@@ -397,5 +384,122 @@
   "user": {
     "logout": "Sign out",
     "change-password": "Change password"
+  },
+  "tracking": {
+    "list": {
+      "title": "Order tracking",
+      "notifications": "Notifications",
+      "empty": "There are no orders to track yet.",
+      "view": "View stages"
+    },
+    "fields": {
+      "order": "Order",
+      "stage": "Stage",
+      "updated-at": "Last update"
+    },
+    "stage": {
+      "RECEIVED": "Received",
+      "IN_PROCESS": "In process",
+      "READY_FOR_DELIVERY": "Ready for delivery",
+      "DELIVERED": "Delivered"
+    },
+    "detail": {
+      "title": "Order progress",
+      "advance-to": "Move to:",
+      "back": "Back to tracking",
+      "not-found": "Order not found."
+    },
+    "notifications": {
+      "title": "Notifications",
+      "message": "Your order {{order}} is now: {{stage}}.",
+      "mark-all": "Mark all as read",
+      "mark-read": "Mark as read",
+      "empty": "You have no notifications."
+    },
+    "errors": {
+      "already-delivered": "The order was already delivered.",
+      "recipient-not-found": "The customer does not exist, so no notification was sent."
+    }
+  },
+  "customer-laundry": {
+    "services": {
+      "title": "Services",
+      "subtitle": "Catalog of services your laundry offers.",
+      "new": "New service",
+      "edit": "Edit service",
+      "empty": "No services registered yet."
+    },
+    "drivers": {
+      "title": "Drivers",
+      "subtitle": "Drivers in charge of pickups and deliveries.",
+      "new": "New driver",
+      "edit": "Edit driver",
+      "empty": "No drivers registered yet."
+    },
+    "fields": {
+      "name": "Name",
+      "description": "Description",
+      "unit": "Charged by",
+      "price": "Price",
+      "status": "Status",
+      "full-name": "Full name",
+      "phone": "Phone",
+      "vehicle": "Vehicle"
+    },
+    "unit": {
+      "KILO": "Kilo",
+      "PIECE": "Piece"
+    },
+    "status": {
+      "ACTIVE": "Active",
+      "INACTIVE": "Inactive"
+    },
+    "actions": {
+      "save": "Save",
+      "cancel": "Cancel",
+      "edit": "Edit",
+      "toggle": "Enable or disable"
+    },
+    "errors": {
+      "name-required": "The name is required.",
+      "invalid-price": "The price must be greater than zero.",
+      "invalid-phone": "The phone must have 9 digits."
+    }
+  },
+  "laundry-operations": {
+    "reception": {
+      "title": "Order reception",
+      "subtitle": "Confirmed orders waiting to be received by the laundry.",
+      "receive": "Receive",
+      "empty": "There are no orders waiting to be received."
+    },
+    "processing": {
+      "title": "Laundry processing",
+      "subtitle": "Follow the garments through each stage of the process.",
+      "advance-to": "Move to:",
+      "empty": "No orders match the filter."
+    },
+    "fields": {
+      "order": "Order",
+      "garments": "Garments",
+      "status": "Stage",
+      "created-at": "Ordered on",
+      "updated-at": "Last update"
+    },
+    "filters": {
+      "all": "All"
+    },
+    "status": {
+      "RECEIVED": "Received",
+      "CLASSIFIED": "Classified",
+      "WASHING": "Washing",
+      "DRYING": "Drying",
+      "IRONING": "Ironing",
+      "READY_FOR_DELIVERY": "Ready for delivery"
+    },
+    "errors": {
+      "no-garments": "The order has no garments to receive.",
+      "already-ready": "The garments are already ready for delivery."
+    }
   }
 }

@@ -124,7 +124,8 @@
     "services": "Servicios",
     "drivers": "Repartidores",
     "users": "Usuarios",
-    "about": "Acerca de"
+    "about": "Acerca de",
+    "tracking": "Seguimiento"
   },
   "billing": {
     "history": {
@@ -252,24 +253,10 @@
       "PICKUP": "Recojo",
       "DELIVERY": "Entrega"
     },
-    "events": {
-      "SCHEDULED": "Entrega programada.",
-      "ON_THE_WAY": "El repartidor está en camino.",
-      "COMPLETED": "Entrega completada.",
-      "FAILED": "No se pudo completar la entrega."
-    },
     "schedule": {
       "title": "Programar recojo o entrega",
       "subtitle": "Coordina el recojo o la devolución de un pedido.",
       "submit": "Programar"
-    },
-    "tracking": {
-      "title": "Seguimiento de entrega",
-      "history": "Historial de seguimiento",
-      "advance-to": "Pasar a:",
-      "mark-failed": "Marcar como fallida",
-      "back": "Volver a entregas",
-      "not-found": "Entrega no encontrada."
     },
     "errors": {
       "required": "Este campo es obligatorio.",
@@ -397,5 +384,122 @@
   "user": {
     "logout": "Cerrar sesión",
     "change-password": "Cambiar contraseña"
+  },
+  "tracking": {
+    "list": {
+      "title": "Seguimiento de pedidos",
+      "notifications": "Notificaciones",
+      "empty": "Aún no hay pedidos para rastrear.",
+      "view": "Ver etapas"
+    },
+    "fields": {
+      "order": "Pedido",
+      "stage": "Etapa",
+      "updated-at": "Última actualización"
+    },
+    "stage": {
+      "RECEIVED": "Recibido",
+      "IN_PROCESS": "En proceso",
+      "READY_FOR_DELIVERY": "Listo para entrega",
+      "DELIVERED": "Entregado"
+    },
+    "detail": {
+      "title": "Avance del pedido",
+      "advance-to": "Pasar a:",
+      "back": "Volver al seguimiento",
+      "not-found": "Pedido no encontrado."
+    },
+    "notifications": {
+      "title": "Notificaciones",
+      "message": "Tu pedido {{order}} ahora está: {{stage}}.",
+      "mark-all": "Marcar todas como leídas",
+      "mark-read": "Marcar como leída",
+      "empty": "No tienes notificaciones."
+    },
+    "errors": {
+      "already-delivered": "El pedido ya fue entregado.",
+      "recipient-not-found": "El cliente no existe, por lo que no se envió la notificación."
+    }
+  },
+  "customer-laundry": {
+    "services": {
+      "title": "Servicios",
+      "subtitle": "Catálogo de servicios que ofrece tu lavandería.",
+      "new": "Nuevo servicio",
+      "edit": "Editar servicio",
+      "empty": "Aún no hay servicios registrados."
+    },
+    "drivers": {
+      "title": "Repartidores",
+      "subtitle": "Repartidores a cargo de recojos y entregas.",
+      "new": "Nuevo repartidor",
+      "edit": "Editar repartidor",
+      "empty": "Aún no hay repartidores registrados."
+    },
+    "fields": {
+      "name": "Nombre",
+      "description": "Descripción",
+      "unit": "Se cobra por",
+      "price": "Precio",
+      "status": "Estado",
+      "full-name": "Nombre completo",
+      "phone": "Teléfono",
+      "vehicle": "Vehículo"
+    },
+    "unit": {
+      "KILO": "Kilo",
+      "PIECE": "Prenda"
+    },
+    "status": {
+      "ACTIVE": "Activo",
+      "INACTIVE": "Inactivo"
+    },
+    "actions": {
+      "save": "Guardar",
+      "cancel": "Cancelar",
+      "edit": "Editar",
+      "toggle": "Activar o desactivar"
+    },
+    "errors": {
+      "name-required": "El nombre es obligatorio.",
+      "invalid-price": "El precio debe ser mayor que cero.",
+      "invalid-phone": "El teléfono debe tener 9 dígitos."
+    }
+  },
+  "laundry-operations": {
+    "reception": {
+      "title": "Recepción de pedidos",
+      "subtitle": "Pedidos confirmados a la espera de ser recibidos por la lavandería.",
+      "receive": "Recibir",
+      "empty": "No hay pedidos pendientes de recepción."
+    },
+    "processing": {
+      "title": "Proceso de lavado",
+      "subtitle": "Sigue las prendas por cada etapa del proceso.",
+      "advance-to": "Pasar a:",
+      "empty": "Ningún pedido coincide con el filtro."
+    },
+    "fields": {
+      "order": "Pedido",
+      "garments": "Prendas",
+      "status": "Etapa",
+      "created-at": "Pedido el",
+      "updated-at": "Última actualización"
+    },
+    "filters": {
+      "all": "Todas"
+    },
+    "status": {
+      "RECEIVED": "Recibido",
+      "CLASSIFIED": "Clasificado",
+      "WASHING": "Lavando",
+      "DRYING": "Secando",
+      "IRONING": "Planchando",
+      "READY_FOR_DELIVERY": "Listo para entrega"
+    },
+    "errors": {
+      "no-garments": "El pedido no tiene prendas para recibir.",
+      "already-ready": "Las prendas ya están listas para entrega."
+    }
   }
 }

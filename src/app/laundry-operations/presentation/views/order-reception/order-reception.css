@@ -1,0 +1,32 @@
+h1 {
+  margin: 0 0 4px;
+  color: var(--wt-text);
+}
+
+.muted {
+  margin: 0 0 16px;
+  color: var(--wt-text-muted);
+}
+
+.table-wrapper {
+  overflow-x: auto;
+  background-color: var(--wt-surface);
+  border: 1px solid var(--wt-border);
+  border-radius: 12px;
+}
+
+table {
+  width: 100%;
+}
+
+.error {
+  margin: 0 0 12px;
+  color: #b3261e;
+  font-size: 0.8rem;
+}
+
+.empty {
+  padding: 24px;
+  text-align: center;
+  color: var(--wt-text-muted);
+}
