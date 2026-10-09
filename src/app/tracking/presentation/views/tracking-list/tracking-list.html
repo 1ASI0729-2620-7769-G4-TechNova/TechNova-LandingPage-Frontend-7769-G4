@@ -1,0 +1,49 @@
+<div class="header">
+  <h1>{{ 'tracking.list.title' | translate }}</h1>
+  <a routerLink="/tracking/notifications" class="link">
+    <mat-icon>notifications</mat-icon>{{ 'tracking.list.notifications' | translate }}
+    @if (store.unreadCount() > 0) {
+      <span class="count">{{ store.unreadCount() }}</span>
+    }
+  </a>
+</div>
+
+<div class="table-wrapper">
+  <table mat-table [dataSource]="visible()">
+    <ng-container matColumnDef="order">
+      <th mat-header-cell *matHeaderCellDef>{{ 'tracking.fields.order' | translate }}</th>
+      <td mat-cell *matCellDef="let tracking">{{ tracking.orderNumber }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="stage">
+      <th mat-header-cell *matHeaderCellDef>{{ 'tracking.fields.stage' | translate }}</th>
+      <td mat-cell *matCellDef="let tracking">
+        <span class="badge" [class]="'badge stage-' + tracking.stage">
+          {{ 'tracking.stage.' + tracking.stage | translate }}
+        </span>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="updatedAt">
+      <th mat-header-cell *matHeaderCellDef>{{ 'tracking.fields.updated-at' | translate }}</th>
+      <td mat-cell *matCellDef="let tracking">{{ tracking.updatedAt | date: 'dd/MM/yyyy HH:mm' }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let tracking">
+        <a mat-icon-button [routerLink]="['/tracking', tracking.orderId]"
+           [attr.aria-label]="'tracking.list.view' | translate">
+          <mat-icon>location_searching</mat-icon>
+        </a>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="columns"></tr>
+    <tr mat-row *matRowDef="let row; columns: columns"></tr>
+  </table>
+
+  @if (store.loaded() && visible().length === 0) {
+    <p class="empty">{{ 'tracking.list.empty' | translate }}</p>
+  }
+</div>

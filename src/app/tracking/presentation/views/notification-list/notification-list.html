@@ -1,0 +1,32 @@
+<div class="header">
+  <h1>{{ 'tracking.notifications.title' | translate }}</h1>
+  @if (store.unreadCount() > 0) {
+    <button mat-button type="button" (click)="store.markAllAsRead()">
+      {{ 'tracking.notifications.mark-all' | translate }}
+    </button>
+  }
+</div>
+
+<ul class="list">
+  @for (notification of store.notifications(); track notification.id) {
+    <li [class.unread]="!notification.read">
+      <mat-icon>{{ notification.read ? 'notifications_none' : 'notifications_active' }}</mat-icon>
+      <div class="text">
+        <span>{{ 'tracking.notifications.message' | translate: {order: notification.orderNumber, stage: ('tracking.stage.' + notification.stage | translate)} }}</span>
+        <time class="muted">{{ notification.createdAt | date: 'dd/MM/yyyy HH:mm' }}</time>
+      </div>
+      <a mat-icon-button [routerLink]="['/tracking', notification.orderId]"
+         [attr.aria-label]="'tracking.list.view' | translate" (click)="store.markAsRead(notification.id)">
+        <mat-icon>location_searching</mat-icon>
+      </a>
+      @if (!notification.read) {
+        <button mat-icon-button type="button" [attr.aria-label]="'tracking.notifications.mark-read' | translate"
+                (click)="store.markAsRead(notification.id)">
+          <mat-icon>done</mat-icon>
+        </button>
+      }
+    </li>
+  } @empty {
+    <li class="empty">{{ 'tracking.notifications.empty' | translate }}</li>
+  }
+</ul>
