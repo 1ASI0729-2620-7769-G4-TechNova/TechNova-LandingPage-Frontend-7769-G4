@@ -363,7 +363,22 @@
   },
   "home": {
     "title": "Welcome",
-    "content": "Welcome to WashTrack, the platform to manage the orders of your laundry."
+    "content": "Welcome to WashTrack, the platform to manage the orders of your laundry.",
+    "greeting": "Hello, {{name}}",
+    "subtitle-laundry": "Summary of your laundry today.",
+    "subtitle-customer": "Follow your orders and notices.",
+    "cards": {
+      "active-orders": "Active orders",
+      "awaiting-reception": "Awaiting reception",
+      "in-process": "In process",
+      "ready": "Ready for delivery",
+      "active-deliveries": "Active deliveries",
+      "pending-payments": "Pending payments",
+      "subscription": "Subscription",
+      "days-left": "days left",
+      "my-orders": "My active orders",
+      "unread-notifications": "Unread notifications"
+    }
   },
   "about": {
     "title": "About us",

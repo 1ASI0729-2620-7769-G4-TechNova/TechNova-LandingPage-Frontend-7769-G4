@@ -363,7 +363,22 @@
   },
   "home": {
     "title": "Bienvenido",
-    "content": "Bienvenido a WashTrack, la plataforma para gestionar los pedidos de tu lavandería."
+    "content": "Bienvenido a WashTrack, la plataforma para gestionar los pedidos de tu lavandería.",
+    "greeting": "Hola, {{name}}",
+    "subtitle-laundry": "Resumen de tu lavandería hoy.",
+    "subtitle-customer": "Sigue tus pedidos y avisos.",
+    "cards": {
+      "active-orders": "Pedidos activos",
+      "awaiting-reception": "Por recibir",
+      "in-process": "En proceso",
+      "ready": "Listos para entrega",
+      "active-deliveries": "Entregas en curso",
+      "pending-payments": "Pagos pendientes",
+      "subscription": "Suscripción",
+      "days-left": "días restantes",
+      "my-orders": "Mis pedidos activos",
+      "unread-notifications": "Notificaciones sin leer"
+    }
   },
   "about": {
     "title": "Acerca de nosotros",
