@@ -1,0 +1,126 @@
+<header class="header">
+  <div>
+    <h1>{{ 'order-management.list.title' | translate }}</h1>
+    <p class="subtitle">{{ 'order-management.list.subtitle' | translate }}</p>
+  </div>
+  <a mat-flat-button routerLink="/orders/new">
+    <mat-icon>add</mat-icon>{{ 'order-management.list.new' | translate }}
+  </a>
+</header>
+
+<section class="panel">
+  <label class="search">
+    <mat-icon>search</mat-icon>
+    <input #searchInput type="search"
+           [value]="searchText()"
+           [placeholder]="'order-management.list.search-placeholder' | translate"
+           [attr.aria-label]="'order-management.list.search-label' | translate"
+           (input)="onSearch(searchInput.value)">
+  </label>
+
+  <div class="filters" role="group" [attr.aria-label]="'order-management.list.filter-label' | translate">
+    <button type="button" class="chip" [class.active]="selectedStatus() === null" (click)="selectStatus(null)">
+      {{ 'order-management.filter.all' | translate }} ({{ orders().length }})
+    </button>
+    @for (status of statuses; track status) {
+      <button type="button" class="chip" [class.active]="selectedStatus() === status" (click)="selectStatus(status)">
+        {{ 'order-management.status.' + status | translate }} ({{ statusCounts()[status] }})
+      </button>
+    }
+  </div>
+
+  @if (error(); as errorKey) {
+    <p class="error" role="alert">{{ errorKey | translate }}</p>
+  }
+
+  @if (loading()) {
+    <p class="muted" role="status">{{ 'order-management.list.loading' | translate }}</p>
+  }
+
+  <table class="orders-table">
+    <thead>
+    <tr>
+      <th>{{ 'order-management.fields.order-customer' | translate }}</th>
+      <th>{{ 'order-management.fields.date' | translate }}</th>
+      <th>{{ 'order-management.fields.garments' | translate }}</th>
+      <th>{{ 'order-management.fields.total' | translate }}</th>
+      <th>{{ 'order-management.fields.status' | translate }}</th>
+      <th class="actions-column">{{ 'order-management.fields.details' | translate }}</th>
+    </tr>
+    </thead>
+    <tbody>
+      @for (order of visibleOrders(); track order.id) {
+        @let garments = order.garments;
+        <tr>
+          <td class="order-cell">
+            <strong class="order-number">{{ order.orderNumber }}</strong>
+            <span class="customer">
+              @if (customerOf(order); as customer) {
+                {{ customer.fullName }}
+              } @else {
+                {{ 'order-management.list.customer-number' | translate: {id: order.customerId} }}
+              }
+            </span>
+          </td>
+          <td [attr.data-label]="'order-management.fields.date' | translate">
+            <span class="date">{{ order.createdAt | date: 'dd/MM/yyyy' }}</span>
+            <span class="time">{{ order.createdAt | date: 'HH:mm' }}</span>
+          </td>
+          <td [attr.data-label]="'order-management.fields.garments' | translate">
+            @if (garments[0]; as firstGarment) {
+              <span class="garment">{{ firstGarment.quantity }} × {{ firstGarment.type }}</span>
+            }
+            @if (garments.length > 1) {
+              <span class="time">{{ 'order-management.list.more-garments' | translate: {count: garments.length - 1} }}</span>
+            }
+          </td>
+          <td class="amount" [attr.data-label]="'order-management.fields.total' | translate">
+            {{ order.totalAmount | currency: currencyCode : currencySymbol }}
+          </td>
+          <td [attr.data-label]="'order-management.fields.status' | translate">
+            <span [class]="'badge status-' + order.status">
+              {{ 'order-management.status.' + order.status | translate }}
+            </span>
+          </td>
+          <td class="actions-column">
+            <button mat-stroked-button type="button" (click)="openDetail(order)">
+              <mat-icon>visibility</mat-icon>{{ 'order-management.list.view-details' | translate }}
+            </button>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+
+  @if (!loading() && orders().length === 0) {
+    <p class="empty">{{ 'order-management.list.empty' | translate }}</p>
+  } @else if (!loading() && filteredOrders().length === 0) {
+    <p class="empty">{{ 'order-management.list.no-results' | translate }}</p>
+  }
+
+  <footer class="list-footer">
+    <span class="muted">
+      {{ 'order-management.list.showing' | translate: {shown: visibleOrders().length, total: filteredOrders().length} }}
+    </span>
+
+    <nav class="pagination" [attr.aria-label]="'order-management.list.pagination-label' | translate">
+      <button type="button" class="page-button" [disabled]="currentPage() === 1"
+              [attr.aria-label]="'order-management.list.previous-page' | translate"
+              (click)="goToPage(currentPage() - 1)">
+        <mat-icon>chevron_left</mat-icon>
+      </button>
+      @for (page of pageNumbers(); track page) {
+        <button type="button" class="page-button" [class.active]="page === currentPage()"
+                [attr.aria-current]="page === currentPage() ? 'page' : null"
+                (click)="goToPage(page)">
+          {{ page }}
+        </button>
+      }
+      <button type="button" class="page-button" [disabled]="currentPage() === totalPages()"
+              [attr.aria-label]="'order-management.list.next-page' | translate"
+              (click)="goToPage(currentPage() + 1)">
+        <mat-icon>chevron_right</mat-icon>
+      </button>
+    </nav>
+  </footer>
+</section>

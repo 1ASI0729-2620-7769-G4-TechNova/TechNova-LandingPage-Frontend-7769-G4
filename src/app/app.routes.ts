@@ -4,6 +4,7 @@ import {adminGuard, authGuard} from './iam/application/iam.guards';
 import {iamAdminRoutes, iamPublicRoutes} from './iam/presentation/iam.routes';
 import {billingRoutes} from './billing/presentation/billing.routes';
 import {deliveryRoutes} from './delivery/presentation/delivery.routes';
+import {orderManagementRoutes} from './order-management/presentation/order-management-routes';
 
 const about = () => import('./shared/presentation/views/about/about')
   .then(m => m.About);
@@ -19,6 +20,7 @@ export const routes: Routes = [
   {path: 'home',  component: Home,         canActivate: [authGuard], title: `${baseTitle} - Home`},
   {path: 'about', loadComponent: about,    canActivate: [authGuard], title: `${baseTitle} - About`},
   {path: 'iam',   canActivate: [adminGuard], children: iamAdminRoutes},
+  {path: 'orders', canActivate: [authGuard], children: orderManagementRoutes},
   {path: 'billing', canActivate: [authGuard], children: billingRoutes},
   {path: 'operations/deliveries', canActivate: [authGuard], children: deliveryRoutes},
   {path: '',      redirectTo: '/home',     pathMatch: 'full'},

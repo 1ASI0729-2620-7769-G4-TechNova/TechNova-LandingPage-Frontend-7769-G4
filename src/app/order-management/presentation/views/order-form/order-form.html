@@ -1,0 +1,125 @@
+<h1>{{ 'order-management.form.title' | translate }}</h1>
+<p class="muted">{{ 'order-management.form.subtitle' | translate }}</p>
+
+<form [formGroup]="orderForm" (ngSubmit)="onSubmit()" class="card" novalidate>
+  <div class="order-fields">
+    <label>
+      {{ 'order-management.fields.customer' | translate }}
+      <input type="number" formControlName="customerId" min="1" step="1" inputmode="numeric">
+      @if (isInvalidControl(orderForm, 'customerId')) {
+        <small class="error">
+          {{ (orderForm.controls.customerId.hasError('required')
+          ? 'order-management.validation.required'
+          : 'order-management.validation.positive-whole-number') | translate }}
+        </small>
+      }
+    </label>
+
+    <label>
+      {{ 'order-management.fields.delivery-method' | translate }}
+      <select formControlName="deliveryMethod">
+        @for (method of deliveryMethods; track method) {
+          <option [value]="method">{{ 'order-management.delivery-method.' + method | translate }}</option>
+        }
+      </select>
+    </label>
+  </div>
+
+  <h2>{{ 'order-management.form.garments-title' | translate }}</h2>
+
+  <div formArrayName="garments" class="garments">
+    @for (garment of garments.controls; track garment; let index = $index) {
+      <fieldset [formGroupName]="index" class="garment">
+        <legend>{{ 'order-management.form.garment-number' | translate: {number: index + 1} }}</legend>
+
+        <label>
+          {{ 'order-management.fields.garment-type' | translate }}
+          <input type="text" formControlName="type">
+          @if (isInvalidControl(garment, 'type')) {
+            <small class="error">{{ 'order-management.validation.required' | translate }}</small>
+          }
+        </label>
+
+        <label>
+          {{ 'order-management.fields.color' | translate }}
+          <input type="text" formControlName="color">
+          @if (isInvalidControl(garment, 'color')) {
+            <small class="error">{{ 'order-management.validation.required' | translate }}</small>
+          }
+        </label>
+
+        <label>
+          {{ 'order-management.fields.quantity' | translate }}
+          <input type="number" formControlName="quantity" min="1" step="1" inputmode="numeric">
+          @if (isInvalidControl(garment, 'quantity')) {
+            <small class="error">
+              {{ (garment.controls.quantity.hasError('required')
+              ? 'order-management.validation.required'
+              : 'order-management.validation.positive-whole-number') | translate }}
+            </small>
+          }
+        </label>
+
+        <label>
+          {{ 'order-management.fields.unit-price' | translate }} ({{ currencySymbol }})
+          <input type="number" formControlName="unitPrice" min="0" step="0.01" inputmode="decimal">
+          @if (isInvalidControl(garment, 'unitPrice')) {
+            <small class="error">
+              {{ (garment.controls.unitPrice.hasError('required')
+              ? 'order-management.validation.required'
+              : 'order-management.validation.non-negative') | translate }}
+            </small>
+          }
+        </label>
+
+        <label class="notes">
+          {{ 'order-management.fields.notes' | translate }}
+          <input type="text" formControlName="notes">
+        </label>
+
+        <button mat-button type="button" class="remove"
+                [disabled]="garments.length <= minimumGarmentEntries"
+                (click)="removeGarment(index)">
+          <mat-icon>delete</mat-icon>{{ 'order-management.form.remove-garment' | translate }}
+        </button>
+      </fieldset>
+    }
+  </div>
+
+  <button mat-stroked-button type="button" class="add-garment" (click)="addGarment()">
+    <mat-icon>add</mat-icon>{{ 'order-management.form.add-garment' | translate }}
+  </button>
+
+  <section class="summary" aria-live="polite">
+    <h2>{{ 'order-management.form.summary-title' | translate }}</h2>
+    <dl>
+      <div>
+        <dt>{{ 'order-management.fields.garment-count' | translate }}</dt>
+        <dd>{{ orderSummary().garmentCount }}</dd>
+      </div>
+      <div>
+        <dt>{{ 'order-management.fields.subtotal' | translate }}</dt>
+        <dd>{{ orderSummary().subtotal | currency: currencyCode : currencySymbol }}</dd>
+      </div>
+      <div>
+        <dt>{{ 'order-management.fields.delivery-fee' | translate }}</dt>
+        <dd>{{ orderSummary().deliveryFee | currency: currencyCode : currencySymbol }}</dd>
+      </div>
+      <div class="summary-total">
+        <dt>{{ 'order-management.fields.total' | translate }}</dt>
+        <dd>{{ orderSummary().totalAmount | currency: currencyCode : currencySymbol }}</dd>
+      </div>
+    </dl>
+  </section>
+
+  @if (error(); as errorKey) {
+    <p class="error" role="alert">{{ errorKey | translate }}</p>
+  }
+
+  <div class="actions">
+    <a mat-button routerLink="/orders">{{ 'order-management.form.cancel' | translate }}</a>
+    <button mat-flat-button type="submit" [disabled]="loading()">
+      {{ 'order-management.form.submit' | translate }}
+    </button>
+  </div>
+</form>
