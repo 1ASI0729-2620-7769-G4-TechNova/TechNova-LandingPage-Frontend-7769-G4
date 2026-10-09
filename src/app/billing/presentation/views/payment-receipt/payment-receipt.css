@@ -1,0 +1,41 @@
+h1 {
+  margin: 0 0 16px;
+  color: var(--wt-text);
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 480px;
+  padding: 24px;
+  background-color: var(--wt-surface);
+  border: 1px solid var(--wt-border);
+  border-radius: 12px;
+}
+
+dl {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 8px 24px;
+  margin: 0;
+}
+
+dt {
+  color: var(--wt-text-muted);
+}
+
+dd {
+  margin: 0;
+  color: var(--wt-text);
+  text-align: right;
+}
+
+.amount {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.muted {
+  color: var(--wt-text-muted);
+}

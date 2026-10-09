@@ -1,0 +1,43 @@
+h1 {
+  margin: 0 0 4px;
+  color: var(--wt-text);
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 480px;
+  margin-top: 16px;
+  padding: 24px;
+  background-color: var(--wt-surface);
+  border: 1px solid var(--wt-border);
+  border-radius: 12px;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.875rem;
+  color: var(--wt-text);
+}
+
+input,
+select {
+  padding: 8px 10px;
+  border: 1px solid var(--wt-border);
+  border-radius: 8px;
+  background-color: var(--wt-background);
+  color: var(--wt-text);
+}
+
+.muted {
+  color: var(--wt-text-muted);
+}
+
+.error {
+  margin: 0;
+  color: #b3261e;
+  font-size: 0.8rem;
+}
