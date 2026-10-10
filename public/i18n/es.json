@@ -256,7 +256,8 @@
     "schedule": {
       "title": "Programar recojo o entrega",
       "subtitle": "Coordina el recojo o la devolución de un pedido.",
-      "submit": "Programar"
+      "submit": "Programar",
+      "choose-driver": "Elige un repartidor"
     },
     "errors": {
       "required": "Este campo es obligatorio.",
@@ -362,7 +363,22 @@
   },
   "home": {
     "title": "Bienvenido",
-    "content": "Bienvenido a WashTrack, la plataforma para gestionar los pedidos de tu lavandería."
+    "content": "Bienvenido a WashTrack, la plataforma para gestionar los pedidos de tu lavandería.",
+    "greeting": "Hola, {{name}}",
+    "subtitle-laundry": "Resumen de tu lavandería hoy.",
+    "subtitle-customer": "Sigue tus pedidos y avisos.",
+    "cards": {
+      "active-orders": "Pedidos activos",
+      "awaiting-reception": "Por recibir",
+      "in-process": "En proceso",
+      "ready": "Listos para entrega",
+      "active-deliveries": "Entregas en curso",
+      "pending-payments": "Pagos pendientes",
+      "subscription": "Suscripción",
+      "days-left": "días restantes",
+      "my-orders": "Mis pedidos activos",
+      "unread-notifications": "Notificaciones sin leer"
+    }
   },
   "about": {
     "title": "Acerca de nosotros",
@@ -477,7 +493,8 @@
       "title": "Proceso de lavado",
       "subtitle": "Sigue las prendas por cada etapa del proceso.",
       "advance-to": "Pasar a:",
-      "empty": "Ningún pedido coincide con el filtro."
+      "empty": "Ningún pedido coincide con el filtro.",
+      "schedule-delivery": "Programar entrega"
     },
     "fields": {
       "order": "Pedido",

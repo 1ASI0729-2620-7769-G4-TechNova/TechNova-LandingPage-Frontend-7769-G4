@@ -1,14 +1,29 @@
 import {computed, inject, Injectable, signal} from '@angular/core';
 import {LaundryOperationsApi} from '../infrastructure/laundry-operations-api';
 import {LaundryOrder} from '../domain/model/laundry-order.entity';
+import {LaundryStatus} from '../domain/model/laundry-status';
 import {ReceivableOrder} from '../domain/model/receivable-order';
+import {TrackingStore} from '../../tracking/application/tracking.store';
+import {OrderStage} from '../../tracking/domain/model/order-stage';
+
+/** Stage of the order, as the customer sees it, for each stage of the processing. */
+const TRACKING_STAGE: Record<LaundryStatus, OrderStage> = {
+  [LaundryStatus.RECEIVED]: OrderStage.RECEIVED,
+  [LaundryStatus.CLASSIFIED]: OrderStage.IN_PROCESS,
+  [LaundryStatus.WASHING]: OrderStage.IN_PROCESS,
+  [LaundryStatus.DRYING]: OrderStage.IN_PROCESS,
+  [LaundryStatus.IRONING]: OrderStage.IN_PROCESS,
+  [LaundryStatus.READY_FOR_DELIVERY]: OrderStage.READY_FOR_DELIVERY
+};
 
 /**
  * Application state of the Laundry Operations bounded context (reception and processing of orders).
+ * Every step is reported to the Tracking bounded context so the customer is notified.
  */
 @Injectable({providedIn: 'root'})
 export class LaundryOperationsStore {
   private readonly api = inject(LaundryOperationsApi);
+  private readonly tracking = inject(TrackingStore);
 
   private readonly laundryOrdersSignal = signal<LaundryOrder[]>([]);
   private readonly confirmedOrdersSignal = signal<ReceivableOrder[]>([]);
@@ -46,7 +61,10 @@ export class LaundryOperationsStore {
   receive(order: ReceivableOrder): void {
     this.errorsSignal.set([]);
     this.api.receiveOrder(order).subscribe({
-      next: created => this.laundryOrdersSignal.update(orders => [...orders, created]),
+      next: created => {
+        this.laundryOrdersSignal.update(orders => [...orders, created]);
+        this.tracking.startTracking(created.orderId, created.orderNumber, created.customerId);
+      },
       error: (e: Error) => this.errorsSignal.set([e.message])
     });
   }
@@ -57,7 +75,10 @@ export class LaundryOperationsStore {
     if (!order) return;
     this.errorsSignal.set([]);
     this.api.advance(order).subscribe({
-      next: updated => this.laundryOrdersSignal.update(orders => orders.map(o => o.id === updated.id ? updated : o)),
+      next: updated => {
+        this.laundryOrdersSignal.update(orders => orders.map(o => o.id === updated.id ? updated : o));
+        this.tracking.moveToStage(updated.orderId, TRACKING_STAGE[updated.status]);
+      },
       error: (e: Error) => this.errorsSignal.set([e.message])
     });
   }

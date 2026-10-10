@@ -5,6 +5,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {TranslatePipe} from '@ngx-translate/core';
 import {BaseForm} from '../../../../shared/presentation/components/base-form/base-form';
 import {DeliveryStore} from '../../../application/delivery.store';
+import {CustomerLaundryStore} from '../../../../customer-laundry/application/customer-laundry.store';
 import {Delivery} from '../../../domain/model/delivery.entity';
 import {DeliveryStatus} from '../../../domain/model/delivery-status';
 import {DeliveryType} from '../../../domain/model/delivery-type';
@@ -20,6 +21,8 @@ import {DeliveryType} from '../../../domain/model/delivery-type';
 })
 export class DeliverySchedule extends BaseForm {
   protected readonly store = inject(DeliveryStore);
+  /** Drivers of the laundry (Customer & Laundry Management) the delivery can be assigned to. */
+  protected readonly drivers = inject(CustomerLaundryStore);
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
   private readonly fb = inject(FormBuilder);

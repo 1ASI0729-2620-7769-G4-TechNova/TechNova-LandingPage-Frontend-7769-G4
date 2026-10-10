@@ -256,7 +256,8 @@
     "schedule": {
       "title": "Schedule pickup or delivery",
       "subtitle": "Coordinate the collection or return of an order.",
-      "submit": "Schedule"
+      "submit": "Schedule",
+      "choose-driver": "Choose a driver"
     },
     "errors": {
       "required": "This field is required.",
@@ -362,7 +363,22 @@
   },
   "home": {
     "title": "Welcome",
-    "content": "Welcome to WashTrack, the platform to manage the orders of your laundry."
+    "content": "Welcome to WashTrack, the platform to manage the orders of your laundry.",
+    "greeting": "Hello, {{name}}",
+    "subtitle-laundry": "Summary of your laundry today.",
+    "subtitle-customer": "Follow your orders and notices.",
+    "cards": {
+      "active-orders": "Active orders",
+      "awaiting-reception": "Awaiting reception",
+      "in-process": "In process",
+      "ready": "Ready for delivery",
+      "active-deliveries": "Active deliveries",
+      "pending-payments": "Pending payments",
+      "subscription": "Subscription",
+      "days-left": "days left",
+      "my-orders": "My active orders",
+      "unread-notifications": "Unread notifications"
+    }
   },
   "about": {
     "title": "About us",
@@ -477,7 +493,8 @@
       "title": "Laundry processing",
       "subtitle": "Follow the garments through each stage of the process.",
       "advance-to": "Move to:",
-      "empty": "No orders match the filter."
+      "empty": "No orders match the filter.",
+      "schedule-delivery": "Schedule delivery"
     },
     "fields": {
       "order": "Order",
