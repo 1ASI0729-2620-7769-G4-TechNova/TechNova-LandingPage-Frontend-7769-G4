@@ -60,7 +60,7 @@ export class TrackingApi extends BaseApi {
    */
   advanceStage(tracking: OrderTracking): Observable<OrderTracking> {
     const next = tracking.nextStage();
-    return next ? this.applyStage(tracking, next) : throwError(() => new Error('tracking.errors.already-delivered'));
+    return next ? this.advanceUntil(tracking, next) : throwError(() => new Error('tracking.errors.already-delivered'));
   }
 
   /**
@@ -70,10 +70,9 @@ export class TrackingApi extends BaseApi {
   startTracking(orderId: number, orderNumber: string, customerId: number): Observable<OrderTracking> {
     return this.findByOrderId(orderId).pipe(
       switchMap(existing => existing ? of(existing) : this.verifyRecipient(customerId).pipe(
-        // The id is left undefined so json-server generates it (JSON drops undefined fields).
-        switchMap(() => this.trackingsEndpoint.create(new OrderTracking(undefined as unknown as number,
-          orderId, orderNumber, customerId, ORDER_STAGES[0], new Date().toISOString()))),
-        switchMap(created => this.recordChange(created, created.stage))))
+        switchMap(() => this.http.post<OrderTrackingResource>(`${environment.apiBaseUrl}/orderTrackings`,
+          {orderId, orderNumber, customerId})),
+        map(resource => this.trackingAssembler.toEntityFromResource(resource))))
     );
   }
 
@@ -83,8 +82,7 @@ export class TrackingApi extends BaseApi {
    */
   moveToStage(orderId: number, stage: OrderStage): Observable<OrderTracking | null> {
     return this.findByOrderId(orderId).pipe(
-      switchMap(tracking => tracking && ORDER_STAGES.indexOf(stage) > tracking.stageIndex()
-        ? this.applyStage(tracking, stage) : of(tracking))
+      switchMap(tracking => tracking ? this.advanceUntil(tracking, stage) : of(null))
     );
   }
 
@@ -101,30 +99,24 @@ export class TrackingApi extends BaseApi {
     );
   }
 
-  private applyStage(tracking: OrderTracking, stage: OrderStage): Observable<OrderTracking> {
+  /** The API moves one stage at a time and records the change and the notification itself. */
+  private advanceUntil(tracking: OrderTracking, stage: OrderStage): Observable<OrderTracking> {
+    if (tracking.stageIndex() >= ORDER_STAGES.indexOf(stage)) return of(tracking);
     return this.verifyRecipient(tracking.customerId).pipe(
-      switchMap(() => this.trackingsEndpoint.update(new OrderTracking(tracking.id, tracking.orderId,
-        tracking.orderNumber, tracking.customerId, stage, new Date().toISOString()), tracking.id)),
-      switchMap(updated => this.recordChange(updated, stage))
+      switchMap(() => this.http.post<OrderTrackingResource>(
+        `${environment.apiBaseUrl}/orderTrackings/${tracking.id}/advance`, {})),
+      map(resource => this.trackingAssembler.toEntityFromResource(resource)),
+      switchMap(advanced => this.advanceUntil(advanced, stage))
     );
   }
 
   /** Keeps the stage change and notifies the customer. The ids are left undefined for json-server. */
-  private recordChange(tracking: OrderTracking, stage: OrderStage): Observable<OrderTracking> {
-    const now = new Date().toISOString();
-    return this.stageChangesEndpoint.create(
-      new StageChange(undefined as unknown as number, tracking.orderId, stage, now)).pipe(
-      switchMap(() => this.notificationsEndpoint.create(new Notification(undefined as unknown as number,
-        tracking.customerId, tracking.orderId, tracking.orderNumber, stage, now, false))),
-      map(() => tracking)
-    );
-  }
 
   /** Marks a notification as read. */
   markAsRead(notification: Notification): Observable<Notification> {
-    return this.notificationsEndpoint.update(
-      new Notification(notification.id, notification.recipientId, notification.orderId,
-        notification.orderNumber, notification.stage, notification.createdAt, true),
-      notification.id);
+    return this.http.patch<NotificationResource>(
+      `${environment.apiBaseUrl}/notifications/${notification.id}/read`, {}).pipe(
+      map(resource => this.notificationAssembler.toEntityFromResource(resource))
+    );
   }
 }
