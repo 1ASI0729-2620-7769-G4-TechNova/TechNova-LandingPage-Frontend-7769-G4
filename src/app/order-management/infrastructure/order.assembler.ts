@@ -1,92 +1,91 @@
+import {environment} from '../../../environments/environment';
 import {BaseAssembler} from '../../shared/infrastructure/base-assembler';
 import {DeliveryMethod} from '../domain/model/delivery-method';
 import {Garment} from '../domain/model/garment.entity';
 import {Order} from '../domain/model/order.entity';
 import {OrderStatus} from '../domain/model/order-status';
-import {GarmentResource, OrderResource, OrdersResponse} from './order.resource';
+import {OrderItemResource, OrderResource, OrdersResponse} from './order.resource';
+
+/** Garment categories accepted by the API, picked from the free-text garment type of the form. */
+const GARMENT_CATEGORIES: [RegExp, string][] = [
+  [/camis|shirt|blusa|polo/i, 'SHIRT'],
+  [/pantal|jean|short|pants/i, 'PANTS'],
+  [/terno|traje|saco|suit|abrigo/i, 'SUIT'],
+  [/s[aá]bana|cobija|edred|frazada|cama|bedding/i, 'BEDDING'],
+  [/delicad|seda|lana|delicate/i, 'DELICATE']
+];
+
+/** Statuses of the API that the frontend shows as one of its three statuses. */
+const STATUS_FROM_API: Record<string, OrderStatus> = {
+  DRAFT: OrderStatus.PENDING,
+  CONFIRMED: OrderStatus.CONFIRMED,
+  IN_PROCESS: OrderStatus.CONFIRMED,
+  READY_FOR_DELIVERY: OrderStatus.CONFIRMED,
+  COMPLETED: OrderStatus.COMPLETED,
+  CANCELLED: OrderStatus.PENDING
+};
+
+const PROMISED_DAYS = 3;
 
 /**
- * Maps order entities (with their garments) to and from API resources.
+ * Converts orders between the Order Management API and the frontend entity.
  */
 export class OrderAssembler implements BaseAssembler<Order, OrderResource, OrdersResponse> {
 
-  /**
-   * Converts an OrderResource to an Order entity.
-   * @param resource - The resource to convert.
-   * @returns The converted Order entity, with its garments.
-   */
   toEntityFromResource(resource: OrderResource): Order {
-    const garmentResources = resource.garments ?? [];
+    const deliveryMethod = (resource.specialInstructions ?? '').includes(DeliveryMethod.STORE_PICKUP)
+      ? DeliveryMethod.STORE_PICKUP : DeliveryMethod.HOME_DELIVERY;
+    const fee = deliveryMethod === DeliveryMethod.HOME_DELIVERY ? environment.deliveryFee : 0;
     return new Order({
       id: resource.id,
-      orderNumber: resource.orderNumber,
+      orderNumber: resource.orderNumber ?? '',
       customerId: resource.customerId,
-      deliveryMethod: resource.deliveryMethod as DeliveryMethod,
-      status: resource.status as OrderStatus,
-      totalAmount: resource.totalAmount,
-      createdAt: resource.createdAt,
-      garments: garmentResources.map(garmentResource => this.toGarmentFromResource(garmentResource, resource.id))
+      deliveryMethod,
+      status: STATUS_FROM_API[resource.status ?? 'DRAFT'] ?? OrderStatus.PENDING,
+      totalAmount: (resource.totalAmount ?? 0) + fee,
+      createdAt: resource.createdAt ?? new Date().toISOString(),
+      garments: (resource.items ?? []).map(item => this.toGarmentFromResource(item, resource.id))
     });
   }
 
-  /**
-   * Converts an Order entity to an OrderResource.
-   * @param entity - The entity to convert.
-   * @returns The converted OrderResource, with its garments embedded.
-   */
   toResourceFromEntity(entity: Order): OrderResource {
+    const promised = new Date(Date.now() + PROMISED_DAYS * 24 * 60 * 60 * 1000);
     return {
       id: entity.id,
-      orderNumber: entity.orderNumber,
       customerId: entity.customerId,
-      deliveryMethod: entity.deliveryMethod,
-      status: entity.status,
-      totalAmount: entity.totalAmount,
-      createdAt: entity.createdAt,
-      garments: entity.garments.map(garment => this.toResourceFromGarment(garment))
+      laundryId: environment.laundryId,
+      promisedDate: promised.toISOString().slice(0, 19),
+      currency: environment.currencyCode,
+      specialInstructions: entity.deliveryMethod,
+      items: entity.garments.map(garment => this.toItemFromGarment(garment))
     };
   }
 
-  /**
-   * Converts an OrdersResponse to an array of Order entities.
-   * @param response - The API response containing orders.
-   * @returns An array of Order entities.
-   */
   toEntitiesFromResponse(response: OrdersResponse): Order[] {
     return response.orders.map(resource => this.toEntityFromResource(resource));
   }
 
-  /**
-   * Converts a GarmentResource to a Garment entity.
-   * @param resource - The resource to convert.
-   * @param orderId - The ID of the order that contains the garment.
-   * @returns The converted Garment entity.
-   */
-  private toGarmentFromResource(resource: GarmentResource, orderId: number): Garment {
+  private toGarmentFromResource(item: OrderItemResource, orderId: number): Garment {
+    const [type = item.garmentType, color = '', ...notes] = (item.notes ?? '').split('|');
     return new Garment({
-      id: resource.id,
+      id: item.id ?? 0,
       orderId,
-      type: resource.type,
-      color: resource.color,
-      notes: resource.notes,
-      quantity: resource.quantity,
-      unitPrice: resource.unitPrice
+      type,
+      color,
+      notes: notes.join('|'),
+      quantity: item.quantity,
+      unitPrice: item.unitPrice
     });
   }
 
-  /**
-   * Converts a Garment entity to a GarmentResource.
-   * @param garment - The entity to convert.
-   * @returns The converted GarmentResource.
-   */
-  private toResourceFromGarment(garment: Garment): GarmentResource {
+  private toItemFromGarment(garment: Garment): OrderItemResource {
+    const category = GARMENT_CATEGORIES.find(([pattern]) => pattern.test(garment.type));
     return {
-      id: garment.id,
-      type: garment.type,
-      color: garment.color,
-      notes: garment.notes,
+      serviceId: 1,
+      garmentType: category ? category[1] : 'BULK_LAUNDRY',
       quantity: garment.quantity,
-      unitPrice: garment.unitPrice
+      unitPrice: garment.unitPrice,
+      notes: [garment.type, garment.color, garment.notes].join('|').slice(0, 255)
     };
   }
 }

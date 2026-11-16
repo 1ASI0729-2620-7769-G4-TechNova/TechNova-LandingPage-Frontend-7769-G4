@@ -9,17 +9,17 @@ import {DriverResource, DriversResponse} from './driver-resource';
 export class DriverAssembler implements BaseAssembler<Driver, DriverResource, DriversResponse> {
 
   toEntityFromResource(resource: DriverResource): Driver {
-    return new Driver(resource.id, resource.fullName, resource.phone, resource.vehicle,
-      resource.status as DriverStatus);
+    return new Driver(resource.id, resource.name, resource.phone, resource.vehicle,
+      resource.available ? DriverStatus.ACTIVE : DriverStatus.INACTIVE);
   }
 
   toResourceFromEntity(entity: Driver): DriverResource {
     return {
       id: entity.id,
-      fullName: entity.fullName,
+      name: entity.fullName,
       phone: entity.phone,
       vehicle: entity.vehicle,
-      status: entity.status
+      available: entity.status === DriverStatus.ACTIVE
     };
   }
 

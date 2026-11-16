@@ -4,10 +4,10 @@ import {BaseResource, BaseResponse} from '../../shared/infrastructure/base-respo
  * Driver as exchanged with the API.
  */
 export interface DriverResource extends BaseResource {
-  fullName: string;
+  name: string;
   phone: string;
   vehicle: string;
-  status: string;
+  available: boolean;
 }
 
 /**

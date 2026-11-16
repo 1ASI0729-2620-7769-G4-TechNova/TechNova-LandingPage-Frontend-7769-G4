@@ -1,93 +1,47 @@
 import {inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {switchMap} from 'rxjs/operators';
+import {map} from 'rxjs/operators';
+import {environment} from '../../../environments/environment';
 import {BaseApi} from '../../shared/infrastructure/base-api';
 import {Order} from '../domain/model/order.entity';
-import {OrderStatus} from '../domain/model/order-status';
+import {OrderAssembler} from './order.assembler';
+import {OrderResource} from './order.resource';
 import {OrdersApiEndpoint} from './orders-api-endpoint';
 
 /**
- * Infrastructure facade for order endpoint operations.
+ * API facade of the Order Management bounded context.
  */
 @Injectable({providedIn: 'root'})
 export class OrderManagementApi extends BaseApi {
   private readonly http = inject(HttpClient);
   private readonly ordersEndpoint = new OrdersApiEndpoint(this.http);
+  private readonly orderAssembler = new OrderAssembler();
+  private readonly ordersUrl = `${environment.apiBaseUrl}${environment.ordersEndpointPath}`;
 
-  /**
-   * Retrieves all orders.
-   * @returns Stream with the order collection.
-   */
+  /** The API lists orders per laundry, so the dashboard asks for the laundry it manages. */
   getOrders(): Observable<Order[]> {
-    return this.ordersEndpoint.getAll();
+    return this.http.get<OrderResource[]>(this.ordersUrl, {params: {laundryId: environment.laundryId}}).pipe(
+      map(list => list.map(resource => this.orderAssembler.toEntityFromResource(resource)))
+    );
   }
 
-  /**
-   * Creates a new order.
-   * The API layer assigns the next order number and the creation date, and forces the PENDING status.
-   * @param order - The order to create.
-   * @returns An Observable of the created Order object.
-   */
+  /** Creates the order as DRAFT; the API assigns the order number. */
   createOrder(order: Order): Observable<Order> {
-    return this.ordersEndpoint.getAll().pipe(
-      switchMap(existingOrders => this.ordersEndpoint.create(this.buildNewOrder(order, existingOrders)))
-    );
+    return this.ordersEndpoint.create(order);
   }
 
-  /**
-   * Confirms a pending order. Fails with an i18n key as message if the order is not pending.
-   * @param id - The ID of the order to confirm.
-   * @returns An Observable of the confirmed Order object.
-   */
   confirmOrder(id: number): Observable<Order> {
-    return this.ordersEndpoint.getById(id).pipe(
-      switchMap(order => this.ordersEndpoint.update(order.confirm(), id))
+    return this.http.post<OrderResource>(`${this.ordersUrl}/${id}/confirm`, {}).pipe(
+      map(resource => this.orderAssembler.toEntityFromResource(resource))
     );
   }
 
   /**
-   * Completes a confirmed order. Fails with an i18n key as message if the order is not confirmed.
-   * @param id - The ID of the order to complete.
-   * @returns An Observable of the completed Order object.
+   * shortcut: the API has no "complete" transition yet, so the order is completed in the client only;
+   * upgrade when Order Management exposes it.
    */
   completeOrder(id: number): Observable<Order> {
-    return this.ordersEndpoint.getById(id).pipe(
-      switchMap(order => this.ordersEndpoint.update(order.complete(), id))
-    );
-  }
-
-  /**
-   * Builds the order that will be stored: new order number, PENDING status, creation date and no identifier.
-   * The identifier is left undefined so json-server generates it (JSON drops undefined fields).
-   * @param order - The order to register.
-   * @param existingOrders - The orders already stored.
-   * @returns The order ready to be stored.
-   */
-  private buildNewOrder(order: Order, existingOrders: Order[]): Order {
-    return new Order({
-      id: undefined as unknown as number,
-      orderNumber: Order.buildOrderNumber(this.nextSequence(existingOrders)),
-      customerId: order.customerId,
-      deliveryMethod: order.deliveryMethod,
-      status: OrderStatus.PENDING,
-      totalAmount: order.totalAmount,
-      createdAt: new Date().toISOString(),
-      garments: order.garments
-    });
-  }
-
-  /**
-   * Calculates the position of the next order from the highest order number already stored.
-   * @param existingOrders - The orders already stored.
-   * @returns The sequence position of the next order.
-   */
-  private nextSequence(existingOrders: Order[]): number {
-    const prefix = `${Order.ORDER_NUMBER_PREFIX}-`;
-    const highestSequence = existingOrders
-      .map(order => Number(order.orderNumber.replace(prefix, '')))
-      .filter(sequence => Number.isFinite(sequence))
-      .reduce((highest, sequence) => Math.max(highest, sequence), 0);
-    return highestSequence + 1;
+    return this.ordersEndpoint.getById(id).pipe(map(order => order.complete()));
   }
 }

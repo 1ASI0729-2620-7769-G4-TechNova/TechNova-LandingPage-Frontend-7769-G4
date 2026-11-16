@@ -26,6 +26,7 @@ export interface LaundryOrdersResponse extends BaseResponse {
 export interface ConfirmedOrderResource extends BaseResource {
   orderNumber: string;
   customerId: number;
+  status: string;
   createdAt: string;
-  garments: { quantity: number }[];
+  items: { quantity: number }[];
 }
