@@ -29,6 +29,11 @@ export class DeliverySchedule extends BaseForm {
 
   protected readonly types = Object.values(DeliveryType);
 
+  constructor() {
+    super();
+    this.drivers.fetchDrivers();
+  }
+
   protected readonly form = this.fb.nonNullable.group({
     orderId: [Number(this.route.snapshot.queryParamMap.get('orderId')) || null as number | null,
       [Validators.required, Validators.min(1)]],
