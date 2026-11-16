@@ -1,33 +1,36 @@
 import {BaseResource, BaseResponse} from '../../shared/infrastructure/base-response';
 
 /**
- * Represents a garment as exchanged with the API, embedded inside its order.
- * The order identifier is not repeated because the parent order already defines it.
+ * Item of an order as exchanged with the API. The garment type and color travel inside the notes
+ * (`type|color|notes`) because the API only accepts a fixed set of garment categories.
  */
-export interface GarmentResource {
-  id: number;
-  type: string;
-  color: string;
-  notes: string;
+export interface OrderItemResource {
+  id?: number;
+  serviceId: number;
+  garmentType: string;
   quantity: number;
   unitPrice: number;
+  notes?: string;
 }
 
 /**
- * Represents an order as exchanged with the API.
+ * Order as exchanged with the API. The delivery method travels in the special instructions.
  */
 export interface OrderResource extends BaseResource {
-  orderNumber: string;
+  orderNumber?: string;
   customerId: number;
-  deliveryMethod: string;
-  status: string;
-  totalAmount: number;
-  createdAt: string;
-  garments: GarmentResource[];
+  laundryId?: number;
+  status?: string;
+  promisedDate?: string;
+  totalAmount?: number;
+  currency?: string;
+  specialInstructions?: string;
+  createdAt?: string;
+  items: OrderItemResource[];
 }
 
 /**
- * Represents the response envelope for order collections.
+ * Response envelope for order collections.
  */
 export interface OrdersResponse extends BaseResponse {
   orders: OrderResource[];

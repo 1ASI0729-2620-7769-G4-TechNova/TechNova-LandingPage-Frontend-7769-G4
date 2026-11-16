@@ -46,6 +46,11 @@
     <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef></th>
       <td mat-cell *matCellDef="let order">
+        @if (order.isReady()) {
+          <a mat-stroked-button routerLink="/operations/deliveries/new" [queryParams]="{orderId: order.orderId}">
+            <mat-icon>local_shipping</mat-icon>{{ 'laundry-operations.processing.schedule-delivery' | translate }}
+          </a>
+        }
         @if (order.nextStatus(); as next) {
           <button mat-stroked-button type="button" (click)="store.advance(order.id)">
             {{ 'laundry-operations.processing.advance-to' | translate }}

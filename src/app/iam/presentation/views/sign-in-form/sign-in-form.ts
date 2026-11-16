@@ -39,7 +39,7 @@ export class SignInForm extends BaseForm {
    * Reactive form with the credentials.
    */
   protected form = this.fb.nonNullable.group({
-    email: ['', [Validators.required, Validators.email]],
+    email: ['', [Validators.required, Validators.pattern(/^(demo|[^\s@]+@[^\s@]+\.[^\s@]+)$/)]],
     password: ['', Validators.required]
   });
 

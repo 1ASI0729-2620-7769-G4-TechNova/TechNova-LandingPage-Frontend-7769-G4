@@ -8,7 +8,8 @@ import {LaundryOrder} from '../domain/model/laundry-order.entity';
 import {LaundryStatus} from '../domain/model/laundry-status';
 import {ReceivableOrder} from '../domain/model/receivable-order';
 import {LaundryOrdersApiEndpoint} from './laundry-operations-api-endpoints';
-import {ConfirmedOrderResource} from './laundry-order-resource';
+import {ConfirmedOrderResource, LaundryOrderResource} from './laundry-order-resource';
+import {LaundryOrderAssembler} from './laundry-order-assembler';
 
 /**
  * Facade of the Laundry Operations bounded context towards the REST API.
@@ -17,6 +18,7 @@ import {ConfirmedOrderResource} from './laundry-order-resource';
 export class LaundryOperationsApi extends BaseApi {
   private readonly http = inject(HttpClient);
   private readonly laundryOrdersEndpoint = new LaundryOrdersApiEndpoint(this.http);
+  private readonly laundryOrderAssembler = new LaundryOrderAssembler();
 
   /** Fetches every order being processed or already processed by the laundry. */
   getLaundryOrders(): Observable<LaundryOrder[]> {
@@ -26,12 +28,12 @@ export class LaundryOperationsApi extends BaseApi {
   /** Fetches the confirmed orders, which are the ones the laundry can receive. */
   getConfirmedOrders(): Observable<ReceivableOrder[]> {
     return this.http.get<ConfirmedOrderResource[]>(`${environment.apiBaseUrl}/orders`,
-      {params: {status: 'CONFIRMED'}}).pipe(
-      map(list => list.map(order => ({
+      {params: {laundryId: environment.laundryId}}).pipe(
+      map(list => list.filter(order => order.status === 'CONFIRMED').map(order => ({
         orderId: order.id,
         orderNumber: order.orderNumber,
         customerId: order.customerId,
-        garmentCount: order.garments.reduce((total, garment) => total + garment.quantity, 0),
+        garmentCount: order.items.reduce((total, item) => total + item.quantity, 0),
         createdAt: order.createdAt
       })))
     );
@@ -50,11 +52,11 @@ export class LaundryOperationsApi extends BaseApi {
 
   /** Moves the order to the next processing stage. Errors carry an i18n key as message. */
   advance(order: LaundryOrder): Observable<LaundryOrder> {
-    const next = order.nextStatus();
-    if (!next) {
+    if (!order.nextStatus()) {
       return throwError(() => new Error('laundry-operations.errors.already-ready'));
     }
-    return this.laundryOrdersEndpoint.update(new LaundryOrder(order.id, order.orderId, order.orderNumber,
-      order.customerId, order.garmentCount, next, order.receivedAt, new Date().toISOString()), order.id);
+    return this.http.post<LaundryOrderResource>(`${environment.apiBaseUrl}/laundryOrders/${order.id}/advance`, {}).pipe(
+      map(resource => this.laundryOrderAssembler.toEntityFromResource(resource))
+    );
   }
 }

@@ -3,6 +3,7 @@ import {TrackingApi} from '../infrastructure/tracking-api';
 import {OrderTracking} from '../domain/model/order-tracking.entity';
 import {StageChange} from '../domain/model/stage-change.entity';
 import {Notification} from '../domain/model/notification.entity';
+import {OrderStage} from '../domain/model/order-stage';
 
 /**
  * Application state of the Tracking bounded context: stage of the orders and notifications to customers.
@@ -67,6 +68,22 @@ export class TrackingStore {
         this.trackingsSignal.update(trackings => trackings.map(t => t.id === updated.id ? updated : t));
         this.fetchStageChanges(updated.orderId);
       },
+      error: (e: Error) => this.errorsSignal.set([e.message])
+    });
+  }
+
+  /** Starts tracking an order in its first stage; the customer is notified. Used by Laundry Operations. */
+  startTracking(orderId: number, orderNumber: string, customerId: number): void {
+    this.api.startTracking(orderId, orderNumber, customerId).subscribe({
+      next: () => this.fetchTrackings(),
+      error: (e: Error) => this.errorsSignal.set([e.message])
+    });
+  }
+
+  /** Moves a tracked order forward to a stage; the customer is notified. Used by Laundry Operations and Delivery. */
+  moveToStage(orderId: number, stage: OrderStage): void {
+    this.api.moveToStage(orderId, stage).subscribe({
+      next: () => this.fetchTrackings(),
       error: (e: Error) => this.errorsSignal.set([e.message])
     });
   }

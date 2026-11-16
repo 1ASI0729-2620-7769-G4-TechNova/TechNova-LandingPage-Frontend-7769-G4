@@ -2,13 +2,18 @@ import {computed, inject, Injectable, signal} from '@angular/core';
 import {DeliveryApi} from '../infrastructure/delivery-api';
 import {Delivery} from '../domain/model/delivery.entity';
 import {DeliveryStatus} from '../domain/model/delivery-status';
+import {DeliveryType} from '../domain/model/delivery-type';
+import {TrackingStore} from '../../tracking/application/tracking.store';
+import {OrderStage} from '../../tracking/domain/model/order-stage';
 
 /**
  * Application state of the Delivery bounded context (pickups and deliveries).
+ * A completed delivery marks the order as delivered in the Tracking bounded context.
  */
 @Injectable({providedIn: 'root'})
 export class DeliveryStore {
   private readonly api = inject(DeliveryApi);
+  private readonly tracking = inject(TrackingStore);
 
   private readonly deliveriesSignal = signal<Delivery[]>([]);
   private readonly errorsSignal = signal<string[]>([]);
@@ -73,6 +78,9 @@ export class DeliveryStore {
     this.api.updateStatus(delivery, status).subscribe({
       next: updated => {
         this.deliveriesSignal.update(deliveries => deliveries.map(d => d.id === updated.id ? updated : d));
+        if (status === DeliveryStatus.COMPLETED && updated.type === DeliveryType.DELIVERY) {
+          this.tracking.moveToStage(updated.orderId, OrderStage.DELIVERED);
+        }
       },
       error: (e: Error) => this.errorsSignal.set([e.message])
     });

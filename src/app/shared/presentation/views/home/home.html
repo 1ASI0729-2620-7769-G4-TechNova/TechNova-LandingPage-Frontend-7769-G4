@@ -1,4 +1,19 @@
 <div class="container-with-spacing">
-  <h1>{{ 'home.title' | translate }}</h1>
-  <p>{{ 'home.content' | translate }}</p>
+  <h1>{{ 'home.greeting' | translate: {name: user()?.firstName} }}</h1>
+  <p class="subtitle">
+    {{ (isLaundry() ? 'home.subtitle-laundry' : 'home.subtitle-customer') | translate }}
+  </p>
+
+  <div class="cards">
+    @for (card of cards(); track card.label) {
+      <a class="card" [class]="'card tone-' + (card.tone ?? 'info')" [routerLink]="card.link">
+        <span class="icon"><mat-icon>{{ card.icon }}</mat-icon></span>
+        <span class="value">{{ card.value }}</span>
+        <span class="label">{{ card.label | translate }}</span>
+        @if (card.hint) {
+          <span class="hint">{{ card.hint | translate }}</span>
+        }
+      </a>
+    }
+  </div>
 </div>
