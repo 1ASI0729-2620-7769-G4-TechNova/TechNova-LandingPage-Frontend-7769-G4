@@ -35,7 +35,7 @@ export class IamApi extends BaseApi {
    * Authenticates a user. Errors carry an i18n key as message.
    */
   signIn(email: string, password: string, accountType: AccountType): Observable<UserAccount> {
-    return this.http.get<UserAccountResource[]>(this.usersUrl, {params: {email, password}}).pipe(
+    return this.http.get<UserAccountResource[]>(this.usersUrl, {params: {email, password, accountType}}).pipe(
       map(list => {
         if (list.length === 0) throw new Error('iam.errors.invalid-credentials');
         const user = this.userAssembler.toEntityFromResource(list[0]);
